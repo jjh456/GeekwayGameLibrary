@@ -33,5 +33,7 @@ namespace BoardGameLibrary.Models
         public System.Data.Entity.DbSet<BoardGameLibrary.Models.Game> Games { get; set; }
 
         public System.Data.Entity.DbSet<BoardGameLibrary.Models.Copy> Copies { get; set; }
+
+        public System.Data.Entity.DbSet<BoardGameLibrary.Models.Attendee> Attendees { get; set; }
     }
 }

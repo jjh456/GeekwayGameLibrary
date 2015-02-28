@@ -8,10 +8,13 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { gameID = ViewBag.GameID })
+    @Html.ActionLink("Create New", "Create", new { gameID = ViewBag.GameID }, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LibraryID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.OwnerName)
         </th>
@@ -27,15 +30,18 @@
     {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.LibraryID)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.OwnerName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }

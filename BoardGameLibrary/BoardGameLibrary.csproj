@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -162,6 +165,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CopiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,12 +181,24 @@
     <Compile Include="Migrations\201502270545077_Uno.Designer.cs">
       <DependentUpon>201502270545077_Uno.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502281858205_Dos.cs" />
+    <Compile Include="Migrations\201502281858205_Dos.Designer.cs">
+      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502281916289_Tres.cs" />
+    <Compile Include="Migrations\201502281916289_Tres.Designer.cs">
+      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502281927328_Quatro.cs" />
+    <Compile Include="Migrations\201502281927328_Quatro.Designer.cs">
+      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Checkout.cs" />
     <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Patron.cs" />
+    <Compile Include="Models\Attendee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\GamesController.cs" />
@@ -194,6 +210,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\GwayLibBgBlue.png" />
+    <Content Include="Images\SmLibAppLogo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -231,6 +249,11 @@
     <Content Include="Views\Copies\Details.cshtml" />
     <Content Include="Views\Copies\Edit.cshtml" />
     <Content Include="Views\Copies\Index.cshtml" />
+    <Content Include="Views\Attendees\Create.cshtml" />
+    <Content Include="Views\Attendees\Delete.cshtml" />
+    <Content Include="Views\Attendees\Details.cshtml" />
+    <Content Include="Views\Attendees\Edit.cshtml" />
+    <Content Include="Views\Attendees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -251,6 +274,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502270545077_Uno.resx">
       <DependentUpon>201502270545077_Uno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502281858205_Dos.resx">
+      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502281916289_Tres.resx">
+      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502281927328_Quatro.resx">
+      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

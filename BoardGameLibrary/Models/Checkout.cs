@@ -10,6 +10,6 @@ namespace BoardGameLibrary.Models
         public int ID { get; set; }
         public DateTime TimeOut { get; set; }
         public DateTime TimeIn { get; set; }
-        public virtual Patron Patron { get; set; }
+        public virtual Attendee Attendee { get; set; }
     }
 }

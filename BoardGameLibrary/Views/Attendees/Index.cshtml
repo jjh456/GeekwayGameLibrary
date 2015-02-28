@@ -1,19 +1,22 @@
-﻿@model IEnumerable<BoardGameLibrary.Models.Game>
+﻿@model IEnumerable<BoardGameLibrary.Models.Attendee>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Games</h2>
+<h2>Attendees</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
 </p>
-<table class="table table-hover tble-responsive">
+<table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BadgeID)
         </th>
         <th></th>
     </tr>
@@ -21,10 +24,12 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Manage Copies", "Index", "Copies", new { gameID = item.ID }, new { @class = "btn btn-default" })
+            @Html.DisplayFor(modelItem => item.BadgeID)
+        </td>
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
             @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default" })
             @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })

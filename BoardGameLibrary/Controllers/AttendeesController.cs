@@ -11,125 +11,103 @@ using BoardGameLibrary.Models;
 
 namespace BoardGameLibrary.Controllers
 {
-    public class CopiesController : Controller
+    public class AttendeesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Copies
-        public async Task<ActionResult> Index(int? gameID)
+        // GET: Attendees
+        public async Task<ActionResult> Index()
         {
-            if (gameID == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            ViewBag.GameID = gameID;
-
-            var game = await db.Games.FindAsync(gameID.Value);
-            var copies = game.Copies;
-
-            return View(copies);
+            return View(await db.Attendees.ToListAsync());
         }
 
-        // GET: Copies/Details/5
+        // GET: Attendees/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Copy copy = await db.Copies.FindAsync(id);
-            if (copy == null)
+
+            Attendee Attendee = await db.Attendees.FindAsync(id);
+            if (Attendee == null)
                 return HttpNotFound();
 
-            return View(copy);
+            return View(Attendee);
         }
 
-        // GET: Copies/Create
-        public ActionResult Create(int? gameID)
+        // GET: Attendees/Create
+        public ActionResult Create()
         {
-            if (gameID == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var copy = new Copy { GameID = gameID.Value };
-
-            return View(copy);
+            return View();
         }
 
-        // POST: Copies/Create
+        // POST: Attendees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Copy copy)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Name,BadgeID")] Attendee Attendee)
         {
-            var game = await db.Games.FindAsync(copy.GameID);
-            game.Copies.Add(copy);
             if (ModelState.IsValid)
             {
-                db.Copies.Add(copy);
-                db.Entry(game).State = EntityState.Modified;
+                db.Attendees.Add(Attendee);
                 await db.SaveChangesAsync();
-
-                return RedirectToAction("Index", new { gameID = copy.GameID });
+                return RedirectToAction("Index");
             }
 
-            return View(copy);
+            return View(Attendee);
         }
 
-        // GET: Copies/Edit/5
+        // GET: Attendees/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Copy copy = await db.Copies.FindAsync(id);
-            if (copy == null)
-            {
+
+            Attendee Attendee = await db.Attendees.FindAsync(id);
+            if (Attendee == null)
                 return HttpNotFound();
-            }
-            return View(copy);
+
+            return View(Attendee);
         }
 
-        // POST: Copies/Edit/5
+        // POST: Attendees/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,OwnerName,Notes")] Copy copy)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Name,BadgeID")] Attendee Attendee)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(copy).State = EntityState.Modified;
+                db.Entry(Attendee).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index", new { gameID = copy.GameID });
+                return RedirectToAction("Index");
             }
-            return View(copy);
+            return View(Attendee);
         }
 
-        // GET: Copies/Delete/5
+        // GET: Attendees/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Copy copy = await db.Copies.FindAsync(id);
-            if (copy == null)
+
+            Attendee Attendee = await db.Attendees.FindAsync(id);
+            if (Attendee == null)
                 return HttpNotFound();
 
-            return View(copy);
+            return View(Attendee);
         }
 
-        // POST: Copies/Delete/5
+        // POST: Attendees/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Copy copy = await db.Copies.FindAsync(id);
-            var cgameID = copy.GameID;
-            db.Copies.Remove(copy);
+            Attendee Attendee = await db.Attendees.FindAsync(id);
+            db.Attendees.Remove(Attendee);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index", new { gameID = cgameID });
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

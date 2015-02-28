@@ -22,3 +22,21 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar {
+    background-color: #214028;
+    font-size: 1.1em;
+}
+
+body {
+    background: url(/Images/GwayLibBgBlue.png), repeat;
+}
+
+.body-content {
+    background-color: rgba(225, 235, 245, 0.96);
+}
+
+.btn-success {
+    background-color: #2e8f4d;
+    border-color: #397a4e;
+}

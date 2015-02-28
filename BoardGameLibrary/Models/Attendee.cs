@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BoardGameLibrary.Models
 {
-    public class Patron
+    public class Attendee
     {
         public int ID { get; set; }
         public string Name { get; set; }
