@@ -40,3 +40,12 @@ body {
     background-color: #2e8f4d;
     border-color: #397a4e;
 }
+
+.content-block {
+    border: 1px solid #808080;
+    background-color: #e5e5e5;
+    border-radius: 3px;
+    margin: 0px 2px;
+    padding: 5px;
+    text-align: center;
+}
