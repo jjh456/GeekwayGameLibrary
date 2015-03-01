@@ -9,11 +9,13 @@ namespace BoardGameLibrary.Models
     {
         public CopyCheckOutViewModel CheckOut { get; set; }
         public CopyCheckInViewModel CheckIn { get; set; }
+        public CopySearchViewModel CopySearch { get; set; }
 
         public HomeModel()
         {
             CheckIn = new CopyCheckInViewModel();
             CheckOut = new CopyCheckOutViewModel();
+            CopySearch = new CopySearchViewModel();
         }
     }
 }

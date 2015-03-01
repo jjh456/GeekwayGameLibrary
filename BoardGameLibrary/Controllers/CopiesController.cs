@@ -95,7 +95,7 @@ namespace BoardGameLibrary.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,OwnerName,Notes")] Copy copy)
+        public async Task<ActionResult> Edit(Copy copy)
         {
             if (ModelState.IsValid)
             {
@@ -120,19 +120,57 @@ namespace BoardGameLibrary.Controllers
             return View(copy);
         }
 
-        public async Task<ActionResult> CheckoutCopy(string copyLibraryID, string attendeeBadgeID)
+        public async Task<ActionResult> CheckOutCopy(CopyCheckOutViewModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == Convert.ToInt32(model.CopyLibraryID.Replace("*", "")));
+                var attendee = await db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeID.Replace("*", ""));
+                var checkout = new Checkout { TimeOut = DateTime.Now, Attendee = attendee };
+                copy.CurrentCheckout = checkout;
+
+                await db.SaveChangesAsync();
+
+                return Json(new { message = string.Format("Checkout successful!") });
+            }
+            else
+                return GetModelStateErrorsJson();
         }
 
-        public async Task<ActionResult> CheckinCopy(string copyLibraryID)
+        public async Task<ActionResult> CheckInCopy(CopyCheckInViewModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == Convert.ToInt32(model.CopyLibraryID.Replace("*", "")));
+                copy.CheckoutHistory.Add(copy.CurrentCheckout);
+                copy.CurrentCheckout = null;
+
+                await db.SaveChangesAsync();
+
+                return Json(new { message = string.Format("Checkout successful!") });
+            }
+            else
+                return GetModelStateErrorsJson();
         }
 
-        public async Task<ActionResult> SearchCopies(string copyLibraryID)
+        public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+                return Json(await db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
+            else
+                return GetModelStateErrorsJson();
+        }
+
+        private JsonResult GetModelStateErrorsJson()
+        {
+            var errorList = ModelState.ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value.Errors.Select(e => e.ErrorMessage).ToArray()
+                );
+
+            Response.StatusCode = 400;
+
+            return Json(errorList);
         }
 
         // POST: Copies/Delete/5
@@ -144,6 +182,7 @@ namespace BoardGameLibrary.Controllers
             var cgameID = copy.GameID;
             db.Copies.Remove(copy);
             await db.SaveChangesAsync();
+
             return RedirectToAction("Index", new { gameID = cgameID });
         }
 

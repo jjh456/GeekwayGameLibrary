@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Copies of <strong>@Model.First().Game.Title</strong></h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create", new { gameID = ViewBag.GameID }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Add Copy", "Create", new { gameID = ViewBag.GameID }, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>

@@ -12,5 +12,7 @@ namespace BoardGameLibrary.Models
         public string CopyLibraryID { get; set; }
         [Display(Name = "Attendee Badge #")]
         public string AttendeeBadgeID { get; set; }
+        [Display(Name = "Game Title")]
+        public string GameTitle { get; set; }
     }
 }

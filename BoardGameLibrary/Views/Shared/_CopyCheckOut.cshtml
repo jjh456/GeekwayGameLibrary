@@ -1,12 +1,12 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckOutViewModel
 
 
-@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "CheckoutSuccessful", OnFailure = "CheckoutFailed", Url = Url.Action("CheckoutCopy", "Copies") }))
+@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "CheckOutSuccessful", OnFailure = "CheckOutFailed", Url = Url.Action("CheckOutCopy", "Copies") }))
 {
     @Html.AntiForgeryToken()
     
     <div class="col-md-12 notification-panel">
-
+        <p id="copy-check-out-notifications"></p>
     </div>
     <div class="form-horizontal">
         <h4>Check Out</h4>
