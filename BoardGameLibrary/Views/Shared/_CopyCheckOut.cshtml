@@ -1,7 +1,7 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckOutViewModel
 
 <div id="check-out-form-wrapper">
-    @using (Ajax.BeginForm("CheckOutCopy", "Copies", new AjaxOptions { HttpMethod = "POST", OnComplete = "updateCheckOutForm(data)" }))
+    @using (Ajax.BeginForm("CheckOutCopy", "Copies", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-out-form-wrapper" }))
     {
         @Html.AntiForgeryToken()
 
