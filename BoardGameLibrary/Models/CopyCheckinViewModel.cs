@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BoardGameLibrary.Models
 {
-    [Validator(typeof(CopyValidator))]
+    [Validator(typeof(CopyCheckinValidator))]
     public class CopyCheckInViewModel
     {
         [Display(Name = "Library ID #")]
@@ -22,21 +22,28 @@ namespace BoardGameLibrary.Models
         public CopyCheckinValidator()
         {
             _db = new ApplicationDbContext();
-            RuleFor(x => Convert.ToInt32(x.CopyLibraryID.Replace("*", ""))).Must(Exist).WithMessage("Could not find a game with that ID.  Make sure the ID is correct and the game is in the system.");
-            RuleFor(x => Convert.ToInt32(x.CopyLibraryID.Replace("*", ""))).Must(BeCheckedOut).WithMessage("This copy is checked out already.  Please check it in first.");
+            
+            RuleFor(x => x.CopyLibraryID).Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("You must provide a library ID.")
+                .Must(Exist).WithMessage("Could not find a copy with that ID.  Make sure the ID is correct and the copy is in the system.")
+                .Must(BeCheckedOut).WithMessage("This copy is not checked out.");
         }
 
-        private bool Exist(int copyLibraryID)
+        private bool Exist(string copyLibraryID)
         {
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryID) != null)
+            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
             return true;
         }
 
-        private bool BeCheckedOut(int copyLibraryID)
+        private bool BeCheckedOut(string copyLibraryID)
         {
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryID && c.CurrentCheckout == null) == null)
+            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            var copy = _db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt);
+            var currentCheckout = copy.CurrentCheckout;
+            if (currentCheckout == null)
                 return false;
 
             return true;

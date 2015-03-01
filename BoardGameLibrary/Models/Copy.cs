@@ -13,13 +13,10 @@ namespace BoardGameLibrary.Models
     public class Copy
     {
         public int ID { get; set; }
-        [Required]
         public int LibraryID { get; set; }
         [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
-        [Required]
         public int GameID { get; set; }
-        [Required]
         public string OwnerName { get; set; }
         public virtual Checkout CurrentCheckout { get; set; }
         public virtual IList<Checkout> CheckoutHistory { get; set; }
@@ -35,8 +32,15 @@ namespace BoardGameLibrary.Models
     {
         public CopyValidator()
         {
-            RuleFor(x => x.LibraryID).NotEmpty().WithMessage("Library ID is required.");
-            RuleFor(x => x.LibraryID).Must(BeUnique).WithMessage("A copy with that library ID exists already.");
+            RuleFor(x => x.LibraryID).Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("Library ID is required.")
+                .Must(BeUnique).WithMessage("A copy with that library ID exists already.");
+
+            RuleFor(x => x.GameID).Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("Must provide a game ID.");
+
+            RuleFor(x => x.OwnerName).Cascade(CascadeMode.StopOnFirstFailure)
+                .NotEmpty().WithMessage("Must provide the owner's name.");
         }
 
         private bool BeUnique(int libID)

@@ -20,6 +20,22 @@
         </dd>
 
         <dt>
+            Checked out to
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentCheckout.Attendee.Name)
+        </dd>
+
+        <dt>
+            Checked out at
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentCheckout.TimeOut)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Notes)
         </dt>
 

@@ -1,7 +1,7 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckInViewModel
 
 
-@using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", OnSuccess = "CheckInSuccessful", OnFailure = "CheckInFailed", Url = Url.Action("CheckInCopy", "Copies") }))
+@using (Ajax.BeginForm("CheckInCopy", "Copies", new AjaxOptions{ HttpMethod = "POST", OnSuccess = "CheckInSuccessful", OnFailure = "CheckInFailed" }))
 {
     @Html.AntiForgeryToken()
     

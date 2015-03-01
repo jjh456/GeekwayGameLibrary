@@ -24,6 +24,7 @@ namespace BoardGameLibrary.Controllers
             ViewBag.GameID = gameID;
 
             var game = await db.Games.FindAsync(gameID.Value);
+            ViewBag.GameTitle = game.Title;
             var copies = game.Copies;
 
             return View(copies);
@@ -124,7 +125,8 @@ namespace BoardGameLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == Convert.ToInt32(model.CopyLibraryID.Replace("*", "")));
+                var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
+                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
                 var attendee = await db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeID.Replace("*", ""));
                 var checkout = new Checkout { TimeOut = DateTime.Now, Attendee = attendee };
                 copy.CurrentCheckout = checkout;
@@ -134,23 +136,24 @@ namespace BoardGameLibrary.Controllers
                 return Json(new { message = string.Format("Checkout successful!") });
             }
             else
-                return GetModelStateErrorsJson();
+                return PartialView("_CopyCheckOut", model);
         }
 
         public async Task<ActionResult> CheckInCopy(CopyCheckInViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == Convert.ToInt32(model.CopyLibraryID.Replace("*", "")));
+                var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
+                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
                 copy.CheckoutHistory.Add(copy.CurrentCheckout);
                 copy.CurrentCheckout = null;
 
                 await db.SaveChangesAsync();
 
-                return Json(new { message = string.Format("Checkout successful!") });
+                return Json(new { message = string.Format("Check in successful!") });
             }
             else
-                return GetModelStateErrorsJson();
+                return PartialView("_CopyCheckIn", model);
         }
 
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)

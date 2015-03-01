@@ -3,16 +3,16 @@ namespace BoardGameLibrary.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Tres : DbMigration
+    public partial class Seis : DbMigration
     {
         public override void Up()
         {
-            RenameTable(name: "dbo.Patrons", newName: "Attendees");
+            AlterColumn("dbo.Copies", "OwnerName", c => c.String());
         }
         
         public override void Down()
         {
-            RenameTable(name: "dbo.Attendees", newName: "Patrons");
+            AlterColumn("dbo.Copies", "OwnerName", c => c.String(nullable: false));
         }
     }
 }
