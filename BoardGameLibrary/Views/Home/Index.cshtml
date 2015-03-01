@@ -1,4 +1,7 @@
-﻿<br /><br />
+﻿@model BoardGameLibrary.Models.HomeModel
+
+<br /><br />
+<h3>Geekway to the West Library Manager <small>@DateTime.Now.Year</small></h3>
 <div class="row">
     <div class="col-md-12">
         <div class="content-block">
@@ -12,10 +15,14 @@
 <br />
 <div class="row">
     <div class="col-md-6">
-        <div class="content-block"><p>[Insert Check-out Widget]</p></div>
+        <div class="content-block">
+            @Html.Partial("_CopyCheckOut", Model.CheckOut)
+        </div>
     </div>
     <div class="col-md-6">
-        <div class="content-block"><p>[Insert Check-in Widget]</p></div>
+        <div class="content-block">
+            @Html.Partial("_CopyCheckIn", Model.CheckIn)
+        </div>
     </div>
 </div>
 

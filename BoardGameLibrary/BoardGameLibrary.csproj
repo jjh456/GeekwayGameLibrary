@@ -196,7 +196,11 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Checkout.cs" />
     <Compile Include="Models\Copy.cs" />
+    <Compile Include="Models\CopyCheckInViewModel.cs" />
+    <Compile Include="Models\CopyCheckOutViewModel.cs" />
+    <Compile Include="Models\CopySearchViewModel.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Attendee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,6 +258,8 @@
     <Content Include="Views\Attendees\Details.cshtml" />
     <Content Include="Views\Attendees\Edit.cshtml" />
     <Content Include="Views\Attendees\Index.cshtml" />
+    <Content Include="Views\Shared\_CopyCheckOut.cshtml" />
+    <Content Include="Views\Shared\_CopyCheckIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

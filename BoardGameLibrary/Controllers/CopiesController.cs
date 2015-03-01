@@ -120,6 +120,21 @@ namespace BoardGameLibrary.Controllers
             return View(copy);
         }
 
+        public async Task<ActionResult> CheckoutCopy(string copyLibraryID, string attendeeBadgeID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ActionResult> CheckinCopy(string copyLibraryID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ActionResult> SearchCopies(string copyLibraryID)
+        {
+            throw new NotImplementedException();
+        }
+
         // POST: Copies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
