@@ -14,6 +14,13 @@ namespace BoardGameLibrary.Models
     {
         [Display(Name = "Library ID #")]
         public string CopyLibraryID { get; set; }
+
+        public IList<string> Messages { get; set; }
+
+        public CopyCheckInViewModel()
+        {
+            Messages = new List<string>();
+        }
     }
 
     public class CopyCheckinValidator : AbstractValidator<CopyCheckInViewModel>
@@ -24,8 +31,8 @@ namespace BoardGameLibrary.Models
             _db = new ApplicationDbContext();
             
             RuleFor(x => x.CopyLibraryID).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("You must provide a library ID.")
-                .Must(Exist).WithMessage("Could not find a copy with that ID.  Make sure the ID is correct and the copy is in the system.")
+                .NotEmpty().WithMessage("Library ID required.")
+                .Must(Exist).WithMessage("Not found.  Make sure the ID is correct and in the system.")
                 .Must(BeCheckedOut).WithMessage("This copy is not checked out.");
         }
 

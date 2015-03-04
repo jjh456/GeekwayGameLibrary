@@ -204,6 +204,10 @@
     <Compile Include="Migrations\201503011956002_Seis.Designer.cs">
       <DependentUpon>201503011956002_Seis.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503040059234_Siete.cs" />
+    <Compile Include="Migrations\201503040059234_Siete.Designer.cs">
+      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Checkout.cs" />
     <Compile Include="Models\Copy.cs" />
@@ -239,6 +243,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503011956002_Seis.resx">
       <DependentUpon>201503011956002_Seis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503040059234_Siete.resx">
+      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

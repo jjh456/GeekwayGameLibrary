@@ -16,6 +16,12 @@ namespace BoardGameLibrary.Models
         public string CopyLibraryID { get; set; }
         [Display(Name = "Attendee Badge #")]
         public string AttendeeBadgeID { get; set; }
+        public IList<string> Messages { get; set; }
+
+        public CopyCheckOutViewModel()
+        {
+            Messages = new List<string>();
+        }
     }
 
     public class CopyCheckoutValidator : AbstractValidator<CopyCheckOutViewModel>
@@ -26,15 +32,15 @@ namespace BoardGameLibrary.Models
             _db = new ApplicationDbContext();
             var gameAlreadyCheckedOut = "";
             RuleFor(x => x.AttendeeBadgeID).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("You must provide a badge ID.")
-                .Must(BeAnExistingAttendee).WithMessage("Attendee not found in the system.")
-                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, ref gameAlreadyCheckedOut))
-                                           .WithMessage(string.Format("Attendee already has {0} checked out.", gameAlreadyCheckedOut));
+                .NotEmpty().WithMessage("Badge ID required.")
+                .Must(BeAnExistingAttendee).WithMessage("Attendee not found.")
+                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
+                                           .WithMessage("Attendee has {0} checked out.", x => gameAlreadyCheckedOut);
 
             RuleFor(x => x.CopyLibraryID).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("You must provide a library ID.")
-                .Must(BeAnExistingGameCopy).WithMessage("Could not find a copy with that ID.  Make sure the ID is correct and the copy is in the system.")
-                .Must(NotBeCheckedOut).WithMessage("This copy is checked out already.  Please check it in first.");
+                .Must(BeAnExistingGameCopy).WithMessage("Copy not found.")
+                .Must(NotBeCheckedOut).WithMessage("That copy is checked out already.  Check it in first.");
         }
 
         private bool BeAnExistingAttendee(string attendeeBadgeID)
@@ -45,22 +51,23 @@ namespace BoardGameLibrary.Models
             return true;
         }
 
-        private bool NotAlreadyHaveACopyCheckedOut(string attendeeBadgeID, ref string gameCheckedOutAlready)
+        private bool NotAlreadyHaveACopyCheckedOut(string attendeeBadgeID, out string gameCheckedOutAlready)
         {
             var currentlyCheckedOutCopy = _db.Copies.SingleOrDefault(c => c.CurrentCheckout.Attendee.BadgeID == attendeeBadgeID);
             if (currentlyCheckedOutCopy != null)
             {
-                gameCheckedOutAlready = currentlyCheckedOutCopy.Game.Title + " Copy #: " + currentlyCheckedOutCopy.LibraryID;
+                gameCheckedOutAlready = currentlyCheckedOutCopy.Game.Title + "(#" + currentlyCheckedOutCopy.LibraryID + ")";
                 return false;
             }
 
+            gameCheckedOutAlready = "";
             return true;
         }
 
         private bool BeAnExistingGameCopy(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt) != null)
+            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
             return true;
@@ -69,7 +76,8 @@ namespace BoardGameLibrary.Models
         private bool NotBeCheckedOut(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt && c.CurrentCheckout == null) != null)
+            var copy = _db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt);
+            if (copy.CurrentCheckout != null)
                 return false;
 
             return true;

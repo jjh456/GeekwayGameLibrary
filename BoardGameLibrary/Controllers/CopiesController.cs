@@ -133,10 +133,11 @@ namespace BoardGameLibrary.Controllers
 
                 await db.SaveChangesAsync();
 
-                return Json(new { message = string.Format("Checkout successful!") });
+                model = new CopyCheckOutViewModel();
+                model.Messages.Add(string.Format("Copy {0} of {1} checked out to {2}({3}).", copyLibraryId, copy.Game.Title, attendee.Name, attendee.BadgeID));
             }
-            else
-                return PartialView("_CopyCheckOut", model);
+            
+            return PartialView("_CopyCheckOut", model);
         }
 
         public async Task<ActionResult> CheckInCopy(CopyCheckInViewModel model)
@@ -145,15 +146,17 @@ namespace BoardGameLibrary.Controllers
             {
                 var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
                 var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+                copy.CurrentCheckout.TimeIn = DateTime.Now;
                 copy.CheckoutHistory.Add(copy.CurrentCheckout);
                 copy.CurrentCheckout = null;
 
                 await db.SaveChangesAsync();
 
-                return Json(new { message = string.Format("Check in successful!") });
+                model = new CopyCheckInViewModel();
+                model.Messages.Add(string.Format("Copy {0} of {1} checked in.", copy.LibraryID, copy.Game.Title));
             }
-            else
-                return PartialView("_CopyCheckIn", model);
+
+            return PartialView("_CopyCheckIn", model);
         }
 
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
