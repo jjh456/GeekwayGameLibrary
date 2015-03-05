@@ -8,17 +8,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
+using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Controllers
 {
     public class AttendeesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db;
+        private FileUploader fileUploader;
+
+        public AttendeesController()
+        {
+            _db = new ApplicationDbContext();
+            fileUploader = new FileUploader(_db);
+        }
 
         // GET: Attendees
         public async Task<ActionResult> Index()
         {
-            return View(await db.Attendees.ToListAsync());
+            ViewBag.Errors = TempData["ErrorList"];
+            var attendees = await _db.Attendees.ToListAsync();
+            var model = new AttendeeIndexViewModel { Attendees = attendees };
+
+            return View(model);
         }
 
         // GET: Attendees/Details/5
@@ -27,7 +39,7 @@ namespace BoardGameLibrary.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Attendee Attendee = await db.Attendees.FindAsync(id);
+            Attendee Attendee = await _db.Attendees.FindAsync(id);
             if (Attendee == null)
                 return HttpNotFound();
 
@@ -49,8 +61,8 @@ namespace BoardGameLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Attendees.Add(Attendee);
-                await db.SaveChangesAsync();
+                _db.Attendees.Add(Attendee);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -63,7 +75,7 @@ namespace BoardGameLibrary.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Attendee Attendee = await db.Attendees.FindAsync(id);
+            Attendee Attendee = await _db.Attendees.FindAsync(id);
             if (Attendee == null)
                 return HttpNotFound();
 
@@ -79,16 +91,33 @@ namespace BoardGameLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(Attendee).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Entry(Attendee).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(Attendee);
         }
 
-        public async Task<ActionResult> Import()
+        [HttpPost]
+        public ActionResult Import(AttendeeIndexViewModel model)
         {
-            throw new NotImplementedException();
+            IList<string> errors;
+            var importFile = model.File;
+            if (importFile == null || importFile == null || importFile.ContentLength == 0)
+            {
+                if (importFile == null)
+                    errors = new List<string> { "The server didn't receive the file." };
+                else
+                    errors = new List<string> { "The file contents were empty." };
+            }
+            else
+            {
+                // Upload attendees from the file.
+                errors = fileUploader.UploadAttendees(importFile);
+            }
+
+            TempData["ErrorList"] = new ErrorList { Errors = errors };
+            return RedirectToAction("Index");
         }
 
         // GET: Attendees/Delete/5
@@ -97,7 +126,7 @@ namespace BoardGameLibrary.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Attendee Attendee = await db.Attendees.FindAsync(id);
+            Attendee Attendee = await _db.Attendees.FindAsync(id);
             if (Attendee == null)
                 return HttpNotFound();
 
@@ -109,16 +138,16 @@ namespace BoardGameLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Attendee Attendee = await db.Attendees.FindAsync(id);
-            db.Attendees.Remove(Attendee);
-            await db.SaveChangesAsync();
+            Attendee Attendee = await _db.Attendees.FindAsync(id);
+            _db.Attendees.Remove(Attendee);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
 
             base.Dispose(disposing);
         }

@@ -121,6 +121,15 @@ table tr {
     100% { opacity:0; }
 }
 
+
+/* Alert messages */
+.alert{
+    background-color: #f1ecd1;
+    color: #dd0d0d;
+    border-radius: 20px;
+}
+
+/* Utility classes*/
 .width50pct{
     width: 50%;
 }

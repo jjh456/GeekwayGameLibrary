@@ -8,17 +8,29 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
+using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Views
 {
     public class GamesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db;
+        private FileUploader fileUploader;
+
+        public GamesController()
+        {
+            _db = new ApplicationDbContext();
+            fileUploader = new FileUploader(_db);
+        }
 
         // GET: Games
         public async Task<ActionResult> Index()
         {
-            return View(await db.Games.ToListAsync());
+            ViewBag.Errors = TempData["ErrorList"];
+            var games = await _db.Games.ToListAsync();
+            var model = new GameIndexViewModel { Games = games };
+
+            return View(model);
         }
 
         // GET: Games/Details/5
@@ -27,7 +39,7 @@ namespace BoardGameLibrary.Views
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Game game = await db.Games.FindAsync(id);
+            Game game = await _db.Games.FindAsync(id);
             if (game == null)
                 return HttpNotFound();
 
@@ -49,23 +61,34 @@ namespace BoardGameLibrary.Views
         {
             if (ModelState.IsValid)
             {
-                db.Games.Add(game);
-                await db.SaveChangesAsync();
+                _db.Games.Add(game);
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             return View(game);
         }
 
-        public async Task<ActionResult> Import()
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpPost]
-        public async Task<ActionResult> Import(byte[] file)
+        public ActionResult Import(GameIndexViewModel model)
         {
-            throw new NotImplementedException();
+            IList<string> errors;
+            var importFile = model.File;
+            if (model == null || importFile == null || importFile.ContentLength == 0)
+            {
+                if (importFile == null)
+                    errors = new List<string> { "The server didn't receive the file." };
+                else
+                    errors = new List<string> { "The file contents were empty." };
+            }
+            else
+            {
+                // Upload copies & games from the file.
+                errors = fileUploader.UploadCopies(importFile);
+            }
+
+            TempData["ErrorList"] = new ErrorList { Errors = errors };
+            return RedirectToAction("Index");
         }
 
         // GET: Games/Edit/5
@@ -74,7 +97,7 @@ namespace BoardGameLibrary.Views
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Game game = await db.Games.FindAsync(id);
+            Game game = await _db.Games.FindAsync(id);
             if (game == null)
                 return HttpNotFound();
 
@@ -90,8 +113,8 @@ namespace BoardGameLibrary.Views
         {
             if (ModelState.IsValid)
             {
-                db.Entry(game).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Entry(game).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(game);
@@ -104,7 +127,7 @@ namespace BoardGameLibrary.Views
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Game game = await db.Games.FindAsync(id);
+            Game game = await _db.Games.FindAsync(id);
             if (game == null)
             {
                 return HttpNotFound();
@@ -117,16 +140,16 @@ namespace BoardGameLibrary.Views
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Game game = await db.Games.FindAsync(id);
-            db.Games.Remove(game);
-            await db.SaveChangesAsync();
+            Game game = await _db.Games.FindAsync(id);
+            _db.Games.Remove(game);
+            await _db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
 
             base.Dispose(disposing);
         }

@@ -1,23 +1,41 @@
-﻿@model IEnumerable<BoardGameLibrary.Models.Game>
-
+﻿@model GameIndexViewModel
+@using BoardGameLibrary.Models;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Games</h2>
-
+@{
+    ErrorList errorList = (ErrorList)ViewBag.Errors;
+    if (errorList != null && errorList.Errors.Any())
+    {
+        
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>  
+            <strong>Errors</strong>
+            <ul>
+                @foreach (var err in errorList.Errors)
+                {
+                    <li>@err</li>
+                }
+            </ul>
+        </div>
+    }
+}
 <div class="row">
     <div class="col-md-1">
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     </div>
     <div class="col-md-offset-5 col-md-6">
-        @using (Html.BeginForm("Import", "Games", new { enctype = "multipart/form-data" }, FormMethod.Post, new { @class = "form-inline" }))
+        @using (Html.BeginForm("Import", "Games", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <div class="form-group width50pct">
-                <input type="file" class="filestyle" data-buttontext=" Browse..." data-buttonname="btn-primary" data-buttonbefore="true">
+            <div class="form-inline">
+                <div class="form-group width50pct">
+                    <input type="file" class="filestyle" data-buttontext=" Browse..." data-buttonname="btn-primary" data-buttonbefore="true" name="File" />
+                </div>
+                <input type="submit" name="submit" class="btn btn-success" value="Import" />
             </div>
-            <input type="submit" class="btn btn-success" value="Import" />
         }
     </div>
 </div>
@@ -25,7 +43,7 @@
 <table class="table table-hover table-responsive table-striped">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Games[0].Title)
         </th>
         <th>
             # of Copies
@@ -33,7 +51,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.Games) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
