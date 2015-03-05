@@ -61,7 +61,7 @@ table th {
 
 .content-block {
     border: 1px solid #808080;
-    background-color: #ecfff3;
+    background-color: #f2fff6;
     border-radius: 3px;
     margin: 0px 2px;
     padding: 5px;
@@ -71,6 +71,11 @@ table th {
 .copy-search-results{
     max-height: 100px;
     overflow: auto;
+}
+
+#copy-search-wrapper #GameTitle{
+    width: 75%;
+    margin-left: 60px;
 }
 
 /* Fade In */

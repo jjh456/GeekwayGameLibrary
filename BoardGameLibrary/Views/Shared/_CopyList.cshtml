@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BoardGameLibrary.Models.Copy>
 
-<table class="table table-condensed table-bordered">
+<table class="table table-condensed table-bordered table-responsive">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Game.Title)
@@ -11,6 +11,10 @@
         <th>
             Checked Out At
         </th>
+        <th>
+            Checked Out To
+        </th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -35,6 +39,15 @@
             {
                 @Html.DisplayFor(modelItem => item.CurrentCheckout.TimeOut)
             }
+        </td>
+        <td>
+            @if (item.CurrentCheckout != null)
+            {
+                @item.CurrentCheckout.Attendee.Name <text>(@item.CurrentCheckout.Attendee.BadgeID)</text>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Copies", new { id = item.ID }, new { @class = "btn btn-sm btn-default" })
         </td>
     </tr>
 }
