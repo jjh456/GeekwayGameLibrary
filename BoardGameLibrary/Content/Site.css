@@ -32,14 +32,16 @@ body {
     background: url(/Images/GwayLibBgBlue.png), repeat;
 }
 
-
-
 .body-content {
     background-color: rgba(225, 235, 245, 0.82);
 }
 
 table tr {
     background-color: rgba(255, 255, 255, 0.7);
+}
+
+table th {
+    background-color: rgba(158, 226, 255, 0.7);
 }
 
 .table-striped > tbody > tr:nth-child(even) > td,
