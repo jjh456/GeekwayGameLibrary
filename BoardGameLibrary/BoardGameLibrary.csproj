@@ -297,6 +297,7 @@
     <Content Include="Views\Shared\_CopyCheckOut.cshtml" />
     <Content Include="Views\Shared\_CopyCheckIn.cshtml" />
     <Content Include="Views\Shared\_CopySearch.cshtml" />
+    <Content Include="Views\Shared\_CopyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

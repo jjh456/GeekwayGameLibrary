@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BoardGameLibrary.Models.Copy>
+
+<table class="table table-condensed table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LibraryID)
+        </th>
+        <th>
+            Checked Out At
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    string rowClass;
+    if (item.CurrentCheckout == null)
+    {
+        rowClass = "success";
+    }
+    else
+    {
+        rowClass = "danger";
+    }
+    <tr class="@rowClass">
+        <td>
+            @Html.DisplayFor(modelItem => item.Game.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LibraryID)
+        </td>
+        <td>
+            @if (item.CurrentCheckout != null)
+            {
+                @Html.DisplayFor(modelItem => item.CurrentCheckout.TimeOut)
+            }
+        </td>
+    </tr>
+}
+
+</table>

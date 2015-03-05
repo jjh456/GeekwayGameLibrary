@@ -162,7 +162,7 @@ namespace BoardGameLibrary.Controllers
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
         {
             if (ModelState.IsValid)
-                return Json(await db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
+                return PartialView("_CopyList", await db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
             else
                 return GetModelStateErrorsJson();
         }

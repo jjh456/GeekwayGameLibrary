@@ -68,6 +68,11 @@ table th {
     text-align: center;
 }
 
+.copy-search-results{
+    max-height: 100px;
+    overflow: auto;
+}
+
 /* Fade In */
 .fade-in {
     animation: fadeinout 4s;
@@ -135,4 +140,16 @@ table th {
 /* Utility classes*/
 .width50pct{
     width: 50%;
+}
+
+
+
+/* Media Queries*/
+@media(min-width: 768px){
+    .content-block{
+        min-height: 200px;
+    }
+    .minheight{
+        min-height: 305px;
+    }
 }
