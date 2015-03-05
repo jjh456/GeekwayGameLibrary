@@ -7,10 +7,22 @@
 
 <h2>Games</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
-</p>
-<table class="table table-hover tble-responsive">
+<div class="row">
+    <div class="col-md-1">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-offset-5 col-md-6">
+        @using (Html.BeginForm("Import", "Games", new { enctype = "multipart/form-data" }, FormMethod.Post, new { @class = "form-inline" }))
+        {
+            <div class="form-group width50pct">
+                <input type="file" class="filestyle" data-buttontext=" Browse..." data-buttonname="btn-primary" data-buttonbefore="true">
+            </div>
+            <input type="submit" class="btn btn-success" value="Import" />
+        }
+    </div>
+</div>
+<br />
+<table class="table table-hover table-responsive table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -49,3 +61,7 @@
 }
 
 </table>
+
+@section Scripts{
+    <script src="~/Scripts/bootstrap-filestyle.min.js"></script>
+}

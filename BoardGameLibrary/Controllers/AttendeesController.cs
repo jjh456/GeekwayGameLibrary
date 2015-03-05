@@ -86,6 +86,11 @@ namespace BoardGameLibrary.Controllers
             return View(Attendee);
         }
 
+        public async Task<ActionResult> Import()
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: Attendees/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {

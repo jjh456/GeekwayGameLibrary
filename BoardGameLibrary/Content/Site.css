@@ -32,8 +32,24 @@ body {
     background: url(/Images/GwayLibBgBlue.png), repeat;
 }
 
+
+
 .body-content {
     background-color: rgba(225, 235, 245, 0.82);
+}
+
+table tr {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.table-striped > tbody > tr:nth-child(even) > td,
+.table-striped > tbody > tr:nth-child(even) > th{
+    background-color: #f1ebc7;
+}
+
+.table-hover > tbody > tr:hover > td,
+.table-hover > tbody > tr:hover > th {
+  background-color: #dcf3e3;
 }
 
 .btn-success {
@@ -103,4 +119,8 @@ body {
     50%  { opacity:1; }
     75%  { opacity:1; }
     100% { opacity:0; }
+}
+
+.width50pct{
+    width: 50%;
 }
