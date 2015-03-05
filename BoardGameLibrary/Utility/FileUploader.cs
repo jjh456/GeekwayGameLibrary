@@ -55,7 +55,7 @@ namespace BoardGameLibrary.Utility
                     if(newGameInserted)
                         newGames.Remove(game);
 
-                    errors.Add(string.Format("Copy with library ID {0} already exists.  Please check row {1} of the file."));
+                    errors.Add(string.Format("Copy with library ID {0} already exists.  Please check row {1} of the file.", row.LibraryID, row.FileRowNumber));
                     continue;
                 }
                 copy = new Copy
