@@ -1,7 +1,7 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckInViewModel
 
 <div id="check-in-form-wrapper">
-    @using (Ajax.BeginForm("CheckInCopy", "Copies", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper" }))
+    @using (Ajax.BeginForm("CheckInCopy", "Copies", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper", OnSuccess = "clearCheckInForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -37,6 +37,7 @@
     }
 </div>
 
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

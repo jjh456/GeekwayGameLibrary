@@ -133,7 +133,8 @@ namespace BoardGameLibrary.Controllers
 
                 await db.SaveChangesAsync();
 
-                model = new CopyCheckOutViewModel();
+                model.AttendeeBadgeID = "";
+                model.CopyLibraryID = "";
                 model.Messages.Add(string.Format("Copy {0} of {1} checked out to {2}({3}).", copyLibraryId, copy.Game.Title, attendee.Name, attendee.BadgeID));
             }
             
@@ -152,7 +153,7 @@ namespace BoardGameLibrary.Controllers
 
                 await db.SaveChangesAsync();
 
-                model = new CopyCheckInViewModel();
+                model.CopyLibraryID = "";
                 model.Messages.Add(string.Format("Copy {0} of {1} checked in.", copy.LibraryID, copy.Game.Title));
             }
 

@@ -1,7 +1,9 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckOutViewModel
 
 <div id="check-out-form-wrapper">
-    @using (Ajax.BeginForm("CheckOutCopy", "Copies", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-out-form-wrapper" }))
+    @using (Ajax.BeginForm("CheckOutCopy", "Copies", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-out-form-wrapper",
+                                                                       OnSuccess = "clearCheckOutForm"
+    }))
     {
         @Html.AntiForgeryToken()
 
@@ -47,8 +49,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
-    <script type="text/javascript">
-                $('.notification-pangel').fadeIn('fast').delay(2000).fadeOut('fast');
-    </script>
+    
 }
