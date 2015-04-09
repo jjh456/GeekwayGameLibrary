@@ -39,7 +39,7 @@ namespace BoardGameLibrary.Models
         private bool Exist(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
+            if (_db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
             return true;
@@ -48,7 +48,7 @@ namespace BoardGameLibrary.Models
         private bool BeCheckedOut(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            var copy = _db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt);
+            var copy = _db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt);
             var currentCheckout = copy.CurrentCheckout;
             if (currentCheckout == null)
                 return false;

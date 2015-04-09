@@ -136,7 +136,11 @@ namespace BoardGameLibrary.Controllers
                 model.AttendeeBadgeID = "";
                 model.CopyLibraryID = "";
                 model.Messages.Add(string.Format("Copy {0} of {1} checked out to {2}({3}).", copyLibraryId, copy.Game.Title, attendee.Name, attendee.BadgeID));
+
+                
             }
+            else
+                Response.StatusCode = 400;
             
             return PartialView("_CopyCheckOut", model);
         }
@@ -156,6 +160,8 @@ namespace BoardGameLibrary.Controllers
                 model.CopyLibraryID = "";
                 model.Messages.Add(string.Format("Copy {0} of {1} checked in.", copy.LibraryID, copy.Game.Title));
             }
+            else
+                Response.StatusCode = 400;
 
             return PartialView("_CopyCheckIn", model);
         }

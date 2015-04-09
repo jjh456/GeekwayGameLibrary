@@ -45,7 +45,7 @@ namespace BoardGameLibrary.Models
 
         private bool BeAnExistingAttendee(string attendeeBadgeID)
         {
-            if (_db.Attendees.SingleOrDefault(a => a.BadgeID == attendeeBadgeID) == null)
+            if (_db.Attendees.AsNoTracking().FirstOrDefault(a => a.BadgeID == attendeeBadgeID) == null)
                 return false;
 
             return true;
@@ -53,7 +53,7 @@ namespace BoardGameLibrary.Models
 
         private bool NotAlreadyHaveACopyCheckedOut(string attendeeBadgeID, out string gameCheckedOutAlready)
         {
-            var currentlyCheckedOutCopy = _db.Copies.SingleOrDefault(c => c.CurrentCheckout.Attendee.BadgeID == attendeeBadgeID);
+            var currentlyCheckedOutCopy = _db.Copies.AsNoTracking().FirstOrDefault(c => c.CurrentCheckout.Attendee.BadgeID == attendeeBadgeID);
             if (currentlyCheckedOutCopy != null)
             {
                 gameCheckedOutAlready = currentlyCheckedOutCopy.Game.Title + "(#" + currentlyCheckedOutCopy.LibraryID + ")";
@@ -67,7 +67,7 @@ namespace BoardGameLibrary.Models
         private bool BeAnExistingGameCopy(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            if (_db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
+            if (_db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
             return true;
@@ -76,7 +76,7 @@ namespace BoardGameLibrary.Models
         private bool NotBeCheckedOut(string copyLibraryID)
         {
             var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
-            var copy = _db.Copies.SingleOrDefault(c => c.LibraryID == copyLibraryIDInt);
+            var copy = _db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt);
             if (copy.CurrentCheckout != null)
                 return false;
 

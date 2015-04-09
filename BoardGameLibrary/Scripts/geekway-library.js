@@ -10,6 +10,11 @@ function clearCheckInForm() {
     });
 }
 
-function updateForm(data) {
-    $('#check-out-form-wrapper').html(data);
+function updateCheckOutForm(data) {
+    $('#check-out-form-wrapper').html(data.responseText);
+}
+
+function updateCheckInForm(data)
+{
+    $('#check-in-form-wrapper').html(data.responseText);
 }
