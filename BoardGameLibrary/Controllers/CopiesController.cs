@@ -13,7 +13,7 @@ namespace BoardGameLibrary.Controllers
 {
     public class CopiesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         // GET: Copies
         public async Task<ActionResult> Index(int? gameID)
@@ -23,7 +23,7 @@ namespace BoardGameLibrary.Controllers
 
             ViewBag.GameID = gameID;
 
-            var game = await db.Games.FindAsync(gameID.Value);
+            var game = await _db.Games.FindAsync(gameID.Value);
             ViewBag.GameTitle = game.Title;
             var copies = game.Copies;
 
@@ -37,7 +37,7 @@ namespace BoardGameLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Copy copy = await db.Copies.FindAsync(id);
+            Copy copy = await _db.Copies.FindAsync(id);
             if (copy == null)
                 return HttpNotFound();
 
@@ -62,13 +62,13 @@ namespace BoardGameLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Copy copy)
         {
-            var game = await db.Games.FindAsync(copy.GameID);
+            var game = await _db.Games.FindAsync(copy.GameID);
             game.Copies.Add(copy);
             if (ModelState.IsValid)
             {
-                db.Copies.Add(copy);
-                db.Entry(game).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Copies.Add(copy);
+                _db.Entry(game).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index", new { gameID = copy.GameID });
             }
@@ -83,7 +83,7 @@ namespace BoardGameLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Copy copy = await db.Copies.FindAsync(id);
+            Copy copy = await _db.Copies.FindAsync(id);
             if (copy == null)
             {
                 return HttpNotFound();
@@ -100,8 +100,8 @@ namespace BoardGameLibrary.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(copy).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                _db.Entry(copy).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
                 return RedirectToAction("Index", new { gameID = copy.GameID });
             }
             return View(copy);
@@ -114,7 +114,7 @@ namespace BoardGameLibrary.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Copy copy = await db.Copies.FindAsync(id);
+            Copy copy = await _db.Copies.FindAsync(id);
             if (copy == null)
                 return HttpNotFound();
 
@@ -126,12 +126,12 @@ namespace BoardGameLibrary.Controllers
             if (ModelState.IsValid)
             {
                 var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
-                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
-                var attendee = await db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeID.Replace("*", ""));
+                var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+                var attendee = await _db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeID.Replace("*", ""));
                 var checkout = new Checkout { TimeOut = DateTime.Now, Attendee = attendee };
                 copy.CurrentCheckout = checkout;
 
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
 
                 model.AttendeeBadgeID = "";
                 model.CopyLibraryID = "";
@@ -150,12 +150,12 @@ namespace BoardGameLibrary.Controllers
             if (ModelState.IsValid)
             {
                 var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
-                var copy = await db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+                var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
                 copy.CurrentCheckout.TimeIn = DateTime.Now;
                 copy.CheckoutHistory.Add(copy.CurrentCheckout);
                 copy.CurrentCheckout = null;
 
-                await db.SaveChangesAsync();
+                await _db.SaveChangesAsync();
 
                 model.CopyLibraryID = "";
                 model.Messages.Add(string.Format("Copy {0} of {1} checked in.", copy.LibraryID, copy.Game.Title));
@@ -169,9 +169,18 @@ namespace BoardGameLibrary.Controllers
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
         {
             if (ModelState.IsValid)
-                return PartialView("_CopyList", await db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
+                return PartialView("_CopyList", await _db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
             else
                 return GetModelStateErrorsJson();
+        }
+
+        public ActionResult ListCheckedOutCopies()
+        {
+            var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
+                                             .AsEnumerable()
+                                             .OrderByDescending(c => c.CurrentCheckout.Length);
+
+            return View(checkedOutCopies);
         }
 
         private JsonResult GetModelStateErrorsJson()
@@ -191,10 +200,10 @@ namespace BoardGameLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Copy copy = await db.Copies.FindAsync(id);
+            Copy copy = await _db.Copies.FindAsync(id);
             var cgameID = copy.GameID;
-            db.Copies.Remove(copy);
-            await db.SaveChangesAsync();
+            _db.Copies.Remove(copy);
+            await _db.SaveChangesAsync();
 
             return RedirectToAction("Index", new { gameID = cgameID });
         }
@@ -202,7 +211,7 @@ namespace BoardGameLibrary.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                db.Dispose();
+                _db.Dispose();
 
             base.Dispose(disposing);
         }

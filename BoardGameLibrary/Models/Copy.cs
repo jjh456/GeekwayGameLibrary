@@ -13,12 +13,17 @@ namespace BoardGameLibrary.Models
     public class Copy
     {
         public int ID { get; set; }
+        [Display(Name = "Library ID")]
         public int LibraryID { get; set; }
         [ForeignKey("GameID")]
         public virtual Game Game { get; set; }
+        [Display(Name = "Game Identifer")]
         public int GameID { get; set; }
+        [Display(Name = "Owner")]
         public string OwnerName { get; set; }
+        [Display(Name = "Checkout Info")]
         public virtual Checkout CurrentCheckout { get; set; }
+        [Display(Name = "Checkout History")]
         public virtual IList<Checkout> CheckoutHistory { get; set; }
         public string Notes { get; set; }
 

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BoardGameLibrary.Models.Copy>
+
+@{
+    ViewBag.Title = "ListCheckedOutCopies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Checked Out Copies</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LibraryID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OwnerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentCheckout.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentCheckout.Attendee)
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.LibraryID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Game.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerName)
+        </td>
+        <td>
+            @{ var timespan = item.CurrentCheckout.Length; }
+            @string.Format("{0} days, {1} hours, {2} minutes", timespan.Days, timespan.Hours, timespan.Minutes)
+        </td>
+        <td>
+            @string.Format("{0} (# {1})", item.CurrentCheckout.Attendee.Name, item.CurrentCheckout.Attendee.BadgeID)
+        </td>
+    </tr>
+}
+
+</table>
