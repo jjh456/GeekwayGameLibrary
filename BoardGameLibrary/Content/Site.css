@@ -36,12 +36,17 @@ body {
     background-color: rgba(225, 235, 245, 0.82);
 }
 
+.label-default {
+    background-color: #80c36c;
+}
+
 table tr {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-table th {
-    background-color: rgba(158, 226, 255, 0.7);
+table th, .table-hover > tbody > tr:hover > th {
+    background-color: #428bca;
+    color: #ffffff;
 }
 
 .table-striped > tbody > tr:nth-child(even) > td,
@@ -49,8 +54,7 @@ table th {
     background-color: #f1ebc7;
 }
 
-.table-hover > tbody > tr:hover > td,
-.table-hover > tbody > tr:hover > th {
+.table-hover > tbody > tr:hover > td {
   background-color: #dcf3e3;
 }
 
@@ -61,7 +65,7 @@ table th {
 
 .content-block {
     border: 1px solid #808080;
-    background-color: #f2fff6;
+    background-color: #d4e6f5;
     border-radius: 3px;
     margin: 0px 2px;
     padding: 5px;
