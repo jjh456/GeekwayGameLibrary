@@ -170,3 +170,9 @@ table th, .table-hover > tbody > tr:hover > th {
         min-height: 366px;
     }
 }
+
+@media(max-width: 998px){
+    .content-block{
+        margin-top: 5px;
+    }
+}
