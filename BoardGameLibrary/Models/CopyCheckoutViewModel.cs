@@ -16,10 +16,13 @@ namespace BoardGameLibrary.Models
         public string CopyLibraryID { get; set; }
         [Display(Name = "Attendee Badge #")]
         public string AttendeeBadgeID { get; set; }
+        [Display(Name = "Override Limit")]
+        public bool OverrideLimit { get; set; }
         public IList<string> Messages { get; set; }
 
         public CopyCheckOutViewModel()
         {
+            OverrideLimit = false;
             Messages = new List<string>();
         }
     }
@@ -33,9 +36,13 @@ namespace BoardGameLibrary.Models
             var gameAlreadyCheckedOut = "";
             RuleFor(x => x.AttendeeBadgeID).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Badge ID required.")
-                .Must(BeAnExistingAttendee).WithMessage("Attendee not found.")
-                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
-                                           .WithMessage("Attendee has {0} checked out.", x => gameAlreadyCheckedOut);
+                .Must(BeAnExistingAttendee).WithMessage("Attendee not found.");
+                
+            Unless(a => a.OverrideLimit, () => {
+                RuleFor(x => x.AttendeeBadgeID).Cascade(CascadeMode.StopOnFirstFailure)
+                    .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
+                                               .WithMessage("Attendee has {0} checked out.", x => gameAlreadyCheckedOut);
+            });
 
             RuleFor(x => x.CopyLibraryID).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("You must provide a library ID.")
