@@ -3,7 +3,7 @@
     padding-bottom: 20px;
 }
 
-.ridiculous-checkbox {
+.bigcheckbox {
     width: 2em;
     height: 2em;
     float: left;
@@ -167,6 +167,6 @@ table th, .table-hover > tbody > tr:hover > th {
         min-height: 200px;
     }
     .minheight{
-        min-height: 305px;
+        min-height: 366px;
     }
 }

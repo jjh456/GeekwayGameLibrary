@@ -41,7 +41,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.OverrideLimit, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.CheckBoxFor(model => model.OverrideLimit, new { htmlAttributes = new { @class = "form-control ridiculous-checkbox" } })
+                    @Html.CheckBoxFor(model => model.OverrideLimit, new { @class = "form-control bigcheckbox" } )
                     @Html.ValidationMessageFor(model => model.OverrideLimit, "", new { @class = "text-danger" })
                 </div>
             </div>
