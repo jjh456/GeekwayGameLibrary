@@ -6,11 +6,13 @@
 <div class="row">
     <div class="col-md-6">
         <div class="content-block minheight">
+            <a href="#" class="close-classic"></a>
             @Html.Partial("_CopyCheckOut", Model.CheckOut)
         </div>
     </div>
     <div class="col-md-6">
         <div class="content-block minheight">
+            <a href="#" class="close-classic"></a>
             @Html.Partial("_CopyCheckIn", Model.CheckIn)
         </div>
     </div>
@@ -19,10 +21,17 @@
 <div class="row">
     <div class="col-md-12">
         <div id="copy-search-wrapper" class="content-block">
+            <a href="#" class="close-classic"></a>
             @Html.Partial("_CopySearch", Model.CopySearch)
         </div>
     </div>
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(".close-classic").click(function () {
+            $(this).parent().parent().remove();
+        });
+    </script>
 }

@@ -71,6 +71,31 @@ table th, .table-hover > tbody > tr:hover > th {
     border-color: #397a4e;
 }
 
+[class*='close-'] {
+  color: #777;
+  font: 24px/100% arial, sans-serif;
+  font-weight: 600;
+  position: absolute;
+  right: 30px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  top: 10px;
+}
+
+[class*='close-']:hover {
+    color: forestgreen;
+    text-decoration: none;
+}
+
+[class*='close-']:active {
+    color: #777;
+    text-decoration: none;
+}
+
+.close-classic:after {
+  content: 'X'; /* ANSI X letter */
+}
+
 .content-block {
     border: 1px solid #808080;
     background-color: #d4e6f5;
@@ -78,6 +103,8 @@ table th, .table-hover > tbody > tr:hover > th {
     margin: 0px 2px;
     padding: 5px;
     text-align: center;
+    color: #777;
+  
 }
 
 .copy-search-results{
