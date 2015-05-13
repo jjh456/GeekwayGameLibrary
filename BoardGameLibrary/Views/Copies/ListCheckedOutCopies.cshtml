@@ -24,6 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.CurrentCheckout.Attendee)
         </th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model)
@@ -45,7 +46,11 @@
         <td>
             @string.Format("{0} (# {1})", item.CurrentCheckout.Attendee.Name, item.CurrentCheckout.Attendee.BadgeID)
         </td>
+        <td>
+            
+        </td>
     </tr>
 }
 
 </table>
+

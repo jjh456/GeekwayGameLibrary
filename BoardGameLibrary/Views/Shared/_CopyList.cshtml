@@ -48,8 +48,23 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", "Copies", new { id = item.ID }, new { @class = "btn btn-sm btn-default" })
+            @if (item.CurrentCheckout != null)
+            {
+                <button class="btn btn-sm btn-default" onclick="CheckInGame(@item.LibraryID)" value="Check In">Check In</button>
+            }
         </td>
     </tr>
 }
 
 </table>
+
+<script type="text/javascript">
+    function CheckInGame(id) {
+        $.post('@Url.Action("CheckInCopyLight", "Copies")', { copyId: id }, function (response) {
+            var message = response.message;
+            var message = "<div class='notification-panel fade-in fade-out-delayed'><span class='notification fade-in fade-out-delayed'>" + message + "</span></div>";
+            $("#CopySearchMessages").html(message);
+            $("#btnSearch").click();
+        });
+    }
+</script>

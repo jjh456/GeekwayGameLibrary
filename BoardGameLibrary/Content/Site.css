@@ -119,14 +119,17 @@ table th, .table-hover > tbody > tr:hover > th {
 
 /* Fade In */
 .fade-in {
-    animation: fadeinout 4s;
-    -moz-animation: fadeinout 4s; /* Firefox */
-    -webkit-animation: fadeinout 4s; /* Safari and Chrome */
-    -o-animation: fadeinout 4s; /* Opera */
+    animation: fadeinout 7s;
+    -moz-animation: fadeinout 7s; /* Firefox */
+    -webkit-animation: fadeinout 7s; /* Safari and Chrome */
+    -o-animation: fadeinout 7s; /* Opera */
 }
 
 .notification-wrapper {
     min-height: 2em;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .notification-panel {
@@ -136,6 +139,8 @@ table th, .table-hover > tbody > tr:hover > th {
     border-radius: 4px;
     padding: 2px;
     opacity: 0;
+    text-align: center;
+    align-content: center;
 }
 
 .notification-panel .notification {

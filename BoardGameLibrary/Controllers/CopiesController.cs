@@ -166,6 +166,27 @@ namespace BoardGameLibrary.Controllers
             return PartialView("_CopyCheckIn", model);
         }
 
+        [HttpPost]
+        public async Task<JsonResult> CheckInCopyLight(string copyId)
+        {
+            if (ModelState.IsValid)
+            {
+                var copyLibraryId = Convert.ToInt32(copyId.Replace("*", ""));
+                var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+                copy.CurrentCheckout.TimeIn = DateTime.Now;
+                copy.CheckoutHistory.Add(copy.CurrentCheckout);
+                copy.CurrentCheckout = null;
+
+                await _db.SaveChangesAsync();
+
+                var msg = string.Format("Copy {0} of {1} checked in.", copy.LibraryID, copy.Game.Title);
+
+                return Json(new { message = msg });
+            }
+            else
+                return Json(new { message = "Failed to check in copy." });
+        }
+
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
         {
             if (ModelState.IsValid)
