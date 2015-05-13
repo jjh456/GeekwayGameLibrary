@@ -128,7 +128,7 @@ namespace BoardGameLibrary.Controllers
                 var copyLibraryId = Convert.ToInt32(model.CopyLibraryID.Replace("*", ""));
                 var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
                 var attendee = await _db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeID.Replace("*", ""));
-                var checkout = new Checkout { TimeOut = DateTime.Now, Attendee = attendee };
+                var checkout = new Checkout { TimeOut = DateTime.Now, Attendee = attendee, Copy = copy };
                 copy.CurrentCheckout = checkout;
 
                 await _db.SaveChangesAsync();
@@ -185,6 +185,22 @@ namespace BoardGameLibrary.Controllers
             }
             else
                 return Json(new { message = "Failed to check in copy." });
+        }
+
+        public async Task<JsonResult> GetCopyGameTitle(string copyId)
+        {
+            if (ModelState.IsValid)
+            {
+                var copyLibraryId = Convert.ToInt32(copyId.Replace("*", ""));
+                var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+
+                if (copy == null)
+                    return Json(new { title = "No copy found with that ID." });
+
+                return Json(new { title = copy.Game.Title });
+            }
+            else
+                return Json(new { message = "Copy ID required." });
         }
 
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)

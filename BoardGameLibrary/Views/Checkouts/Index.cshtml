@@ -1,0 +1,63 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<BoardGameLibrary.Models.Checkout>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Checkout History</h2>
+
+@using (Html.BeginForm("Index", "Checkouts", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <p>
+        @Html.TextBox("SearchString", null, new { @class = "form-control text-box" })
+        <input type="submit" value="Search" class="btn btn-primary"/>
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TimeOut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().TimeIn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.First().Attendee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.First().Copy)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeIn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @string.Format("{0} ({1})", item.Attendee.Name, item.Attendee.BadgeID)
+        </td>
+        <td>
+            @string.Format("{0} (Copy #{1})", item.Copy.Game.Title, item.Copy.LibraryID)
+        </td>
+    </tr>
+}
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))

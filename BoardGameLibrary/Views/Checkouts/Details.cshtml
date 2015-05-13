@@ -1,0 +1,35 @@
+﻿@model BoardGameLibrary.Models.Checkout
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Checkout</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeOut)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeOut)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeIn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeIn)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

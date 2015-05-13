@@ -24,5 +24,8 @@ namespace BoardGameLibrary.Models
             } 
         }
         public virtual Attendee Attendee { get; set; }
+
+        [InverseProperty("CheckoutHistory")]
+        public virtual Copy Copy { get; set; }
     }
 }

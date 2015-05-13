@@ -58,6 +58,12 @@
       <HintPath>..\packages\FluentValidation.MVC5.5.5.0.0\lib\Net45\FluentValidation.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -170,6 +176,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\CheckoutsController.cs" />
     <Compile Include="Controllers\CopiesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AttendeesController.cs" />
@@ -231,10 +238,12 @@
     <Compile Include="Utility\AttendeeImportRow.cs" />
     <Compile Include="Utility\CopyImportRow.cs" />
     <Compile Include="Utility\FileUploader.cs" />
+    <Compile Include="Utility\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -301,6 +310,8 @@
     <Content Include="Views\Shared\_CopySearch.cshtml" />
     <Content Include="Views\Shared\_CopyList.cshtml" />
     <Content Include="Views\Copies\ListCheckedOutCopies.cshtml" />
+    <Content Include="Views\Checkouts\Details.cshtml" />
+    <Content Include="Views\Checkouts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
