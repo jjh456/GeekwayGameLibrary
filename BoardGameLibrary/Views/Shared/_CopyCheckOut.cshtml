@@ -27,6 +27,7 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CopyLibraryID, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CopyLibraryID, "", new { @class = "text-danger" })
+                    <strong id="locatedGameTitle" class="floatleft green-text"></strong>
                 </div>
             </div>
 
@@ -54,6 +55,17 @@
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    $("#CopyLibraryID").blur(function () {
+        var id = $("#CopyLibraryID").val();
+        if (id) {
+            $.get('@Url.Action("GetCopyGameTitle", "Copies")', { copyId: id }, function (response) {
+                $("#locatedGameTitle").text(response.title);
+            });
+        }
+    });
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -195,12 +195,12 @@ namespace BoardGameLibrary.Controllers
                 var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
 
                 if (copy == null)
-                    return Json(new { title = "No copy found with that ID." });
+                    return Json(new { title = "No copy found with that ID." }, JsonRequestBehavior.AllowGet);
 
-                return Json(new { title = copy.Game.Title });
+                return Json(new { title = copy.Game.Title }, JsonRequestBehavior.AllowGet);
             }
             else
-                return Json(new { message = "Copy ID required." });
+                return Json(new { title = "Copy ID required." }, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
