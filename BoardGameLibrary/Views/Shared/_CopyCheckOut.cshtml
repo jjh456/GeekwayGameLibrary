@@ -1,9 +1,14 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckOutViewModel
 
 <div id="check-out-form-wrapper">
-    @using (Ajax.BeginForm("CheckOutCopy", "Copies", 
-        new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-out-form-wrapper", OnSuccess = "clearCheckOutForm", OnFailure = "updateCheckOutForm"
-    }))
+    @using (Ajax.BeginForm("CheckOutCopy", "Copies",
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "check-out-form-wrapper",
+            OnSuccess = "clearCheckOutForm",
+            OnFailure = "updateCheckOutForm"
+        }))
     {
         @Html.AntiForgeryToken()
 
@@ -42,7 +47,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.OverrideLimit, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.CheckBoxFor(model => model.OverrideLimit, new { @class = "form-control bigcheckbox" } )
+                    @Html.CheckBoxFor(model => model.OverrideLimit, new { @class = "form-control bigcheckbox" })
                     @Html.ValidationMessageFor(model => model.OverrideLimit, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -57,6 +62,13 @@
 </div>
 
 <script type="text/javascript">
+    $('#CopyLibraryID').change(function () {
+        var id = $("#CopyLibraryID").val();
+        if (id.length >= 5) {
+            $('#AttendeeBadgeID').focus();
+        }
+    });
+
     $("#CopyLibraryID").blur(function () {
         var id = $("#CopyLibraryID").val();
         if (id) {

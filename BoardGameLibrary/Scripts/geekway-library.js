@@ -1,4 +1,4 @@
-﻿function clearCheckOutForm(){
+﻿function clearCheckOutForm() {
     $('#check-out-form-wrapper input:text').each(function () {
         $(this).val("");
     });
@@ -15,9 +15,32 @@ function clearCheckInForm() {
 
 function updateCheckOutForm(data) {
     $('#check-out-form-wrapper').html(data.responseText);
+    var copyId = $("#CopyLibraryID").val();
+
+    if (copyId.length < 5) {
+        $('#CopyLibraryID').focus();
+    }
+    else {
+        $('#AttendeeBadgeID').focus();
+    }
+
+    $('#CopyLibraryID').change(function () {
+        var id = $("#CopyLibraryID").val();
+        if (id.length >= 5) {
+            $('#AttendeeBadgeID').focus();
+        }
+    });
+
+    $("#CopyLibraryID").blur(function () {
+        var id = $("#CopyLibraryID").val();
+        if (id) {
+            $.get('@Url.Action("GetCopyGameTitle", "Copies")', { copyId: id }, function (response) {
+                $("#locatedGameTitle").text(response.title);
+            });
+        }
+    });
 }
 
-function updateCheckInForm(data)
-{
+function updateCheckInForm(data) {
     $('#check-in-form-wrapper').html(data.responseText);
 }
