@@ -207,7 +207,14 @@ namespace BoardGameLibrary.Controllers
         public async Task<ActionResult> SearchCopies(CopySearchViewModel model)
         {
             if (ModelState.IsValid)
-                return PartialView("_CopyList", await _db.Copies.Where(c => c.Game.Title.Contains(model.GameTitle)).ToListAsync());
+            {
+                int searchedID;
+                bool isNumeric = int.TryParse(model.Info, out searchedID);
+                var copies = await (isNumeric ? _db.Copies.Where(c => c.LibraryID == searchedID)
+                                              : _db.Copies.Where(c => c.Game.Title.Contains(model.Info))).ToListAsync();
+
+                return PartialView("_CopyList", copies);
+            }
             else
                 return GetModelStateErrorsJson();
         }
