@@ -5,6 +5,8 @@ using System.Net;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
 using BoardGameLibrary.Utility;
+using System.Linq;
+using PagedList;
 
 namespace BoardGameLibrary.Views
 {
@@ -20,11 +22,23 @@ namespace BoardGameLibrary.Views
         }
 
         // GET: Games
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 20;
+            int pageNumber = page ?? 1;
             ViewBag.Errors = TempData["ErrorList"];
-            var games = await _db.Games.ToListAsync();
-            var model = new GameIndexViewModel { Games = games };
+
+            var games = _db.Games.Select(g => g);
+            if (!string.IsNullOrWhiteSpace(searchString))
+                games = _db.Games.Where(g => g.Title.Contains(searchString));
+
+            var model = new GameIndexViewModel { Games = games.OrderBy(g => g.Title).ToPagedList(pageNumber, pageSize) };
 
             return View(model);
         }

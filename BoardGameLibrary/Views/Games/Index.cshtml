@@ -1,4 +1,5 @@
-﻿@model GameIndexViewModel
+﻿@using PagedList.Mvc;
+@model GameIndexViewModel
 @using BoardGameLibrary.Models;
 @{
     ViewBag.Title = "Index";
@@ -27,7 +28,16 @@
     <div class="col-md-1">
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     </div>
-    <div class="col-md-offset-5 col-md-6">
+    <div class="col-md-offset-1 col-md-4">
+        @using (Html.BeginForm("Index", "Games", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="row">
+                @Html.TextBox("SearchString", null, new { @class = "form-control text-box col-md-1", placeholder = "Title or library ID" })
+                <input type="submit" value="Search" class="btn btn-primary col-md-3" />
+            </div>
+        }
+    </div>
+    <div class="col-md-offset-1 col-md-5">
         @using (Html.BeginForm("Import", "Games", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="form-inline">
@@ -79,6 +89,10 @@
 }
 
 </table>
+<br />
+Page @(Model.Games.PageCount < Model.Games.PageNumber ? 0 : Model.Games.PageNumber) of @Model.Games.PageCount
+
+@Html.PagedListPager(Model.Games, page => Url.Action("Index", new { page }))
 
 @section Scripts{
     <script src="~/Scripts/bootstrap-filestyle.min.js"></script>

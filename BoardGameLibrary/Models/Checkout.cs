@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace BoardGameLibrary.Models
 {
     public class Checkout
     {
         public int ID { get; set; }
+        [Display(Name = "Checked out at")]
+        [DisplayFormat(DataFormatString = "{0:f}")]
         public DateTime TimeOut { get; set; }
+        [Display(Name = "Checked in at")]
+        [DisplayFormat(DataFormatString = "{0:f}")]
         public DateTime? TimeIn { get; set; }
         [NotMapped]
-        [Display(Name = "Time Out")]
+        [Display(Name = "Checkout length")]
+        [DisplayFormat(DataFormatString = "{0:%d} days {0:%h} hours {0:%m} minutes", ApplyFormatInEditMode = true)]
         public TimeSpan Length { 
             get 
             {

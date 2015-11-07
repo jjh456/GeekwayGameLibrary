@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
 using PagedList;
-using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Controllers
 {
@@ -18,8 +14,10 @@ namespace BoardGameLibrary.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Checkouts
-        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page, bool showCompleted = false)
         {
+            ViewBag.ShowCompleted = showCompleted;
+
             if (searchString != null)
                 page = 1;
             else
@@ -27,7 +25,7 @@ namespace BoardGameLibrary.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            int pageSize = 25;
+            int pageSize = 20;
             int pageNumber = page ?? 1;
 
             var results = db.Checkouts.Select(c => c);
@@ -37,6 +35,9 @@ namespace BoardGameLibrary.Controllers
                                           || c.Copy.LibraryID.ToString().Contains(searchString)
                                           || c.Attendee.Name.Contains(searchString)
                                           || c.Attendee.BadgeID.Contains(searchString));
+
+            if(!showCompleted)
+                results = results.Where(c => c.TimeIn == null);
 
             return View(results.OrderBy(c => c.TimeOut)
                                .ToPagedList(pageNumber, pageSize));
