@@ -1,4 +1,5 @@
-﻿@model AttendeeIndexViewModel
+﻿@using PagedList.Mvc;
+@model AttendeeIndexViewModel
 @using BoardGameLibrary.Models;
 @{
     ViewBag.Title = "Index";
@@ -27,7 +28,16 @@
     <div class="col-md-1">
         @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
     </div>
-    <div class="col-md-offset-5 col-md-6">
+    <div class="col-md-offset-1 col-md-4">
+        @using (Html.BeginForm("Index", "Attendees", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="row">
+                @Html.TextBox("SearchString", null, new { @class = "form-control text-box col-md-1", placeholder = "Name or Badge ID" })
+                <input type="submit" value="Search" class="btn btn-primary col-md-3" />
+            </div>
+        }
+    </div>
+    <div class="col-md-offset-1 col-md-5">
         @using (Html.BeginForm("Import", "Attendees", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             <div class="form-inline">
@@ -60,14 +70,18 @@
             @Html.DisplayFor(modelItem => item.BadgeID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-default btn-sm" })
+            @Html.ActionLink("Details", "Details", new { id = item.ID }, new { @class = "btn btn-default btn-sm" })
             @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })*@
         </td>
     </tr>
 }
 
 </table>
+<br />
+Page @(Model.Attendees.PageCount < Model.Attendees.PageNumber ? 0 : Model.Attendees.PageNumber) of @Model.Attendees.PageCount
+
+@Html.PagedListPager(Model.Attendees, page => Url.Action("Index", new { page }))
 
 @section Scripts{
     <script src="~/Scripts/bootstrap-filestyle.min.js"></script>

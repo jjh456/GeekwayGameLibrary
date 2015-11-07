@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
 using BoardGameLibrary.Utility;
+using PagedList;
 
 namespace BoardGameLibrary.Controllers
 {
@@ -24,11 +23,26 @@ namespace BoardGameLibrary.Controllers
         }
 
         // GET: Attendees
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
+            if (searchString != null)
+                page = 1;
+            else
+                searchString = currentFilter;
+
+            ViewBag.CurrentFilter = searchString;
+            int pageSize = 15;
+            int pageNumber = page ?? 1;
             ViewBag.Errors = TempData["ErrorList"];
-            var attendees = await _db.Attendees.ToListAsync();
-            var model = new AttendeeIndexViewModel { Attendees = attendees };
+
+            IQueryable<Attendee> attendees = _db.Attendees;
+
+            if (!string.IsNullOrWhiteSpace(searchString))
+                attendees = _db.Attendees.Where(a => a.Name.Contains(searchString) || a.BadgeID.Contains(searchString));
+
+            var model = new AttendeeIndexViewModel();
+            var orderedAttendees = await attendees.OrderBy(a => a.Name).ToListAsync();
+            model.Attendees = orderedAttendees.ToPagedList(pageNumber, pageSize);
 
             return View(model);
         }
