@@ -50,7 +50,8 @@ namespace BoardGameLibrary.Controllers
             if (gameID == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            var copy = new Copy { GameID = gameID.Value };
+            var game = _db.Games.FirstOrDefault(g => g.ID == gameID.Value);
+            var copy = new Copy { GameID = gameID.Value, Game = game };
 
             return View(copy);
         }
