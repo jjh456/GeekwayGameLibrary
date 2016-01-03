@@ -29,7 +29,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.CopyLibraryID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.CopyLibraryID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.CopyLibraryID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                     @Html.ValidationMessageFor(model => model.CopyLibraryID, "", new { @class = "text-danger" })
                     <strong id="locatedGameTitle" class="floatleft green-text"></strong>
                 </div>
@@ -38,7 +38,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.AttendeeBadgeID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.AttendeeBadgeID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.AttendeeBadgeID, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
                     @Html.ValidationMessageFor(model => model.AttendeeBadgeID, "", new { @class = "text-danger" })
                 </div>
             </div>
