@@ -162,6 +162,25 @@ table th, .table-hover > tbody > tr:hover > th {
     text-align: center;
 }
 
+.nav-pills.toggle-tabs li {
+    border: 1px solid;
+    background-color: #EDEDED;
+}
+
+.nav-pills.toggle-tabs li a {
+    border-radius: 0;
+}
+
+.nav-pills.toggle-tabs li:nth-child(1) {
+    border-right: 0px;
+}
+
+.nav-pills.toggle-tabs li:nth-child(2) {
+    border-left: 0px;
+    margin-left: 0;
+}
+
+/* Animations */
 @keyframes fadeinout {
     0%   { opacity:0; }
     25%  { opacity:1; }
@@ -205,9 +224,7 @@ table th, .table-hover > tbody > tr:hover > th {
     width: 50%;
 }
 
-
-
-/* Media Queries*/
+/* Media Queries for different screen sizes*/
 @media(min-width: 768px){
     .content-block{
         min-height: 200px;

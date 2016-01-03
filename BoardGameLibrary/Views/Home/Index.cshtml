@@ -3,16 +3,18 @@
 <br /><br />
 <h3>Geekway to the West Library Manager <span class="label label-default">@DateTime.Now.Year</span></h3>
 
-<div class="row">
-    <div class="col-md-6">
-        <div class="content-block minheight">
-            <a href="#" class="close-classic"></a>
+<div class="row content-block">
+    <ul class="nav nav-pills toggle-tabs">
+        <li class="active"><a data-toggle="tab" href="#checkout">Check Out</a></li>
+        <li><a data-toggle="tab" href="#checkin">Check In</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="checkout" class="minheight tab-pane fade in active">
+            <a href="#" ></a>
             @Html.Partial("_CopyCheckOut", Model.CheckOut)
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="content-block minheight">
-            <a href="#" class="close-classic"></a>
+        <div id="checkin" class="minheight tab-pane fade in">
+            <a href="#" ></a>
             @Html.Partial("_CopyCheckIn", Model.CheckIn)
         </div>
     </div>
@@ -21,7 +23,7 @@
 <div class="row">
     <div class="col-md-12">
         <div id="copy-search-wrapper" class="content-block">
-            <a href="#" class="close-classic"></a>
+            <a href="#"></a>
             @Html.Partial("_CopySearch", Model.CopySearch)
         </div>
     </div>
