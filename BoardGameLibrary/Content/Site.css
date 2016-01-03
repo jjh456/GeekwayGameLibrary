@@ -54,15 +54,19 @@ textarea {
         overflow: visible;
     }
 
-.navbar .navbar-form {
-    position: relative;
-    overflow: visible;
-    white-space: nowrap;
-}
+    .navbar .navbar-form {
+        position: relative;
+        overflow: visible;
+        white-space: nowrap;
+    }
 
-.navbar .navbar-form input {
-    width: 20em;
-}
+        .navbar .navbar-form input {
+            width: 20em;
+        }
+
+    .navbar-inverse .navbar-nav .active a {
+        background-color: #53934c;
+    }
 
 #copy-quick-search-results {
     position: absolute;

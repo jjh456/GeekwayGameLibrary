@@ -22,10 +22,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Games", "Index", "Games")</li>
-                    <li>@Html.ActionLink("Attendees", "Index", "Attendees")</li>
-                    <li>@Html.ActionLink("Checked Out Copies", "ListCheckedOutCopies", "Copies")</li>
-                    <li>@Html.ActionLink("Checkout History", "Index", "Checkouts")</li>
+                    @{ var controllerName = ViewContext.RouteData.Values["Controller"].ToString();}
+                    @{ var actionName = ViewContext.RouteData.Values["Action"].ToString();}
+                    <li class="@(controllerName == "Home" ? "active" : "")">@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="@(controllerName == "Games" || (actionName != "ListCheckedOutCopies" && controllerName == "Copies") ? "active" : "")">@Html.ActionLink("Games", "Index", "Games")</li>
+                    <li class="@(controllerName == "Attendees" ? "active" : "")">@Html.ActionLink("Attendees", "Index", "Attendees")</li>
+                    <li class="@(controllerName == "Copies" && actionName == "ListCheckedOutCopies" ? "active" : "")">@Html.ActionLink("Checked Out Copies", "ListCheckedOutCopies", "Copies")</li>
+                    <li class="@(controllerName == "Checkouts" ? "active" : "")">@Html.ActionLink("Checkout History", "Index", "Checkouts")</li>
                 </ul>
                 @Html.Partial("_CopyNavSearch")
             </div>
