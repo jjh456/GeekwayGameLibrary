@@ -19,7 +19,7 @@
             @if (item.CurrentCheckout != null)
             {
                 <small>
-                    Checked out <strong>@Html.DisplayFor(modelItem => item.CurrentCheckout.TimeOut.DayOfWeek) at @String.Format("{0:h\\:mm}", item.CurrentCheckout.TimeOut.TimeOfDay)</strong>
+                    Checked out <strong>@Html.DisplayFor(modelItem => item.CurrentCheckout.TimeOut.DayOfWeek) at @item.CurrentCheckout.TimeOut.ToShortTimeString()</strong>
                     by <strong>@item.CurrentCheckout.Attendee.Name <text>(@item.CurrentCheckout.Attendee.BadgeID)</text></strong>
                 </small>
             }
