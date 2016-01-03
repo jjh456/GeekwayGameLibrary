@@ -68,6 +68,10 @@ textarea {
         background-color: #53934c;
     }
 
+    .navbar-inverse .navbar-nav .active a:hover {
+        background-color: #53934c;
+    }
+
 #copy-quick-search-results {
     position: absolute;
     left: 15px;
