@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BoardGameLibrary.Models.Copy>
+<ul>
+    @foreach (var item in Model)
+    {
+        string rowClass;
+        if (item.CurrentCheckout == null)
+        {
+            rowClass = "success";
+        }
+        else
+        {
+            rowClass = "danger";
+        }
+        <li class="@rowClass">
+            <h4>
+                @Html.DisplayFor(modelItem => item.Game.Title) (@Html.DisplayFor(modelItem => item.LibraryID))
+            </h4>
+            
+            @if (item.CurrentCheckout != null)
+            {
+                <small>
+                    Checked out <strong>@Html.DisplayFor(modelItem => item.CurrentCheckout.TimeOut.DayOfWeek) at @String.Format("{0:hh\\:mm}", item.CurrentCheckout.TimeOut.TimeOfDay)</strong>
+                    by <strong>@item.CurrentCheckout.Attendee.Name <text>(@item.CurrentCheckout.Attendee.BadgeID)</text></strong>
+                </small>
+            }
+            else
+            {
+                <small>
+                    Available
+                </small>
+            }
+        </li>
+    }
+</ul>

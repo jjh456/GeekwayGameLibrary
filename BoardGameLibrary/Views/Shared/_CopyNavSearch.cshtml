@@ -1,0 +1,31 @@
+﻿@using (Ajax.BeginForm("SearchCopies", "Copies", new { navsearch = true }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "copy-quick-search-results" }, new { @class = "navbar-form navbar-right" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <input id="copy-quick-search-text" name="info" type="text"  class="form-control" placeholder="Search game copies by title/ID..." autocomplete="off">
+    </div>
+    <div id="copy-quick-search-results" class="hidden">
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    var quickSearchInput = $('#copy-quick-search-text');
+    var quickSearchResults = $('#copy-quick-search-results');
+    quickSearchInput.keyup(function () {
+        quickSearchResults.html('');
+        if ((quickSearchInput).val().length > 0) {
+            $('form.navbar-form.navbar-right').submit();
+            quickSearchResults.removeClass('hidden');
+        }
+        
+    });
+
+    quickSearchInput.focusout(function () {
+        quickSearchInput.val('');
+        quickSearchResults.addClass('hidden');
+    });
+</script>

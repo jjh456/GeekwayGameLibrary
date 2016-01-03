@@ -9,6 +9,8 @@ namespace BoardGameLibrary.Models
     {
         [Display(Name = "Title/ID")]
         public string Info { get; set; }
+
+        public bool NavSearch { get; set; }
     }
 
     public class CopySearchValidator : AbstractValidator<CopySearchViewModel>

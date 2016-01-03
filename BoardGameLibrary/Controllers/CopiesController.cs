@@ -210,10 +210,21 @@ namespace BoardGameLibrary.Controllers
             {
                 int searchedID;
                 bool isNumeric = int.TryParse(model.Info, out searchedID);
-                var copies = await (isNumeric ? _db.Copies.Where(c => c.LibraryID == searchedID)
-                                              : _db.Copies.Where(c => c.Game.Title.Contains(model.Info))).ToListAsync();
+                var allMatchedCopies = new List<Copy>();
+                var copiesMatchingTitle = await _db.Copies.Where(c => c.Game.Title.Contains(model.Info)).ToListAsync();
+                if (isNumeric)
+                {
+                    var copiesMatchingID = await _db.Copies.Where(c => c.LibraryID == searchedID).ToListAsync();
+                    allMatchedCopies.AddRange(copiesMatchingID);
+                }
 
-                return PartialView("_CopyList", copies);
+                allMatchedCopies.AddRange(copiesMatchingTitle);
+                allMatchedCopies = allMatchedCopies.Distinct().ToList();
+
+                if (model.NavSearch)
+                    return PartialView("_CopyNavSearchResults", allMatchedCopies);
+
+                return PartialView("_CopyList", allMatchedCopies);
             }
             else
                 return GetModelStateErrorsJson();
@@ -237,7 +248,7 @@ namespace BoardGameLibrary.Controllers
 
             Response.StatusCode = 400;
 
-            return Json(errorList);
+            return Json(errorList, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Copies/Delete/5

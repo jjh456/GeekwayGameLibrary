@@ -50,9 +50,50 @@ textarea {
     font-size: 1.1em;
 }
 
+    .navbar div div.navbar-collapse {
+        overflow: visible;
+    }
+
+.navbar .navbar-form {
+    position: relative;
+    overflow: visible;
+    white-space: nowrap;
+}
+
 .navbar .navbar-form input {
     width: 20em;
 }
+
+#copy-quick-search-results {
+    position: absolute;
+    left: 15px;
+    top: 53px;
+    width: 160%;
+    background-color: rgba(74, 80, 82, 0.90);
+    padding: 5px;
+}
+
+    #copy-quick-search-results ul {
+        list-style-type: none;
+        padding-left: 0;
+        color: rgba(255, 255, 255, 0.82);
+    }
+
+        #copy-quick-search-results ul li {
+            border: 1px solid;
+            border-radius: 3px;
+            margin: 5px;
+            padding: 5px;
+            background-color: #428bca;
+        }
+
+        #copy-quick-search-results ul li strong {
+            color: #e1d9c1
+        }
+
+        #copy-quick-search-results ul li.success {
+            background-color: #2e8f4d;
+        }
 
 body {
     background: url(/Images/GwayLibBgBlue.png), repeat;
@@ -152,7 +193,7 @@ table th, .table-hover > tbody > tr:hover > th {
 
 .notification-panel {
     color: #3e3e3e;
-    background-color: #a2dce6;
+    background-color: #8fc8e1;
     border: 1px dotted #bee7ee;
     border-radius: 4px;
     padding: 2px;
