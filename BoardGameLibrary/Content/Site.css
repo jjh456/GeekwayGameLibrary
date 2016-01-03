@@ -50,6 +50,10 @@ textarea {
     font-size: 1.1em;
 }
 
+.navbar .navbar-form input {
+    width: 20em;
+}
+
 body {
     background: url(/Images/GwayLibBgBlue.png), repeat;
 }
@@ -169,6 +173,10 @@ table th, .table-hover > tbody > tr:hover > th {
 
 .nav-pills.toggle-tabs li a {
     border-radius: 0;
+}
+
+.nav-pills.toggle-tabs li:not(.active):hover, .nav-pills.toggle-tabs li:not(.active) a:hover  {
+    background-color: #d3d3d3;
 }
 
 .nav-pills.toggle-tabs li:nth-child(1) {
