@@ -30,12 +30,9 @@ namespace BoardGameLibrary.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<BoardGameLibrary.Models.Game> Games { get; set; }
-
-        public System.Data.Entity.DbSet<BoardGameLibrary.Models.Copy> Copies { get; set; }
-
-        public System.Data.Entity.DbSet<BoardGameLibrary.Models.Attendee> Attendees { get; set; }
-
-        public System.Data.Entity.DbSet<BoardGameLibrary.Models.Checkout> Checkouts { get; set; }
+        public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Copy> Copies { get; set; }
+        public virtual DbSet<Attendee> Attendees { get; set; }
+        public virtual DbSet<Checkout> Checkouts { get; set; }
     }
 }

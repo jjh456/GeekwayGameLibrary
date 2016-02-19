@@ -22,6 +22,11 @@ namespace BoardGameLibrary.Controllers
             fileUploader = new FileUploader(_db);
         }
 
+        public AttendeesController(ApplicationDbContext dbContext)
+        {
+            _db = dbContext;
+        }
+
         // GET: Attendees
         public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
@@ -41,7 +46,7 @@ namespace BoardGameLibrary.Controllers
                 attendees = _db.Attendees.Where(a => a.Name.Contains(searchString) || a.BadgeID.Contains(searchString));
 
             var model = new AttendeeIndexViewModel();
-            var orderedAttendees = await attendees.OrderBy(a => a.Name).ToListAsync();
+            var orderedAttendees = attendees.OrderBy(a => a.Name).ToList();
             model.Attendees = orderedAttendees.ToPagedList(pageNumber, pageSize);
 
             return View(model);
