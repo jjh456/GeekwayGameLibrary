@@ -92,7 +92,7 @@
 <br />
 Page @(Model.Games.PageCount < Model.Games.PageNumber ? 0 : Model.Games.PageNumber) of @Model.Games.PageCount
 
-@Html.PagedListPager(Model.Games, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model.Games, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
 
 @section Scripts{
     <script src="~/Scripts/bootstrap-filestyle.min.js"></script>

@@ -32,7 +32,7 @@
         @using (Html.BeginForm("Index", "Attendees", FormMethod.Get, new { @class = "form-inline" }))
         {
             <div class="row">
-                @Html.TextBox("SearchString", null, new { @class = "form-control text-box col-md-1", placeholder = "Name or Badge ID" })
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control text-box col-md-1", placeholder = "Name or Badge ID" })
                 <input type="submit" value="Search" class="btn btn-primary col-md-3" />
             </div>
         }
@@ -81,7 +81,7 @@
 <br />
 Page @(Model.Attendees.PageCount < Model.Attendees.PageNumber ? 0 : Model.Attendees.PageNumber) of @Model.Attendees.PageCount
 
-@Html.PagedListPager(Model.Attendees, page => Url.Action("Index", new { page }))
+@Html.PagedListPager(Model.Attendees, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
 
 @section Scripts{
     <script src="~/Scripts/bootstrap-filestyle.min.js"></script>

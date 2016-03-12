@@ -30,7 +30,7 @@ namespace BoardGameLibrary.Views
                 searchString = currentFilter;
 
             ViewBag.CurrentFilter = searchString;
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = page ?? 1;
             ViewBag.Errors = TempData["ErrorList"];
 
