@@ -43,7 +43,7 @@ namespace BoardGameLibrary.Controllers
             IQueryable<Attendee> attendees = _db.Attendees;
 
             if (!string.IsNullOrWhiteSpace(searchString))
-                attendees = _db.Attendees.Where(a => a.Name.Contains(searchString) || a.BadgeID.Contains(searchString));
+                attendees = attendees.Where(a => a.Name.Contains(searchString) || a.BadgeID.Contains(searchString));
 
             var model = new AttendeeIndexViewModel();
             var orderedAttendees = attendees.OrderBy(a => a.Name).ToList();
