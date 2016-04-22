@@ -14,17 +14,20 @@ namespace BoardGameLibrary.Controllers
     public class AttendeesController : Controller
     {
         private ApplicationDbContext _db;
+        private AppSettings _appSettings;
         private FileUploader fileUploader;
 
         public AttendeesController()
         {
             _db = new ApplicationDbContext();
             fileUploader = new FileUploader(_db);
+            _appSettings = new AppSettings();
         }
 
-        public AttendeesController(ApplicationDbContext dbContext)
+        public AttendeesController(ApplicationDbContext dbContext, AppSettings appSettings)
         {
             _db = dbContext;
+            _appSettings = appSettings;
         }
 
         // GET: Attendees
@@ -36,7 +39,7 @@ namespace BoardGameLibrary.Controllers
                 searchString = currentFilter;
 
             ViewBag.CurrentFilter = searchString;
-            int pageSize = 15;
+            int pageSize = _appSettings.PageSize;
             int pageNumber = page ?? 1;
             ViewBag.Errors = TempData["ErrorList"];
 

@@ -6,12 +6,14 @@ using System.Net;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
 using PagedList;
+using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Controllers
 {
     public class CheckoutsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private AppSettings _appSettings = new AppSettings();
 
         // GET: Checkouts
         public async Task<ActionResult> Index(string currentFilter, string searchString, int? page, bool showCompleted = false)
@@ -25,7 +27,7 @@ namespace BoardGameLibrary.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            int pageSize = 20;
+            int pageSize = _appSettings.PageSize;
             int pageNumber = page ?? 1;
 
             var results = db.Checkouts.Select(c => c);

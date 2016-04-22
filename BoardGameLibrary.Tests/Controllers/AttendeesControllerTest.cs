@@ -7,6 +7,7 @@ using BoardGameLibrary.Tests.Helpers;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Tests.Controllers
 {
@@ -15,6 +16,7 @@ namespace BoardGameLibrary.Tests.Controllers
     {
         Mock<DbSet<Attendee>> mockAttendeesDbSet;
         ApplicationDbContext fakeDb = new ApplicationDbContext();
+        AppSettings appSettings = new AppSettings();
 
         string joseName = "Jose Vladivoskov";
         string klausName = "Klaus Gruber";
@@ -41,7 +43,7 @@ namespace BoardGameLibrary.Tests.Controllers
         [Test]
         public async Task IndexQueriesAttendees()
         {
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             var viewResult = (ViewResult)await controller.Index("", "", null);
             var modelResult = (AttendeeIndexViewModel)viewResult.Model;
@@ -53,7 +55,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task IndexAlphabetizesAttendeesByName()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = (ViewResult)await controller.Index("", "", null);
@@ -67,7 +69,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task IndexFiltersAttendeesByNameUsingSearchString()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = (ViewResult)await controller.Index("", "Jos", null);
@@ -81,7 +83,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task IndexFiltersAttendeesByBadgeIdUsingSearchString()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = (ViewResult)await controller.Index("", "1", null);
@@ -95,7 +97,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task DetailsReturnsHttpNotFound()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = await controller.Details(4);
@@ -107,7 +109,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task DetailsNullChecksId()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = (HttpStatusCodeResult)await controller.Details(null);
@@ -119,7 +121,7 @@ namespace BoardGameLibrary.Tests.Controllers
         public async Task DetailsReturnsMatchedAttendee()
         {
             // Arrange
-            var controller = new AttendeesController(fakeDb);
+            var controller = new AttendeesController(fakeDb, appSettings);
 
             // Act
             var viewResult = (ViewResult)await controller.Details(1);

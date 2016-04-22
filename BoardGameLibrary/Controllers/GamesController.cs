@@ -14,11 +14,13 @@ namespace BoardGameLibrary.Views
     {
         private ApplicationDbContext _db;
         private FileUploader fileUploader;
+        private AppSettings _appSettings;
 
         public GamesController()
         {
             _db = new ApplicationDbContext();
             fileUploader = new FileUploader(_db);
+            _appSettings = new AppSettings();
         }
 
         // GET: Games
@@ -30,7 +32,7 @@ namespace BoardGameLibrary.Views
                 searchString = currentFilter;
 
             ViewBag.CurrentFilter = searchString;
-            int pageSize = 20;
+            int pageSize = _appSettings.PageSize;
             int pageNumber = page ?? 1;
             ViewBag.Errors = TempData["ErrorList"];
 
