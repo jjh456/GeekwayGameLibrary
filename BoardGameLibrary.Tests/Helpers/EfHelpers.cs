@@ -18,5 +18,12 @@ namespace BoardGameLibrary.Tests.Helpers
 
             return dbSetMock;
         }
+
+        public static Mock<DbSet<T>> GetEmptyQueryableMockDbSet<T>() where T : class
+        {
+            var dbSetMock = new Mock<DbSet<T>>();
+
+            return dbSetMock;
+        }
     }
 }

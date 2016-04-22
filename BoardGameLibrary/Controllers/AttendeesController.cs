@@ -58,7 +58,7 @@ namespace BoardGameLibrary.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Attendee Attendee = await _db.Attendees.FindAsync(id);
+            Attendee Attendee = _db.Attendees.FirstOrDefault(a => a.ID == id.Value);
             if (Attendee == null)
                 return HttpNotFound();
 

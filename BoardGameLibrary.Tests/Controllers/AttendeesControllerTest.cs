@@ -23,11 +23,18 @@ namespace BoardGameLibrary.Tests.Controllers
         public void SetUp()
         {
             mockAttendeesDbSet = EfHelpers.GetQueryableMockDbSet(
-                new Attendee { Name = klausName, BadgeID = "22" },
-                new Attendee { Name = joseName, BadgeID = "111" },
-                new Attendee { Name = "Not who you are looking for", BadgeID = "0" }
+                new Attendee { Name = klausName, BadgeID = "22", ID = 1 },
+                new Attendee { Name = joseName, BadgeID = "111", ID = 2 },
+                new Attendee { Name = "Not who you are looking for", BadgeID = "0", ID = 3 }
             );
             
+            fakeDb.Attendees = mockAttendeesDbSet.Object;
+        }
+
+        public void SetUpEmptyAttendeesDb()
+        {
+            mockAttendeesDbSet = EfHelpers.GetEmptyQueryableMockDbSet<Attendee>();
+
             fakeDb.Attendees = mockAttendeesDbSet.Object;
         }
 
@@ -82,6 +89,43 @@ namespace BoardGameLibrary.Tests.Controllers
 
             Assert.That(modelResult.Attendees.Count, Is.EqualTo(1));
             Assert.That(modelResult.Attendees.Any(m => m.Name == joseName));
+        }
+
+        [Test]
+        public async Task DetailsReturnsHttpNotFound()
+        {
+            // Arrange
+            var controller = new AttendeesController(fakeDb);
+
+            // Act
+            var viewResult = await controller.Details(4);
+
+            Assert.That(viewResult.GetType, Is.EqualTo(typeof(HttpNotFoundResult)));
+        }
+
+        [Test]
+        public async Task DetailsNullChecksId()
+        {
+            // Arrange
+            var controller = new AttendeesController(fakeDb);
+
+            // Act
+            var viewResult = (HttpStatusCodeResult)await controller.Details(null);
+
+            Assert.AreEqual(viewResult.StatusCode, 400);
+        }
+
+        [Test]
+        public async Task DetailsReturnsMatchedAttendee()
+        {
+            // Arrange
+            var controller = new AttendeesController(fakeDb);
+
+            // Act
+            var viewResult = (ViewResult)await controller.Details(1);
+            var modelResult = (Attendee)viewResult.Model;
+
+            Assert.That(modelResult.ID, Is.EqualTo(1));
         }
     }
 }
