@@ -101,6 +101,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AttendeesControllerTest.cs" />
     <Compile Include="Helpers\EfHelpers.cs" />
+    <Compile Include="Models\CheckoutTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
