@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
 
 namespace BoardGameLibrary.Models
 {
@@ -10,12 +7,14 @@ namespace BoardGameLibrary.Models
         public CopyCheckOutViewModel CheckOut { get; set; }
         public CopyCheckInViewModel CheckIn { get; set; }
         public CopySearchViewModel CopySearch { get; set; }
+        public string ApplicationTitle { get; set; }
 
         public HomeModel()
         {
             CheckIn = new CopyCheckInViewModel();
             CheckOut = new CopyCheckOutViewModel();
             CopySearch = new CopySearchViewModel();
+            ApplicationTitle = ConfigurationManager.AppSettings["ApplicationTitle"];
         }
     }
 }
