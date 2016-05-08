@@ -187,3 +187,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/BoardGameLibrary/Web.PlayAndWin.config
+/BoardGameLibrary/Web.Library.config
+/BoardGameLibrary/Properties/PublishProfiles/GeekwayPlayAndWin.pubxml
+/BoardGameLibrary/Properties/PublishProfiles/GeekwayLibrary.pubxml
+/BoardGameLibrary/Properties/PublishProfiles
+/BoardGameLibrary
