@@ -25,7 +25,7 @@
                 }
             </div>
             <hr />
-            <button id="btn-clear-checkout-form" class="btn btn-default">Start Over</button>
+            <button id="btn-clear-checkout-form" type="reset" class="btn btn-default">Start Over</button>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.CopyLibraryID, htmlAttributes: new { @class = "control-label col-md-2" })
