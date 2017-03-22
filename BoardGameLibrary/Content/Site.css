@@ -21,6 +21,13 @@ hr {
     float: left;
 }
 
+.longest-checkouts-table {
+    font-size: 0.75em;
+}
+
+#btn-clear-checkout-form {
+    margin-bottom: 4px;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -239,6 +239,15 @@ namespace BoardGameLibrary.Controllers
             return View(checkedOutCopies);
         }
 
+        public ActionResult ListLongestCheckedOutCopies()
+        {
+            var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
+                                             .AsEnumerable()
+                                             .OrderByDescending(c => c.CurrentCheckout.Length);
+
+            return View("_LongestCheckedOutCopies", checkedOutCopies);
+        }
+
         private JsonResult GetModelStateErrorsJson()
         {
             var errorList = ModelState.ToDictionary(

@@ -4,9 +4,9 @@
     Layout = null;
 }
 
-<h2>Top 10 Longest Checkouts</h2>
+<h3>Top 10 Longest Checkouts</h3>
 
-<table class="table">
+<table class="table longest-checkouts-table">
     @foreach (var item in Model)
     {
         <tr>
@@ -17,7 +17,6 @@
                     timespan.Days, timespan.Hours, timespan.Minutes,
                     item.CurrentCheckout.Attendee.Name, item.CurrentCheckout.Attendee.BadgeID
                 )
-                @Html.DisplayFor(modelItem => item.LibraryID)
             </td>
         </tr>
     }
