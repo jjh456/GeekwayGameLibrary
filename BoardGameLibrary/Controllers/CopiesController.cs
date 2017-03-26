@@ -243,7 +243,8 @@ namespace BoardGameLibrary.Controllers
         {
             var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
-                                             .OrderByDescending(c => c.CurrentCheckout.Length);
+                                             .OrderByDescending(c => c.CurrentCheckout.Length)
+                                             .Take(10);
 
             return View("_LongestCheckedOutCopies", checkedOutCopies);
         }
