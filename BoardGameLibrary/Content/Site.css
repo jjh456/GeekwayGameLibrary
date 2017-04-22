@@ -11,6 +11,19 @@ hr {
     border-color: #a4c9d9;
 }
 
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-row .check-in-out-block {
+    width: 60%;
+}
+
+.flex-row .longest-checkouts-block {
+    width: 40%;
+}
+
 .bigcheckbox {
     width: 2em;
     height: 2em;

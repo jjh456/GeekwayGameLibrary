@@ -3,8 +3,8 @@
 <br /><br />
 <h3>@Model.ApplicationTitle <span class="label label-default">@DateTime.Now.Year</span></h3>
 
-<div class="row">
-    <div class="col-md-7 content-block">
+<div class="flex-row">
+    <div class="check-in-out-block content-block">
         <ul class="nav nav-pills toggle-tabs">
             <li class="active"><a data-toggle="tab" href="#checkout">Check Out</a></li>
             <li><a data-toggle="tab" href="#checkin">Check In</a></li>
@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 content-block">
+    <div class="longest-checkouts-block content-block">
         @{Html.RenderAction("ListLongestCheckedOutCopies", "Copies");}
     </div>
 </div>
