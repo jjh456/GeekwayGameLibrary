@@ -86,4 +86,10 @@
             });
         }
     });
+
+    $('a:contains(Check Out)').on('click', function () {
+        setTimeout(function () {
+            $('#check-out-form-wrapper #CopyLibraryID').focus();
+        }, 200)
+    });
 </script>
