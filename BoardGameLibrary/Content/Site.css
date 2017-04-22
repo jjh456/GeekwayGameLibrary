@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    counter-reset: item;
 }
 
 em {
@@ -24,6 +25,22 @@ hr {
     width: 40%;
 }
 
+.longest-checkouts-block li::before {
+    /*list-style-type: decimal;
+    list-style-position: inside;*/
+    counter-increment: item;
+    content: counter(item);
+    font-weight: bold;
+    color: dimgrey;
+    right: 10px;
+    position: relative;
+    font-size: 1.1em;
+}
+
+.longest-checkouts-block li {
+    text-align: left;
+}
+
 .bigcheckbox {
     width: 2em;
     height: 2em;
@@ -37,6 +54,8 @@ hr {
 .longest-checkouts-table {
     font-size: 0.75em;
 }
+
+
 
 #btn-clear-checkout-form {
     margin-bottom: 4px;

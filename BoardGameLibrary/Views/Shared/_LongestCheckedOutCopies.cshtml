@@ -6,7 +6,7 @@
 
 <h3>Top 10 Longest Checkouts</h3>
 
-<ul class="list-group longest-checkouts-table">
+<ol class="list-group longest-checkouts-table">
     @foreach (var item in Model)
     {
         
@@ -22,13 +22,13 @@
         }
         
         <li class="list-group-item @checkoutStatusClass">
-            <p class="list-group-item-text">
+            <span class="list-group-item-text">
                 @string.Format("{0} ({1}) - {2}d {3}h {4}m - {5} ({6})",
                     item.Game.Title, item.LibraryID,
                     timespan.Days, timespan.Hours, timespan.Minutes,
                     item.CurrentCheckout.Attendee.Name, item.CurrentCheckout.Attendee.BadgeID
                 )
-            </p>
+            </span>
         </li>
     }
-</ul>
+</ol>
