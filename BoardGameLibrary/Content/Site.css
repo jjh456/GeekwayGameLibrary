@@ -8,6 +8,10 @@ em {
     color: #428bca;
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: darkslategray;
+}
+
 hr {
     border-color: #a4c9d9;
 }
@@ -173,11 +177,15 @@ textarea {
         }
 
 body {
-    background: url(/Images/GwayLibBgBlue.png), repeat;
+    background: url(/Images/pexels-pieces-bg.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .body-content {
-    background-color: rgba(225, 235, 245, 0.82);
+    background-color: rgba(210, 214, 217, 0.82);
 }
 
 .label-default {
@@ -234,7 +242,6 @@ table th, .table-hover > tbody > tr:hover > th {
 
 .content-block {
     border: 1px solid #808080;
-    background-color: #d4e6f5;
     border-radius: 3px;
     margin: 0px 2px;
     padding: 5px;

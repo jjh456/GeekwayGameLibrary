@@ -1,8 +1,8 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckInViewModel
 
 <div id="check-in-form-wrapper">
-    @using (Ajax.BeginForm("CheckInCopy", "Copies", 
-        new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper", OnSuccess = "clearCheckInForm", OnFailure = "updateCheckInForm" }))
+    @using (Ajax.BeginForm("CheckInCopy", "Copies",
+                new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper", OnSuccess = "clearCheckInForm", OnFailure = "updateCheckInForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -19,7 +19,6 @@
                 }
             </div>
             <br />
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.CopyLibraryID, htmlAttributes: new { @class = "control-label col-md-2" })

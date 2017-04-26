@@ -256,6 +256,7 @@
     <Content Include="Images\GwayLibBgBlue.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\pexels-pieces-bg.jpeg" />
     <Content Include="Images\SmLibAppLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
