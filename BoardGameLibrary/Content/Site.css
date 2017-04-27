@@ -4,6 +4,22 @@
     counter-reset: item;
 }
 
+.list-group-item {
+    color: #2f2f2f;
+}
+
+.list-group-item-danger {
+    background-color: #e98888;
+}
+
+.list-group-item-warning {
+    background-color: #f2f36f;
+}
+
+.list-group-item-success {
+    background-color: #94dd8f;
+}
+
 em {
     color: #428bca;
 }
@@ -157,7 +173,7 @@ textarea {
     #copy-quick-search-results ul {
         list-style-type: none;
         padding-left: 0;
-        color: rgba(255, 255, 255, 0.82);
+        color: rgba(255, 255, 255, 0.7);
     }
 
         #copy-quick-search-results ul li {
