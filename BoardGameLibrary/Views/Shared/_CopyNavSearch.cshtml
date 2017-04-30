@@ -13,11 +13,13 @@
     var quickSearchResults = $('#copy-quick-search-results');
     quickSearchInput.keyup(function () {
         quickSearchResults.html('');
-        if ((quickSearchInput).val().length > 0) {
+        if ((quickSearchInput).val().length > 2) {
             $('form.navbar-form.navbar-right').submit();
             quickSearchResults.removeClass('hidden');
         }
-        
+        else {
+            quickSearchResults.addClass('hidden');
+        }
     });
 
     quickSearchInput.focusout(function () {
