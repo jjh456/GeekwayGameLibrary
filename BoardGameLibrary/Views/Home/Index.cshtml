@@ -20,7 +20,7 @@
             </div>
         </div>
     </div>
-    <div class="longest-checkouts-block content-block">
+    <div id="longest-checkouts" class="longest-checkouts-block content-block">
         @{Html.RenderAction("ListLongestCheckedOutCopies", "Copies");}
     </div>
 </div>
@@ -38,5 +38,7 @@
         $(".close-classic").click(function () {
             $(this).parent().parent().remove();
         });
+
+        setInterval("$('#longest-checkouts').load('@Url.Action("ListLongestCheckedOutCopies", "Copies")')", 2000);
     </script>
 }
