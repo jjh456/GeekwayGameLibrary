@@ -1,7 +1,10 @@
 ﻿@model BoardGameLibrary.Models.HomeModel
+@{ 
+    var yearBackgroundColor = Model.ApplicationYearBackgroundColor;
+}
 @Scripts.Render("~/bundles/geekway-library")
 
-<h3>@Model.ApplicationTitle <span class="label label-default">@DateTime.Now.Year</span></h3>
+<h3>@Model.ApplicationTitle <span class="label label-default" style="background-color: @yearBackgroundColor;">@DateTime.Now.Year</span></h3>
 
 <div class="flex-row">
     <div class="check-in-out-block content-block">
