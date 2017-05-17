@@ -59,6 +59,8 @@ hr {
 
 .longest-checkouts-block li {
     text-align: left;
+    padding: 6px 15px;
+    margin-bottom: 2px;
 }
 
 .bigcheckbox {
