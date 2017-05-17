@@ -7,7 +7,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <div class="col-md-12 notification-wrapper">
+            <div id="check-in-notification-wrapper"  class="col-md-12 notification-wrapper">
                 @if (Model.Messages.Any())
                 {
                     <div class="notification-panel fade-in fade-out-delayed">
@@ -38,6 +38,11 @@
 </div>
 
 <script type="text/javascript">
+    var notificationWrapper = $('#check-in-notification-wrapper');
+    setTimeout(function () {
+        notificationWrapper.html('');
+    }, 4100);
+
     $('a:contains(Check In)').on('click', function () {
         setTimeout(function () {
             $('#check-in-form-wrapper #CopyLibraryID').focus();

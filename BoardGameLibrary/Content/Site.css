@@ -309,10 +309,10 @@ table th, .table-hover > tbody > tr:hover > th {
 
 /* Fade In */
 .fade-in {
-    animation: fadeinout 7s;
-    -moz-animation: fadeinout 7s; /* Firefox */
-    -webkit-animation: fadeinout 7s; /* Safari and Chrome */
-    -o-animation: fadeinout 7s; /* Opera */
+    animation: fadeinout 4s;
+    -moz-animation: fadeinout 4s; /* Firefox */
+    -webkit-animation: fadeinout 4s; /* Safari and Chrome */
+    -o-animation: fadeinout 4s; /* Opera */
 }
 
 .notification-wrapper {
