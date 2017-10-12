@@ -39,6 +39,10 @@ function updateCheckOutForm(data) {
             });
         }
     });
+
+    $('a:contains(Check Out)').on('click', function () {
+        $('#check-out-form-wrapper #CopyLibraryID').focus();
+    });
 }
 
 function updateCheckInForm(data) {

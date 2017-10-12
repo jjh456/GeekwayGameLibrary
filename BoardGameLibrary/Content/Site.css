@@ -1,14 +1,66 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    counter-reset: item;
+}
+
+.list-group-item {
+    color: #2f2f2f;
+}
+
+.list-group-item-danger {
+    background-color: #ffafa3;
+}
+
+.list-group-item-warning {
+    background-color: #ffff99;
+}
+
+.list-group-item-success {
+    background-color: #bfe8b7;
 }
 
 em {
     color: #428bca;
 }
 
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: darkslategray;
+}
+
 hr {
     border-color: #a4c9d9;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-row .check-in-out-block {
+    width: 60%;
+}
+
+.flex-row .longest-checkouts-block {
+    width: 40%;
+}
+
+.longest-checkouts-block li::before {
+    /*list-style-type: decimal;
+    list-style-position: inside;*/
+    counter-increment: item;
+    content: counter(item);
+    font-weight: bold;
+    color: dimgrey;
+    right: 10px;
+    position: relative;
+    font-size: 1.1em;
+}
+
+.longest-checkouts-block li {
+    text-align: left;
+    padding: 6px 15px;
+    margin-bottom: 2px;
 }
 
 .bigcheckbox {
@@ -21,6 +73,15 @@ hr {
     float: left;
 }
 
+.longest-checkouts-table {
+    font-size: 0.75em;
+}
+
+
+
+#btn-clear-checkout-form {
+    margin-bottom: 4px;
+}
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -57,7 +118,6 @@ textarea {
     .navbar .navbar-form {
         position: relative;
         overflow: visible;
-        white-space: nowrap;
     }
 
         .navbar .navbar-form input {
@@ -104,9 +164,9 @@ textarea {
 
 #copy-quick-search-results {
     position: absolute;
-    left: 15px;
+    right: 1em;
     top: 53px;
-    width: 160%;
+    width: 55rem;
     background-color: rgba(74, 80, 82, 0.90);
     padding: 5px;
 }
@@ -114,8 +174,30 @@ textarea {
     #copy-quick-search-results ul {
         list-style-type: none;
         padding-left: 0;
-        color: rgba(255, 255, 255, 0.82);
+        color: rgba(255, 255, 255, 0.7);
+        overflow: auto;
+        max-height: 20em;
     }
+
+        /* Let's get this party started */
+        #copy-quick-search-results ul::-webkit-scrollbar {
+            width: 8px;
+            background-color: rgba(74, 80, 82, 0.90);
+        }
+
+        /* Track */
+        #copy-quick-search-results ul::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 3px;
+            background-color: #aaaaaa;
+        }
+
+        /* Handle */
+        #copy-quick-search-results ul::-webkit-scrollbar-thumb {
+            border-radius: 3px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #60798c;
+        }
 
         #copy-quick-search-results ul li {
             border: 1px solid;
@@ -130,19 +212,27 @@ textarea {
         }
 
         #copy-quick-search-results ul li.success {
-            background-color: #2e8f4d;
+            background-color: #91bf81;
         }
 
+        #copy-quick-search-results ul li.danger {
+            background-color: #dd6969;
+        }
+
+#SearchString {
+    width: 50em;
+}
+
 body {
-    background: url(/Images/GwayLibBgBlue.png), repeat;
+    background: url(/Images/pexels-pieces-bg.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .body-content {
-    background-color: rgba(225, 235, 245, 0.82);
-}
-
-.label-default {
-    background-color: #80c36c;
+    background-color: rgba(210, 214, 217, 0.82);
 }
 
 table tr {
@@ -195,7 +285,6 @@ table th, .table-hover > tbody > tr:hover > th {
 
 .content-block {
     border: 1px solid #808080;
-    background-color: #d4e6f5;
     border-radius: 3px;
     margin: 0px 2px;
     padding: 5px;
@@ -216,10 +305,10 @@ table th, .table-hover > tbody > tr:hover > th {
 
 /* Fade In */
 .fade-in {
-    animation: fadeinout 7s;
-    -moz-animation: fadeinout 7s; /* Firefox */
-    -webkit-animation: fadeinout 7s; /* Safari and Chrome */
-    -o-animation: fadeinout 7s; /* Opera */
+    animation: fadeinout 4s;
+    -moz-animation: fadeinout 4s; /* Firefox */
+    -webkit-animation: fadeinout 4s; /* Safari and Chrome */
+    -o-animation: fadeinout 4s; /* Opera */
 }
 
 .notification-wrapper {

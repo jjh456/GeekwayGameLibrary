@@ -13,7 +13,7 @@
         @Html.AntiForgeryToken()
 
         <div id="clear-checkout-form" class="form-horizontal">
-            <div class="col-md-12 notification-wrapper">
+            <div id="check-out-notification-wrapper" class="col-md-12 notification-wrapper">
                 @if (Model.Messages.Any())
                 {
                     <div class="notification-panel fade-in fade-out-delayed">
@@ -24,7 +24,7 @@
                     </div>
                 }
             </div>
-            <hr />
+            <br />
             <button id="btn-clear-checkout-form" type="reset" class="btn btn-default">Start Over</button>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -62,6 +62,11 @@
 </div>
 
 <script type="text/javascript">
+    var notificationWrapper = $('#check-out-notification-wrapper');
+    setTimeout(function () {
+        notificationWrapper.html('');
+    }, 4100);
+
     $('#btn-clear-checkout-form').click(function (e) {
         e.preventDefault();
 
@@ -84,5 +89,11 @@
                 $("#locatedGameTitle").text(response.title);
             });
         }
+    });
+
+    $('a:contains(Check Out)').on('click', function () {
+        setTimeout(function () {
+            $('#check-out-form-wrapper #CopyLibraryID').focus();
+        }, 200)
     });
 </script>

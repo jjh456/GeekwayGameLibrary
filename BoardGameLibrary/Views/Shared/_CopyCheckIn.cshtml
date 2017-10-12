@@ -1,13 +1,13 @@
 ﻿@model BoardGameLibrary.Models.CopyCheckInViewModel
 
 <div id="check-in-form-wrapper">
-    @using (Ajax.BeginForm("CheckInCopy", "Copies", 
-        new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper", OnSuccess = "clearCheckInForm", OnFailure = "updateCheckInForm" }))
+    @using (Ajax.BeginForm("CheckInCopy", "Copies",
+                new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "check-in-form-wrapper", OnSuccess = "clearCheckInForm", OnFailure = "updateCheckInForm" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <div class="col-md-12 notification-wrapper">
+            <div id="check-in-notification-wrapper"  class="col-md-12 notification-wrapper">
                 @if (Model.Messages.Any())
                 {
                     <div class="notification-panel fade-in fade-out-delayed">
@@ -18,7 +18,7 @@
                     </div>
                 }
             </div>
-            <hr />
+            <br />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.CopyLibraryID, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -36,3 +36,16 @@
         </div>
     }
 </div>
+
+<script type="text/javascript">
+    var notificationWrapper = $('#check-in-notification-wrapper');
+    setTimeout(function () {
+        notificationWrapper.html('');
+    }, 4100);
+
+    $('a:contains(Check In)').on('click', function () {
+        setTimeout(function () {
+            $('#check-in-form-wrapper #CopyLibraryID').focus();
+        }, 200)
+    });
+</script>

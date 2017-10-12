@@ -1,22 +1,30 @@
 ﻿@model BoardGameLibrary.Models.HomeModel
+@{ 
+    var yearBackgroundColor = Model.ApplicationYearBackgroundColor;
+}
 @Scripts.Render("~/bundles/geekway-library")
-<br /><br />
-<h3>@Model.ApplicationTitle <span class="label label-default">@DateTime.Now.Year</span></h3>
 
-<div class="row content-block">
-    <ul class="nav nav-pills toggle-tabs">
-        <li class="active"><a data-toggle="tab" href="#checkout">Check Out</a></li>
-        <li><a data-toggle="tab" href="#checkin">Check In</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="checkout" class="minheight tab-pane fade in active">
-            <a href="#" ></a>
-            @Html.Partial("_CopyCheckOut", Model.CheckOut)
+<h3>@Model.ApplicationTitle <span class="label label-default" style="background-color: @yearBackgroundColor;">@DateTime.Now.Year</span></h3>
+
+<div class="flex-row">
+    <div class="check-in-out-block content-block">
+        <ul class="nav nav-pills toggle-tabs">
+            <li class="active"><a data-toggle="tab" href="#checkout">Check Out</a></li>
+            <li><a data-toggle="tab" href="#checkin">Check In</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="checkout" class="minheight tab-pane fade in active">
+                <a href="#"></a>
+                @Html.Partial("_CopyCheckOut", Model.CheckOut)
+            </div>
+            <div id="checkin" class="minheight tab-pane fade in">
+                <a href="#"></a>
+                @Html.Partial("_CopyCheckIn", Model.CheckIn)
+            </div>
         </div>
-        <div id="checkin" class="minheight tab-pane fade in">
-            <a href="#" ></a>
-            @Html.Partial("_CopyCheckIn", Model.CheckIn)
-        </div>
+    </div>
+    <div id="longest-checkouts" class="longest-checkouts-block content-block">
+        @{Html.RenderAction("ListLongestCheckedOutCopies", "Copies");}
     </div>
 </div>
 <br />
@@ -33,6 +41,8 @@
         $(".close-classic").click(function () {
             $(this).parent().parent().remove();
         });
+
+        setInterval("$('#longest-checkouts').load('@Url.Action("ListLongestCheckedOutCopies", "Copies")')", 2000);
 
         $(".toggle-tabs li").click(function (e) {
             var eventt = e;
