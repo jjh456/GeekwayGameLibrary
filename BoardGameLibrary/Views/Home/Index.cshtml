@@ -33,5 +33,16 @@
         $(".close-classic").click(function () {
             $(this).parent().parent().remove();
         });
+
+        $(".toggle-tabs li").click(function (e) {
+            var eventt = e;
+            console.log($(e.target).text());
+            if ($(e.target).text() == "Check In") {
+                $("#checkin input[type=text]:eq(0)").focus();
+            }
+            else {
+                $("#checkout input[type=text]:eq(0)").focus();
+            }
+        });
     </script>
 }
