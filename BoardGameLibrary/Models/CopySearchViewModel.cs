@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BoardGameLibrary.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using FluentValidation.Attributes;
 

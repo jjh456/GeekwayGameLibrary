@@ -1,11 +1,10 @@
-﻿using FluentValidation;
+﻿using BoardGameLibrary.Data.Models;
+using FluentValidation;
 using FluentValidation.Attributes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace BoardGameLibrary.Models
 {

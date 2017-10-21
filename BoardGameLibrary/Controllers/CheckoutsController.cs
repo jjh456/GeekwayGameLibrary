@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
-using BoardGameLibrary.Models;
+using BoardGameLibrary.Data.Models;
 using PagedList;
 using BoardGameLibrary.Utility;
 

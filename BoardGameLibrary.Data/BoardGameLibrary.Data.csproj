@@ -1,0 +1,86 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.1.3" />
+    <PackageReference Include="FluentValidation" Version="7.2.0" />
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Migrations\201502270435550_InitialCreate.Designer.cs">
+      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201502270534138_Init.Designer.cs">
+      <DependentUpon>201502270534138_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201502270545077_Uno.Designer.cs">
+      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201502281858205_Dos.Designer.cs">
+      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201502281916289_Tres.Designer.cs">
+      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201502281927328_Quatro.Designer.cs">
+      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201503011951428_Cinco.Designer.cs">
+      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201503011956002_Seis.Designer.cs">
+      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201503040059234_Siete.Designer.cs">
+      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Migrations\201710211607147_Ocho.Designer.cs">
+      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Migrations\201502270435550_InitialCreate.resx">
+      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201502270534138_Init.resx">
+      <DependentUpon>201502270534138_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201502270545077_Uno.resx">
+      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201502281858205_Dos.resx">
+      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201502281916289_Tres.resx">
+      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201502281927328_Quatro.resx">
+      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201503011951428_Cinco.resx">
+      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201503011956002_Seis.resx">
+      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201503040059234_Siete.resx">
+      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Migrations\201710211607147_Ocho.resx">
+      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace BoardGameLibrary.Models
+namespace BoardGameLibrary.Data.Models
 {
     public class Play
     {

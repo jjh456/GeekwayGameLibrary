@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using BoardGameLibrary.Models;
+using BoardGameLibrary.Data.Models;
 using BoardGameLibrary.Utility;
 using PagedList;
 

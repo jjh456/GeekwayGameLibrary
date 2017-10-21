@@ -1,11 +1,10 @@
-namespace BoardGameLibrary.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using BoardGameLibrary.Data.Models;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<BoardGameLibrary.Models.ApplicationDbContext>
+namespace BoardGameLibrary.Data.Migrations
+{
+    using System.Data.Entity.Migrations;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -13,7 +12,7 @@ namespace BoardGameLibrary.Migrations
             ContextKey = "BoardGameLibrary.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(BoardGameLibrary.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

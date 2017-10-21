@@ -1,4 +1,4 @@
-﻿using BoardGameLibrary.Models;
+﻿using BoardGameLibrary.Data.Models;
 using CsvHelper;
 using System;
 using System.Collections.Generic;

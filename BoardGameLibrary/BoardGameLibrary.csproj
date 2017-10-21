@@ -54,11 +54,11 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="FluentValidation">
-      <HintPath>..\packages\FluentValidation.5.5.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.7.2.0\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="FluentValidation.Mvc">
-      <HintPath>..\packages\FluentValidation.MVC5.5.5.0.0\lib\Net45\FluentValidation.Mvc.dll</HintPath>
+    <Reference Include="FluentValidation.Mvc, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.Mvc5.7.2.0\lib\net45\FluentValidation.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
@@ -185,62 +185,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502270435550_InitialCreate.cs" />
-    <Compile Include="Migrations\201502270435550_InitialCreate.Designer.cs">
-      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502270534138_Init.cs" />
-    <Compile Include="Migrations\201502270534138_Init.Designer.cs">
-      <DependentUpon>201502270534138_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502270545077_Uno.cs" />
-    <Compile Include="Migrations\201502270545077_Uno.Designer.cs">
-      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281858205_Dos.cs" />
-    <Compile Include="Migrations\201502281858205_Dos.Designer.cs">
-      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281916289_Tres.cs" />
-    <Compile Include="Migrations\201502281916289_Tres.Designer.cs">
-      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281927328_Quatro.cs" />
-    <Compile Include="Migrations\201502281927328_Quatro.Designer.cs">
-      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503011951428_Cinco.cs" />
-    <Compile Include="Migrations\201503011951428_Cinco.Designer.cs">
-      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503011956002_Seis.cs" />
-    <Compile Include="Migrations\201503011956002_Seis.Designer.cs">
-      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503040059234_Siete.cs" />
-    <Compile Include="Migrations\201503040059234_Siete.Designer.cs">
-      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710211607147_Ocho.cs" />
-    <Compile Include="Migrations\201710211607147_Ocho.Designer.cs">
-      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AttendeeIndexViewModel.cs" />
-    <Compile Include="Models\Checkout.cs" />
-    <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\CopyCheckInViewModel.cs" />
     <Compile Include="Models\CopyCheckOutViewModel.cs" />
     <Compile Include="Models\CopySearchViewModel.cs" />
     <Compile Include="Models\ErrorList.cs" />
-    <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GameIndexViewModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Attendee.cs" />
-    <Compile Include="Models\Play.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\Rating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Controllers\GamesController.cs" />
@@ -342,36 +293,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502270435550_InitialCreate.resx">
-      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502270534138_Init.resx">
-      <DependentUpon>201502270534138_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502270545077_Uno.resx">
-      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281858205_Dos.resx">
-      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281916289_Tres.resx">
-      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281927328_Quatro.resx">
-      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503011951428_Cinco.resx">
-      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503011956002_Seis.resx">
-      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503040059234_Siete.resx">
-      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710211607147_Ocho.resx">
-      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\BoardGameLibrary.Data\BoardGameLibrary.Data.csproj">
+      <Project>{422847a0-6eef-4879-a2a6-ed7479778d59}</Project>
+      <Name>BoardGameLibrary.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

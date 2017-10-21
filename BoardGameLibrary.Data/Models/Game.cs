@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using FluentValidation;
 using FluentValidation.Attributes;
 
-namespace BoardGameLibrary.Models
+namespace BoardGameLibrary.Data.Models
 {
     [Validator(typeof(GameValidator))]
     public class Game

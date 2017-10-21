@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using BoardGameLibrary.Data.Models;
+using System.Web;
 using PagedList;
 
 namespace BoardGameLibrary.Models

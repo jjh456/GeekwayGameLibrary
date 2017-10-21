@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BoardGameLibrary.Models
+namespace BoardGameLibrary.Data.Models
 {
     public class Checkout
     {
