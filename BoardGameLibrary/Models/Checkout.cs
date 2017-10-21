@@ -29,5 +29,7 @@ namespace BoardGameLibrary.Models
 
         [InverseProperty("CheckoutHistory")]
         public virtual Copy Copy { get; set; }
+
+        public virtual Play Play { get; set; }
     }
 }

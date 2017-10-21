@@ -34,5 +34,8 @@ namespace BoardGameLibrary.Models
         public virtual DbSet<Copy> Copies { get; set; }
         public virtual DbSet<Attendee> Attendees { get; set; }
         public virtual DbSet<Checkout> Checkouts { get; set; }
+        public virtual DbSet<Play> Plays { get; set; }
+        public virtual DbSet<Player> Players { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
     }
 }

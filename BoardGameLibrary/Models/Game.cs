@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 using FluentValidation;
 using FluentValidation.Attributes;
 
@@ -12,14 +9,14 @@ namespace BoardGameLibrary.Models
     public class Game
     {
         public int ID { get; set; }
-
         public string Title { get; set; }
-
         public virtual IList<Copy> Copies { get; set; }
+        public virtual IList<Rating> Ratings { get; set; }
 
         public Game()
         {
             Copies = new List<Copy>();
+            Ratings = new List<Rating>();
         }
     }
 

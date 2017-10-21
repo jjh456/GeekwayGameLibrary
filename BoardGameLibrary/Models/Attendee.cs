@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace BoardGameLibrary.Models
 {
@@ -8,5 +9,6 @@ namespace BoardGameLibrary.Models
         public string Name { get; set; }
         [Display(Name = "Badge #")]
         public string BadgeID { get; set; }
+        public virtual IList<Checkout> Checkouts { get; set; }
     }
 }
