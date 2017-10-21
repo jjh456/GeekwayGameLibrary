@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BoardGameLibrary.Utility
+﻿namespace BoardGameLibrary.Utility
 {
     public class AttendeeImportRow
     {
