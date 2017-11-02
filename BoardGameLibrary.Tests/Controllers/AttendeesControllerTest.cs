@@ -1,4 +1,5 @@
 ﻿using BoardGameLibrary.Controllers;
+using BoardGameLibrary.Data.Models;
 using BoardGameLibrary.Models;
 using Moq;
 using NUnit.Framework;

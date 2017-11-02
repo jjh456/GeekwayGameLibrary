@@ -1,4 +1,4 @@
-﻿using BoardGameLibrary.Models;
+﻿using BoardGameLibrary.Data.Models;
 using NUnit.Framework;
 using System;
 
