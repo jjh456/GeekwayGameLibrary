@@ -15,7 +15,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         //GET api/checkouts
-        public IEnumerable<Checkout> Get() => _db.Checkouts;
+        public IEnumerable<Checkout> Get() => _db.Checkouts.ToList();
 
         //GET api/checkouts/5 || api/checkouts? key = value
         public IEnumerable<Checkout> Get(string attendeeBadgeId)
@@ -23,9 +23,9 @@ namespace BoardGameLibrary.Api.Controllers
             if (attendeeBadgeId == null)
                 return null;
 
-            var result = _db.Checkouts.Where(co => co.Attendee.BadgeID == attendeeBadgeId);
-
-            return result;
+            return _db.Checkouts
+                .Where(co => co.Attendee.BadgeID == attendeeBadgeId)
+                .ToList();
         }
 
         //POST api/checkouts
