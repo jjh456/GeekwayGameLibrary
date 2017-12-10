@@ -25,6 +25,7 @@ namespace BoardGameLibrary.Api.Controllers
 
             return _db.Checkouts
                 .Where(co => co.Attendee.BadgeID == attendeeBadgeId)
+                .Where(co => co.Play == null)
                 .ToList();
         }
     }
