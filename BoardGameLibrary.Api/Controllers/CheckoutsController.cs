@@ -27,20 +27,5 @@ namespace BoardGameLibrary.Api.Controllers
                 .Where(co => co.Attendee.BadgeID == attendeeBadgeId)
                 .ToList();
         }
-
-        //POST api/checkouts
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/checkouts/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/checkouts/5
-        public void Delete(int id)
-        {
-        }
     }
 }
