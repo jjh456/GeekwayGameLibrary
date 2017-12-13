@@ -18,13 +18,13 @@ namespace BoardGameLibrary.Api.Controllers
         public IEnumerable<Checkout> Get() => _db.Checkouts.ToList();
 
         //GET api/checkouts/5 || api/checkouts? key = value
-        public IEnumerable<Checkout> Get(string attendeeBadgeId)
+        public IEnumerable<Checkout> Get(string badgeId)
         {
-            if (attendeeBadgeId == null)
+            if (badgeId == null)
                 return null;
 
             return _db.Checkouts
-                .Where(co => co.Attendee.BadgeID == attendeeBadgeId)
+                .Where(co => co.Attendee.BadgeID == badgeId)
                 .Where(co => co.Play == null)
                 .ToList();
         }
