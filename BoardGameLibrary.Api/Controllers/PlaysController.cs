@@ -16,9 +16,20 @@ namespace BoardGameLibrary.Api.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Plays
-        public IQueryable<Play> GetPlays()
+        public GetPlaysResponse GetPlays()
         {
-            return db.Plays;
+            var playsResponse = new GetPlaysResponse();
+            playsResponse.Plays = db.Plays
+                .Select(play => new PlayResponseModel
+                {
+                    ID = play.ID,
+                    CheckoutID = play.Checkout.ID,
+                    GameID = play.Checkout.Copy.GameID,
+                    Players = play.Players.Select(player => new PlayerResponseModel { ID = player.ID, Name = player.Attendee.Name })
+                })
+                .ToList();
+
+            return playsResponse;
         }
 
         // GET: api/Plays/5
@@ -73,7 +84,7 @@ namespace BoardGameLibrary.Api.Controllers
         [ResponseType(typeof(Play))]
         public async Task<IHttpActionResult> PostPlay(PostPlayModel request)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || request == null)
             {
                 return BadRequest(ModelState);
             }
