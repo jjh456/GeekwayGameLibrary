@@ -3,6 +3,6 @@
     public class PostPlayerModel
     {
         public int Id { get; set; }
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
     }
 }
