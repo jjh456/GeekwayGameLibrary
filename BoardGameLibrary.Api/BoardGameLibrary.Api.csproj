@@ -197,12 +197,16 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Controllers\CheckoutsController.cs" />
+    <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlaysController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AttendeeApiModel.cs" />
+    <Compile Include="Models\CopyResponseModel.cs" />
+    <Compile Include="Models\GameResponseModel.cs" />
+    <Compile Include="Models\GetGamesResponseModel.cs" />
     <Compile Include="Models\GetPlaysResponse.cs" />
     <Compile Include="Models\GetAttendeesResponseModel.cs" />
     <Compile Include="Models\PlayerResponseModel.cs" />
