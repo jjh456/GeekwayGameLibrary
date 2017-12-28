@@ -17,7 +17,7 @@
     </p>
 }
 
-<table class="table">
+<table class="checkout-history-table table">
     <tr>
         <th>
             @Html.DisplayNameFor(m => m.First().Copy)
@@ -29,20 +29,36 @@
             @Html.DisplayNameFor(model => model.First().Length)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First().TimeOut)
+            <span class="glyphicon glyphicon-sort"></span>
+            @{
+                object timeOutLinkOptions = null;
+                if (((string)ViewBag.SortOrder).Contains("time_out"))
+                {
+                    timeOutLinkOptions = new { @class = "current-sort" };
+                }
+            }
+            @Html.ActionLink("Time Out", "Index", new { sortOrder = ViewBag.TimeOutSort }, timeOutLinkOptions)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.First().TimeIn)
         </th>
         <th>
-            Play Entered
+            <span class="glyphicon glyphicon-sort"></span>
+            @{
+                object playLinkOptions = null;
+                if (((string)ViewBag.SortOrder).Contains("play"))
+                {
+                    playLinkOptions = new { @class = "current-sort" };
+                }
+            }
+            @Html.ActionLink("Play Entered", "Index", new { sortOrder = ViewBag.PlaySort }, playLinkOptions)
         </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @string.Format("{0} (Copy #{1})", item.Copy.Game.Title, item.Copy.LibraryID)
+            @string.Format("{0} ({1})", item.Copy.Game.Title, item.Copy.LibraryID)
         </td>
         <td>
             @string.Format("{0} ({1})", item.Attendee.Name, item.Attendee.BadgeID)
@@ -69,4 +85,4 @@
 <br />
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter, sortOrder = ViewBag.SortOrder }))

@@ -8,14 +8,14 @@ namespace BoardGameLibrary.Data.Models
     {
         public int ID { get; set; }
         [Display(Name = "Checked out at")]
-        [DisplayFormat(DataFormatString = "{0:f}")]
+        [DisplayFormat(DataFormatString = "{0:ddd, MMM dd, h:mm tt}")]
         public DateTime TimeOut { get; set; }
         [Display(Name = "Checked in at")]
-        [DisplayFormat(DataFormatString = "{0:f}")]
+        [DisplayFormat(DataFormatString = "{0:ddd, MMM dd, h:mm tt}")]
         public DateTime? TimeIn { get; set; }
         [NotMapped]
-        [Display(Name = "Checkout length")]
-        [DisplayFormat(DataFormatString = "{0:%d} days {0:%h} hours {0:%m} minutes", ApplyFormatInEditMode = true)]
+        [Display(Name = "Length")]
+        [DisplayFormat(DataFormatString = "{0:%d}d {0:%h}h {0:%m}m", ApplyFormatInEditMode = true)]
         public TimeSpan Length { 
             get 
             {

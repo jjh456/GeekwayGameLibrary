@@ -223,6 +223,10 @@ textarea {
     width: 50em;
 }
 
+.checkout-history-table {
+    font-size: 13px;
+}
+
 body {
     background: url(/Images/pexels-pieces-bg.jpeg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -242,6 +246,14 @@ table tr {
 table th, .table-hover > tbody > tr:hover > th {
     background-color: #428bca;
     color: #ffffff;
+}
+
+table th a {
+    color: white;
+}
+
+table th .current-sort, table th .current-sort:visited {
+    color: #d1fcdf;
 }
 
 .table-striped > tbody > tr:nth-child(even) > td,

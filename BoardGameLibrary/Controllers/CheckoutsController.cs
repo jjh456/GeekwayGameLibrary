@@ -15,9 +15,17 @@ namespace BoardGameLibrary.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private AppSettings _appSettings = new AppSettings();
 
+        const string timeOutDescSort = "time_out_desc";
+        const string timeOutAscSort = "time_out_asc";
+        const string playDescSort = "play_desc";
+        const string playAscSort = "play_asc";
+
         // GET: Checkouts
-        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page, string sortOrder = timeOutDescSort)
         {
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.TimeOutSort = sortOrder == timeOutDescSort ? timeOutAscSort : timeOutDescSort;
+            ViewBag.PlaySort = sortOrder == playDescSort ? playAscSort : playDescSort;
             if (searchString != null)
                 page = 1;
             else
@@ -36,8 +44,23 @@ namespace BoardGameLibrary.Controllers
                                           || c.Attendee.Name.Contains(searchString)
                                           || c.Attendee.BadgeID.Contains(searchString));
 
-            return View(results.OrderBy(c => c.TimeOut)
-                               .ToPagedList(pageNumber, pageSize));
+            switch (sortOrder)
+            {
+                case playDescSort:
+                    results = results.OrderByDescending(c => c.Play == null);
+                    break;
+                case playAscSort:
+                    results = results.OrderBy(c => c.Play == null);
+                    break;
+                case timeOutDescSort:
+                    results = results.OrderByDescending(c => c.TimeOut);
+                    break;
+                default:
+                    results = results.OrderBy(c => c.TimeOut);
+                    break;
+            }
+
+            return View(results.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Checkouts/Details/5
