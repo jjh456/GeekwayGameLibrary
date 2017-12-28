@@ -35,6 +35,9 @@
         <th>
             @Html.DisplayNameFor(model => model.First().TimeIn)
         </th>
+        <th>
+            Play Entered
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -53,6 +56,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TimeIn)
+        </td>
+        <td>
+            @{
+                var playEntered = item.Play != null;
+            }
+            @playEntered
         </td>
     </tr>
 }
