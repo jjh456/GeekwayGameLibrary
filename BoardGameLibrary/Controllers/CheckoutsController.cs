@@ -16,10 +16,8 @@ namespace BoardGameLibrary.Controllers
         private AppSettings _appSettings = new AppSettings();
 
         // GET: Checkouts
-        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page, bool showCompleted = false)
+        public async Task<ActionResult> Index(string currentFilter, string searchString, int? page)
         {
-            ViewBag.ShowCompleted = showCompleted;
-
             if (searchString != null)
                 page = 1;
             else
@@ -37,9 +35,6 @@ namespace BoardGameLibrary.Controllers
                                           || c.Copy.LibraryID.ToString().Contains(searchString)
                                           || c.Attendee.Name.Contains(searchString)
                                           || c.Attendee.BadgeID.Contains(searchString));
-
-            if(!showCompleted)
-                results = results.Where(c => c.TimeIn == null);
 
             return View(results.OrderBy(c => c.TimeOut)
                                .ToPagedList(pageNumber, pageSize));

@@ -12,7 +12,6 @@
 {
     <p>
         @Html.TextBox("SearchString", null, new { @class = "form-control text-box", placeholder = "Title, library ID, or attendee name/ID" })
-        @Html.CheckBox("ShowCompleted", (bool)ViewBag.ShowCompleted) Show Returned Copies
         <input type="submit" value="Search" class="btn btn-primary" />
         
     </p>
