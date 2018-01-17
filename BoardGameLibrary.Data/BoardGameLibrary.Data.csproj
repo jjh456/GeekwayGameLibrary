@@ -56,45 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201502270435550_InitialCreate.cs" />
-    <Compile Include="Migrations\201502270435550_InitialCreate.Designer.cs">
-      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502270534138_Init.cs" />
-    <Compile Include="Migrations\201502270534138_Init.Designer.cs">
-      <DependentUpon>201502270534138_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502270545077_Uno.cs" />
-    <Compile Include="Migrations\201502270545077_Uno.Designer.cs">
-      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281858205_Dos.cs" />
-    <Compile Include="Migrations\201502281858205_Dos.Designer.cs">
-      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281916289_Tres.cs" />
-    <Compile Include="Migrations\201502281916289_Tres.Designer.cs">
-      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502281927328_Quatro.cs" />
-    <Compile Include="Migrations\201502281927328_Quatro.Designer.cs">
-      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503011951428_Cinco.cs" />
-    <Compile Include="Migrations\201503011951428_Cinco.Designer.cs">
-      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503011956002_Seis.cs" />
-    <Compile Include="Migrations\201503011956002_Seis.Designer.cs">
-      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503040059234_Siete.cs" />
-    <Compile Include="Migrations\201503040059234_Siete.Designer.cs">
-      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710211607147_Ocho.cs" />
-    <Compile Include="Migrations\201710211607147_Ocho.Designer.cs">
-      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
+    <Compile Include="Migrations\201801170444319_Un.cs" />
+    <Compile Include="Migrations\201801170444319_Un.Designer.cs">
+      <DependentUpon>201801170444319_Un.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendee.cs" />
@@ -108,40 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502270435550_InitialCreate.resx">
-      <DependentUpon>201502270435550_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502270534138_Init.resx">
-      <DependentUpon>201502270534138_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502270545077_Uno.resx">
-      <DependentUpon>201502270545077_Uno.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281858205_Dos.resx">
-      <DependentUpon>201502281858205_Dos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281916289_Tres.resx">
-      <DependentUpon>201502281916289_Tres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502281927328_Quatro.resx">
-      <DependentUpon>201502281927328_Quatro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503011951428_Cinco.resx">
-      <DependentUpon>201503011951428_Cinco.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503011956002_Seis.resx">
-      <DependentUpon>201503011956002_Seis.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503040059234_Siete.resx">
-      <DependentUpon>201503040059234_Siete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710211607147_Ocho.resx">
-      <DependentUpon>201710211607147_Ocho.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801170444319_Un.resx">
+      <DependentUpon>201801170444319_Un.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
