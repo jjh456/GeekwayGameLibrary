@@ -22,7 +22,6 @@ namespace BoardGameLibrary.Data.Models
 
     public class GameValidator : AbstractValidator<Game>
     {
-        ApplicationDbContext _db;
         public GameValidator()
         {
             RuleFor(x => x.Title).Cascade(CascadeMode.StopOnFirstFailure)
