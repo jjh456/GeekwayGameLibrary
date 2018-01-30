@@ -20,9 +20,9 @@ namespace BoardGameLibrary.Api.Controllers
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
 
             return Ok(new CopyResponseModel {
-                id = copy.LibraryID,
-                isCheckedOut = copy.CurrentCheckout != null,
-                gameTitle = copy.Game.Title
+                ID = copy.LibraryID,
+                IsCheckedOut = copy.CurrentCheckout != null,
+                Game = new GameResponseModel { ID = copy.Game.ID, Name = copy.Game.Title }
             });
         }
     }

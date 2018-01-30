@@ -22,15 +22,32 @@ namespace BoardGameLibrary.Api.Controllers
         public IEnumerable<Checkout> Get() => _db.Checkouts.ToList();
 
         //GET api/checkouts/5 || api/checkouts? key = value
-        public IEnumerable<Checkout> Get(string badgeId)
+        public IEnumerable<CheckoutResponseModel> Get(string badgeId)
         {
             if (badgeId == null)
                 return null;
 
             return _db.Checkouts
-                .Where(co => co.Attendee.BadgeID == badgeId)
-                .Where(co => co.Play == null)
-                .ToList();
+                .Where(co => co.Attendee.BadgeID == badgeId && co.Play == null)
+                .Select(co => new CheckoutResponseModel
+                {
+                    ID = co.ID,
+                    Copy = new CopyResponseModel
+                    {
+                        ID = co.Copy.ID,
+                        Game = new GameResponseModel
+                        {
+                            ID = co.Copy.Game.ID,
+                            Name = co.Copy.Game.Title
+                        }
+                    },
+                    Attendee = new AttendeeApiModel
+                    {
+                        ID = co.Attendee.ID,
+                        BadgeNumber = co.Attendee.BadgeID,
+                        Name = co.Attendee.Name
+                    }
+                });
         }
 
         //POST api/checkouts/

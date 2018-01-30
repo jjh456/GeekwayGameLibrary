@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 using BoardGameLibrary.Data.Models;
 using BoardGameLibrary.Api.Models;
 using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace BoardGameLibrary.Api.Controllers
 {
@@ -25,7 +26,7 @@ namespace BoardGameLibrary.Api.Controllers
                     ID = play.ID,
                     CheckoutID = play.Checkout.ID,
                     GameID = play.Checkout.Copy.GameID,
-                    Players = play.Players.Select(player => new PlayerResponseModel { ID = player.ID, Name = player.Attendee.Name })
+                    Players = play.Players.Select(player => new PlayerResponseModel { ID = player.Attendee.BadgeID, Name = player.Attendee.Name })
                 })
                 .ToList();
 
@@ -45,48 +46,13 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(play);
         }
 
-        // PUT: api/Plays/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutPlay(int id, Play play)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != play.ID)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(play).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PlayExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
         // POST: api/Plays
         [ResponseType(typeof(Play))]
-        public async Task<IHttpActionResult> PostPlay(PostPlayModel request)
+        public async Task<HttpStatusCodeResult> PostPlay(PostPlayModel request)
         {
             if (!ModelState.IsValid || request == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             var checkout = db.Checkouts.FirstOrDefault(c => c.ID == request.CheckoutId);
@@ -113,33 +79,10 @@ namespace BoardGameLibrary.Api.Controllers
             }
             catch (DbUpdateException)
             {
-                if (PlayExists(play.ID))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                throw;
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = play.ID }, play);
-        }
-
-        // DELETE: api/Plays/5
-        [ResponseType(typeof(Play))]
-        public async Task<IHttpActionResult> DeletePlay(int id)
-        {
-            Play play = await db.Plays.FindAsync(id);
-            if (play == null)
-            {
-                return NotFound();
-            }
-
-            db.Plays.Remove(play);
-            await db.SaveChangesAsync();
-
-            return Ok(play);
+            return new HttpStatusCodeResult(HttpStatusCode.Created);
         }
 
         protected override void Dispose(bool disposing)

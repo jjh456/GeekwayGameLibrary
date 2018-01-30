@@ -2,8 +2,8 @@
 {
     public class CopyResponseModel
     {
-        public int id { get; set; }
-        public bool isCheckedOut { get; set; }
-        public string gameTitle { get; set; }
+        public int ID { get; set; }
+        public bool IsCheckedOut { get; set; }
+        public GameResponseModel Game { get; set; }
     }
 }

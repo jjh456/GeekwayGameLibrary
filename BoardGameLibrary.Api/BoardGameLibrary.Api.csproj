@@ -211,6 +211,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AttendeeApiModel.cs" />
+    <Compile Include="Models\CheckoutResponseModel.cs" />
     <Compile Include="Models\CopyResponseModel.cs" />
     <Compile Include="Models\GameResponseModel.cs" />
     <Compile Include="Models\GetGamesResponseModel.cs" />
@@ -223,7 +224,7 @@
     <Compile Include="Models\PostPlayModel.cs" />
     <Compile Include="Models\ValidatedResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseWrappingHandler .cs" />
+    <Compile Include="ResponseWrappingHandler.cs" />
     <Compile Include="ValidateModelStateFilter.cs" />
     <Compile Include="Validators\PostCheckoutModelValidator.cs" />
   </ItemGroup>

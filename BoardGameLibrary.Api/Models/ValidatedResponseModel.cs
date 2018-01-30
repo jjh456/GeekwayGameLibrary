@@ -4,13 +4,13 @@ namespace BoardGameLibrary.Api.Models
 {
     public class ValidatedResponseModel
     {
-        public IList<string> errors { get; set; }
-        public object result { get; set; }
+        public IList<string> Errors { get; set; }
+        public object Result { get; set; }
 
         public ValidatedResponseModel(object result, List<string> errors)
         {
-            this.errors = errors;
-            this.result = result;
+            Errors = errors;
+            Result = result;
         }
     }
 }
