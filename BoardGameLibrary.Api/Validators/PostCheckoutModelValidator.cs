@@ -15,14 +15,10 @@ namespace BoardGameLibrary.Api.Validators
             var gameAlreadyCheckedOut = "";
             RuleFor(x => x.AttendeeBadgeNumber).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Badge ID required.")
-                .Must(BeAnExistingAttendee).WithMessage("Attendee not found.");
-
-            Unless(a => a.OverrideLimit, () => {
-                RuleFor(x => x.AttendeeBadgeNumber)
-                    .Cascade(CascadeMode.StopOnFirstFailure)
-                    .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
-                    .WithMessage(x => string.Format("Attendee has {0} checked out already.", gameAlreadyCheckedOut));
-            });
+                .Must(BeAnExistingAttendee).WithMessage("Attendee not found.")
+                .Unless(model => model.OverrideLimit)
+                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
+                .WithMessage(x => string.Format("Attendee has {0} checked out already.", gameAlreadyCheckedOut));
 
             RuleFor(x => x.LibraryId).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("You must provide a library ID.")
