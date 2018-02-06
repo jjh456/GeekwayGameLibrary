@@ -29,25 +29,7 @@ namespace BoardGameLibrary.Api.Controllers
 
             return _db.Checkouts
                 .Where(co => co.Attendee.BadgeID == badgeId && co.Play == null)
-                .Select(co => new CheckoutResponseModel
-                {
-                    ID = co.ID,
-                    Copy = new CopyResponseModel
-                    {
-                        ID = co.Copy.ID,
-                        Game = new GameResponseModel
-                        {
-                            ID = co.Copy.Game.ID,
-                            Name = co.Copy.Game.Title
-                        }
-                    },
-                    Attendee = new AttendeeApiModel
-                    {
-                        ID = co.Attendee.ID,
-                        BadgeNumber = co.Attendee.BadgeID,
-                        Name = co.Attendee.Name
-                    }
-                });
+                .Select(co => new CheckoutResponseModel(co));
         }
 
         //POST api/checkouts/
@@ -62,7 +44,7 @@ namespace BoardGameLibrary.Api.Controllers
             {
                 await _db.SaveChangesAsync();
 
-                return Ok(checkout.ID);
+                return Ok(new CheckoutResponseModel(checkout));
             }
             catch
             {
