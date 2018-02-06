@@ -51,5 +51,38 @@ namespace BoardGameLibrary.Api.Controllers
                 return BadRequest("Failed to save checkout");
             }
         }
+
+        //PUT api/checkouts/checkin
+        [HttpPut]
+        [Route("api/checkouts/checkin/{copyId}")]
+        public async Task<IHttpActionResult> CheckIn(int copyId)
+        {
+            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyId);
+            if (copy == null)
+            {
+                ModelState.AddModelError("id", "Failed to look up the copy");
+                return NotFound();
+            }
+            if (copy.CurrentCheckout == null)
+            {
+                ModelState.AddModelError("id", "That copy is not checked out");
+                return NotFound();
+            }
+            copy.CurrentCheckout.TimeIn = DateTime.Now;
+            copy.CheckoutHistory.Add(copy.CurrentCheckout);
+            var copyCheckingIn = copy.CurrentCheckout;
+            copy.CurrentCheckout = null;
+            try
+            {
+                await _db.SaveChangesAsync();
+
+                return Ok(new CheckoutResponseModel(copyCheckingIn));
+            }
+            catch
+            {
+                ModelState.AddModelError("id", "Failed to look up the checkout");
+                return BadRequest("Failed to save checkout");
+            }
+        }
     }
 }
