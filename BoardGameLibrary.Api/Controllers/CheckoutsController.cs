@@ -21,6 +21,20 @@ namespace BoardGameLibrary.Api.Controllers
         //GET api/checkouts
         public IEnumerable<Checkout> Get() => _db.Checkouts.ToList();
 
+        [HttpGet]
+        [Route("api/checkouts/checkedOutLongest")]
+        public async Task<IHttpActionResult> CheckedOutLongest(int numberOfResults = 10)
+        {
+            //var cop = _db.Copies.async
+            var checkouts = _db.Copies.Where(c => c.CurrentCheckout != null)
+                                             .AsEnumerable()
+                                             .OrderByDescending(c => c.CurrentCheckout.Length)
+                                             .Take(numberOfResults)
+                                             .Select(c => new CheckoutResponseModel(c.CurrentCheckout));
+
+            return Ok(checkouts);
+        }
+
         //GET api/checkouts/5 || api/checkouts? key = value
         public IEnumerable<CheckoutResponseModel> Get(string badgeId)
         {
