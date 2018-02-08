@@ -13,9 +13,9 @@ namespace BoardGameLibrary.Api.Models
         public CheckoutResponseModel(Checkout checkout)
         {
             ID = checkout.ID;
-            Copy = new CopyResponseModel
+            Copy = new CopyResponseModel(checkout.Copy)
             {
-                ID = checkout.Copy.ID,
+                ID = checkout.Copy.LibraryID,
                 Game = new GameResponseModel
                 {
                     ID = checkout.Copy.Game.ID,

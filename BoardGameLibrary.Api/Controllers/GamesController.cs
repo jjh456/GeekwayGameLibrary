@@ -24,7 +24,7 @@ namespace BoardGameLibrary.Api.Controllers
                 {
                     ID = game.ID,
                     Name = game.Title,
-                    Copies = game.Copies.Select(copy => new CopyResponseModel { ID = copy.ID })
+                    Copies = game.Copies.Select(copy => new CopyResponseModel(copy))
                 })
                 .ToList();
 
