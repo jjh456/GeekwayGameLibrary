@@ -18,13 +18,15 @@ namespace BoardGameLibrary.Api.Validators
                 .Must(BeAnExistingAttendee).WithMessage("Attendee not found.")
                 .Unless(model => model.OverrideLimit)
                 .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
-                .WithMessage(x => string.Format("Attendee has {0} checked out already.", gameAlreadyCheckedOut));
+                .WithMessage(x => 
+                    string.Format("Attendee has {0} checked out already. Check the override option if it's an expansion.", gameAlreadyCheckedOut)
+                );
 
             RuleFor(x => x.LibraryId).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("You must provide a library ID.")
                 .Must(BeANumber).WithMessage("Library IDs must be a number")
                 .Must(BeAnExistingGameCopy).WithMessage("Copy not found.")
-                .Must(NotBeCheckedOut).WithMessage("That copy is checked out already.  Check it in first.");
+                .Must(NotBeCheckedOut).WithMessage("That copy is checked out already. Check it in first.");
         }
 
         private bool BeANumber(string attendeeBadgeID)
