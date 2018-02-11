@@ -26,13 +26,13 @@ namespace BoardGameLibrary.Api.Controllers
         public async Task<IHttpActionResult> CheckedOutLongest(int numberOfResults = 10)
         {
             //var cop = _db.Copies.async
-            var checkouts = _db.Copies.Where(c => c.CurrentCheckout != null)
+            var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
                                              .OrderByDescending(c => c.CurrentCheckout.Length)
                                              .Take(numberOfResults)
                                              .Select(c => new CheckoutResponseModel(c.CurrentCheckout));
 
-            return Ok(checkouts);
+            return Ok(checkedOutCopies);
         }
 
         //GET api/checkouts/5 || api/checkouts? key = value
