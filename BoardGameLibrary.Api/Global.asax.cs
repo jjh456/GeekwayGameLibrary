@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using FluentValidation.WebApi;
+using Newtonsoft.Json.Serialization;
 
 namespace BoardGameLibrary.Api
 {
@@ -22,6 +23,7 @@ namespace BoardGameLibrary.Api
 
             
             var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             jsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
             FluentValidationModelValidatorProvider.Configure(GlobalConfiguration.Configuration);
