@@ -35,6 +35,20 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(checkedOutCopies);
         }
 
+        [HttpGet]
+        [Route("api/checkouts/recentCheckouts")]
+        public async Task<IHttpActionResult> RecentCheckouts(int numberOfResults = 5)
+        {
+            //var cop = _db.Copies.async
+            var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
+                                             .AsEnumerable()
+                                             .OrderBy(c => c.CurrentCheckout.Length)
+                                             .Take(numberOfResults)
+                                             .Select(c => new CheckoutResponseModel(c.CurrentCheckout));
+
+            return Ok(checkedOutCopies);
+        }
+
         //GET api/checkouts/5 || api/checkouts? key = value
         public IEnumerable<CheckoutResponseModel> Get(string badgeId)
         {
