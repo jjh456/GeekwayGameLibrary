@@ -12,18 +12,21 @@ namespace BoardGameLibrary.Api.Models
 
         public CheckoutResponseModel(){}
 
-        public CheckoutResponseModel(Checkout checkout)
+        public CheckoutResponseModel(Checkout checkout, bool includeCopy = true)
         {
             ID = checkout.ID;
-            Copy = new CopyResponseModel(checkout.Copy)
+            if (includeCopy)
             {
-                ID = checkout.Copy.LibraryID,
-                Game = new GameResponseModel
+                Copy = new CopyResponseModel(checkout.Copy)
                 {
-                    ID = checkout.Copy.Game.ID,
-                    Name = checkout.Copy.Game.Title
-                }
-            };
+                    ID = checkout.Copy.LibraryID,
+                    Game = new GameResponseModel
+                    {
+                        ID = checkout.Copy.Game.ID,
+                        Name = checkout.Copy.Game.Title
+                    }
+                };
+            }
             Attendee = new AttendeeApiModel
             {
                 ID = checkout.Attendee.ID,
