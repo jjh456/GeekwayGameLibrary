@@ -8,6 +8,8 @@ namespace BoardGameLibrary.Api.Models
         public int ID { get; set; }
         public CopyResponseModel Copy { get; set; }
         public AttendeeApiModel Attendee { get; set; }
+        public DateTime TimeOut { get; set; }
+        public DateTime? TimeIn { get; set; }
         public CheckoutLengthModel Length { get; set; }
 
         public CheckoutResponseModel(){}
@@ -33,6 +35,8 @@ namespace BoardGameLibrary.Api.Models
                 BadgeNumber = checkout.Attendee.BadgeID,
                 Name = checkout.Attendee.Name
             };
+            TimeOut = checkout.TimeOut;
+            TimeIn = checkout.TimeIn;
             Length = new CheckoutLengthModel {
                 Days = checkout.Length.Days,
                 Hours = checkout.Length.Hours,
