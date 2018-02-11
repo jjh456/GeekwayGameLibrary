@@ -1,4 +1,5 @@
 ﻿using BoardGameLibrary.Data.Models;
+using System;
 
 namespace BoardGameLibrary.Api.Models
 {
@@ -7,6 +8,7 @@ namespace BoardGameLibrary.Api.Models
         public int ID { get; set; }
         public CopyResponseModel Copy { get; set; }
         public AttendeeApiModel Attendee { get; set; }
+        public CheckoutLengthModel CheckoutLength { get; set; }
 
         public CheckoutResponseModel(){}
 
@@ -27,6 +29,12 @@ namespace BoardGameLibrary.Api.Models
                 ID = checkout.Attendee.ID,
                 BadgeNumber = checkout.Attendee.BadgeID,
                 Name = checkout.Attendee.Name
+            };
+            CheckoutLength = new CheckoutLengthModel {
+                Days = checkout.Length.Days,
+                Hours = checkout.Length.Hours,
+                Minutes = checkout.Length.Minutes,
+                Seconds = checkout.Length.Seconds
             };
         }
     }
