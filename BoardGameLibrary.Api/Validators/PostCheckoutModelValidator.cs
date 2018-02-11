@@ -16,8 +16,7 @@ namespace BoardGameLibrary.Api.Validators
             RuleFor(x => x.AttendeeBadgeNumber).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Badge ID required.")
                 .Must(BeAnExistingAttendee).WithMessage("Attendee not found.")
-                .Unless(model => model.OverrideLimit)
-                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut))
+                .Must(badgeId => NotAlreadyHaveACopyCheckedOut(badgeId, out gameAlreadyCheckedOut)).Unless(model => model.OverrideLimit)
                 .WithMessage(x => 
                     string.Format("Attendee has {0} checked out already. Check the override option if it's an expansion.", gameAlreadyCheckedOut)
                 );
