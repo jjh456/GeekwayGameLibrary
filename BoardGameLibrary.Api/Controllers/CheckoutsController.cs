@@ -57,6 +57,7 @@ namespace BoardGameLibrary.Api.Controllers
 
             return _db.Checkouts
                 .Where(co => co.Attendee.BadgeID == badgeId && co.Play == null)
+                .ToList()
                 .Select(co => new CheckoutResponseModel(co, true));
         }
 
