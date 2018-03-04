@@ -195,3 +195,6 @@ ModelManifest.xml
 /BoardGameLibrary/Properties/PublishProfiles
 /BoardGameLibrary
 /.vs/BoardGameLibrary/v15/Server/sqlite3
+/BoardGameLibrary.Api/Properties/PublishProfiles/Library - Prod.pubxml
+/BoardGameLibrary.Api/Web.PlayAndWin.config
+/BoardGameLibrary.Api/Web.Library.config
