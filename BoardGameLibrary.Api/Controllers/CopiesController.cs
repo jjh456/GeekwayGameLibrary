@@ -17,6 +17,7 @@ namespace BoardGameLibrary.Api.Controllers
             _db = new ApplicationDbContext();
         }
 
+        [ScopeAuthorize("read:copy-search")]
         public async Task<IHttpActionResult> Get(string query)
         {
             var copies = new List<Copy>();

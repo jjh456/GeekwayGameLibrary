@@ -23,6 +23,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         [HttpGet]
         [Route("api/checkouts/checkedOutLongest")]
+        [ScopeAuthorize("read:longest-checkouts")]
         public async Task<IHttpActionResult> CheckedOutLongest(int numberOfResults = 10)
         {
             //var cop = _db.Copies.async
@@ -37,9 +38,9 @@ namespace BoardGameLibrary.Api.Controllers
 
         [HttpGet]
         [Route("api/checkouts/recentCheckouts")]
+        [ScopeAuthorize("read:recent-checkouts")]
         public async Task<IHttpActionResult> RecentCheckouts(int numberOfResults = 5)
         {
-            //var cop = _db.Copies.async
             var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
                                              .OrderBy(c => c.CurrentCheckout.Length)
@@ -62,6 +63,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         //POST api/checkouts/
+        [ScopeAuthorize("create:checkout")]
         public async Task<IHttpActionResult> Post(PostCheckoutModel model)
         {
             var attendee = await _db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeNumber.Trim());
@@ -84,6 +86,7 @@ namespace BoardGameLibrary.Api.Controllers
         //PUT api/checkouts/checkin
         [HttpPut]
         [Route("api/checkouts/checkin/{copyId}")]
+        [ScopeAuthorize("update:checkout")]
         public async Task<IHttpActionResult> CheckIn(int copyId)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyId);

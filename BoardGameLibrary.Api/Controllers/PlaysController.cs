@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -17,6 +16,7 @@ namespace BoardGameLibrary.Api.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Plays
+        [ScopeAuthorize("read:plays")]
         public GetPlaysResponse GetPlays()
         {
             var playsResponse = new GetPlaysResponse();
@@ -35,6 +35,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         // GET: api/Plays/5
         [ResponseType(typeof(Play))]
+        [ScopeAuthorize("read:plays")]
         public async Task<IHttpActionResult> GetPlay(int id)
         {
             Play play = await db.Plays.FindAsync(id);

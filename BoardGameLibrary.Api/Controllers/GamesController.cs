@@ -16,6 +16,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         // GET: api/Games
+        [ScopeAuthorize("read:games")]
         public GetGamesResponseModel Get()
         {
             var gamesResponse = new GetGamesResponseModel();
