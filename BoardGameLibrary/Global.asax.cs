@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Security.Claims;
+using System.Web.Helpers;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using FluentValidation.Mvc;
@@ -14,6 +16,7 @@ namespace BoardGameLibrary
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             FluentValidationModelValidatorProvider.Configure();
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
         }
     }
 }

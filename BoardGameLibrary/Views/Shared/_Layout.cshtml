@@ -31,6 +31,16 @@
                     <li class="@(controllerName == "Checkouts" ? "active" : "")">@Html.ActionLink("Checkout History", "Index", "Checkouts")</li>
                 </ul>
                 @Html.Partial("_CopyNavSearch")
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    }
+                </ul>
             </div>
         </div>
     </div>

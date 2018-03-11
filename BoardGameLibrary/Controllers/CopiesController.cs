@@ -11,7 +11,7 @@ using BoardGameLibrary.Data.Models;
 
 namespace BoardGameLibrary.Controllers
 {
-    public class CopiesController : Controller
+    public class CopiesController : VolunteerController
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
 

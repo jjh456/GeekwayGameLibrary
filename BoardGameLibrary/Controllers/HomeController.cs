@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace BoardGameLibrary.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : VolunteerController
     {
         public ActionResult Index()
         {

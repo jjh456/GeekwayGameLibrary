@@ -9,9 +9,9 @@ using BoardGameLibrary.Utility;
 using System.Linq;
 using PagedList;
 
-namespace BoardGameLibrary.Views
+namespace BoardGameLibrary.Controllers
 {
-    public class GamesController : Controller
+    public class GamesController : VolunteerController
     {
         private ApplicationDbContext _db;
         private FileUploader fileUploader;

@@ -10,7 +10,7 @@ using BoardGameLibrary.Utility;
 
 namespace BoardGameLibrary.Controllers
 {
-    public class CheckoutsController : Controller
+    public class CheckoutsController : AdminController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private AppSettings _appSettings = new AppSettings();

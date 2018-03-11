@@ -37,17 +37,21 @@
             </div>
         }
     </div>
-    <div class="col-md-offset-1 col-md-5">
-        @using (Html.BeginForm("Import", "Attendees", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            <div class="form-inline">
-                <div class="form-group width50pct">
-                    <input type="file" class="filestyle" data-buttontext=" Browse..." data-buttonname="btn-primary" data-buttonbefore="true" name="File" />
+    
+    @if (User.IsInRole("AdminUI-Admin"))
+    {
+        <div class="col-md-offset-1 col-md-5">
+            @using (Html.BeginForm("Import", "Attendees", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-inline">
+                    <div class="form-group width50pct">
+                        <input type="file" class="filestyle" data-buttontext=" Browse..." data-buttonname="btn-primary" data-buttonbefore="true" name="File" />
+                    </div>
+                    <input type="submit" name="submit" class="btn btn-success" value="Import" />
                 </div>
-                <input type="submit" name="submit" class="btn btn-success" value="Import" />
-            </div>
-        }
-    </div>
+            }
+        </div>
+    }
 </div>
 <br />
 <table class="table">

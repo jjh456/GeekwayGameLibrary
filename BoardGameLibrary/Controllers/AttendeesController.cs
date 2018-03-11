@@ -12,7 +12,7 @@ using PagedList;
 
 namespace BoardGameLibrary.Controllers
 {
-    public class AttendeesController : Controller
+    public class AttendeesController : VolunteerController
     {
         private ApplicationDbContext _db;
         private AppSettings _appSettings;
