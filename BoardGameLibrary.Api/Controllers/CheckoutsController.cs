@@ -24,13 +24,12 @@ namespace BoardGameLibrary.Api.Controllers
         [HttpGet]
         [Route("api/checkouts/checkedOutLongest")]
         [ScopeAuthorize("read:longest-checkouts")]
-        public async Task<IHttpActionResult> CheckedOutLongest(int numberOfResults = 10)
+        public async Task<IHttpActionResult> CheckedOutLongest()
         {
             //var cop = _db.Copies.async
             var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
                                              .OrderByDescending(c => c.CurrentCheckout.Length)
-                                             .Take(numberOfResults)
                                              .Select(c => new CheckoutResponseModel(c.CurrentCheckout));
 
             return Ok(checkedOutCopies);
