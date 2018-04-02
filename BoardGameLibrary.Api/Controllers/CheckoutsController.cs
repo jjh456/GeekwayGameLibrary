@@ -66,8 +66,14 @@ namespace BoardGameLibrary.Api.Controllers
         public async Task<IHttpActionResult> Post(PostCheckoutModel model)
         {
             var attendee = await _db.Attendees.FirstOrDefaultAsync(a => a.BadgeID == model.AttendeeBadgeNumber.Trim());
+            if (attendee == null)
+                return BadRequest("Attendee not found");
+
             var copyLibraryId = Convert.ToInt32(model.LibraryId.Replace("*", ""));
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+            if (copy == null)
+                return BadRequest("Copy not found");
+
             var checkout = new Checkout { Attendee = attendee, Copy = copy, TimeOut = DateTime.Now };
             copy.CurrentCheckout = checkout;
             try
