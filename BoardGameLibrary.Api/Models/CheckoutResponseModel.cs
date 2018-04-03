@@ -35,8 +35,8 @@ namespace BoardGameLibrary.Api.Models
                 BadgeNumber = checkout.Attendee.BadgeID,
                 Name = checkout.Attendee.Name
             };
-            TimeOut = checkout.TimeOut;
-            TimeIn = checkout.TimeIn;
+            TimeOut = checkout.TimeOut.ToLocalTime();
+            TimeIn = checkout.TimeIn.HasValue ? checkout.TimeIn.Value.ToLocalTime() : checkout.TimeIn;
             Length = new CheckoutLengthModel {
                 Days = checkout.Length.Days,
                 Hours = checkout.Length.Hours,
