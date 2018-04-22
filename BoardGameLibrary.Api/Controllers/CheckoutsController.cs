@@ -52,11 +52,19 @@ namespace BoardGameLibrary.Api.Controllers
         //GET api/checkouts/5 || api/checkouts? key = value
         public IEnumerable<CheckoutResponseModel> Get(string badgeId)
         {
-            if (badgeId == null)
+            if (String.IsNullOrWhiteSpace(badgeId))
                 return null;
 
-            return _db.Checkouts
-                .Where(co => co.Attendee.BadgeID == badgeId && co.Play == null)
+            var matchingAttendees = _db.Attendees.Where(a => a.BadgeID.Contains(badgeId));
+            if (matchingAttendees.Count() > 1)
+            {
+                return null;
+            }
+
+            var attendee = matchingAttendees.FirstOrDefault();
+
+            return attendee.Checkouts
+                .Where(co => co.Play == null)
                 .ToList()
                 .Select(co => new CheckoutResponseModel(co, true));
         }
