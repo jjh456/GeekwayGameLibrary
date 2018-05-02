@@ -7,6 +7,7 @@ namespace BoardGameLibrary.Models
         public CopyCheckOutViewModel CheckOut { get; set; }
         public CopyCheckInViewModel CheckIn { get; set; }
         public CopySearchViewModel CopySearch { get; set; }
+        public StatisticsModel Statistics { get; set; }
         public string ApplicationTitle { get; set; }
         public string ApplicationYearBackgroundColor { get; set; }
 
@@ -15,6 +16,7 @@ namespace BoardGameLibrary.Models
             CheckIn = new CopyCheckInViewModel();
             CheckOut = new CopyCheckOutViewModel();
             CopySearch = new CopySearchViewModel();
+            Statistics = new StatisticsModel();
             ApplicationTitle = ConfigurationManager.AppSettings["ApplicationTitle"];
             ApplicationYearBackgroundColor = ConfigurationManager.AppSettings["InstanceColor"];
         }

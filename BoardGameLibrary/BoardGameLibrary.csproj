@@ -187,6 +187,7 @@
     <Compile Include="Models\CopyCheckInViewModel.cs" />
     <Compile Include="Models\CopyCheckOutViewModel.cs" />
     <Compile Include="Models\CopySearchViewModel.cs" />
+    <Compile Include="Models\StatisticsModel.cs" />
     <Compile Include="Models\ErrorList.cs" />
     <Compile Include="Models\GameIndexViewModel.cs" />
     <Compile Include="Models\HomeModel.cs" />
@@ -223,10 +224,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Properties\PublishProfiles\Library - Prod.pubxml" />
+    <None Include="Properties\PublishProfiles\Library - Admin.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <Content Include="Scripts\geekway-library.js" />
     <None Include="Properties\PublishProfiles\PlayAndWinLibrary.pubxml" />
+    <None Include="Properties\PublishProfiles\PnW - Admin.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />

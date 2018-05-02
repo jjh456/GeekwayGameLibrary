@@ -7,6 +7,9 @@
 <h3>@Model.ApplicationTitle <span class="label label-default" style="background-color: @yearBackgroundColor;">@DateTime.Now.Year</span></h3>
 
 <div class="flex-row">
+    <div content-block>
+        <h4>@Model.Statistics.NumberOfPlays / @Model.Statistics.NumberOfCheckouts checkouts have plays entered</h4>
+    </div>
     <div class="check-in-out-block content-block">
         <ul class="nav nav-pills toggle-tabs">
             <li class="active"><a data-toggle="tab" href="#checkout">Check Out</a></li>
@@ -23,11 +26,11 @@
             </div>
         </div>
     </div>
-    <div id="longest-checkouts" class="longest-checkouts-block content-block">
-        @{Html.RenderAction("ListLongestCheckedOutCopies", "Copies");}
-    </div>
+    @*<div id="longest-checkouts" class="longest-checkouts-block content-block">
+            @{Html.RenderAction("ListLongestCheckedOutCopies", "Copies");}
+        </div>*@
 </div>
-<br />
+@*<br />
 <div class="row">
     <div class="col-md-12">
         <div id="copy-search-wrapper" class="content-block">
@@ -35,7 +38,7 @@
             @Html.Partial("_CopySearch", Model.CopySearch)
         </div>
     </div>
-</div>
+</div>*@
 @section Scripts {
     <script type="text/javascript">
         $(".close-classic").click(function () {
