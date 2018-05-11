@@ -48,6 +48,26 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(play);
         }
 
+        // GET: api/Plays/5
+        [ResponseType(typeof(IList<Play>))]
+        [ScopeAuthorize("create:checkout")]
+        [System.Web.Http.Route("api/plays/GeneratePlays")]
+        [System.Web.Http.HttpPost]
+        public IHttpActionResult GeneratePlayData([FromUri] int numberOfPlays)
+        {
+            var generator = new PlayGenerator(db);
+            try
+            {
+                var plays = generator.GeneratePlays(numberOfPlays);
+
+                return Ok(string.Format("{0} Plays generated successfully", plays.Count()));
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+        }
+
         // POST: api/Plays
         [ResponseType(typeof(Play))]
         public async Task<HttpStatusCodeResult> PostPlay(PostPlayModel request)

@@ -269,6 +269,7 @@
     <Compile Include="Controllers\CopiesController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlayGenerator.cs" />
     <Compile Include="Controllers\PlaysController.cs" />
     <Compile Include="Controllers\ScopeAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -337,9 +338,10 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Properties\PublishProfiles\Library - Prod.pubxml" />
+    <None Include="Properties\PublishProfiles\Library - API.pubxml" />
     <None Include="Properties\PublishProfiles\LocalApi.pubxml" />
     <None Include="Properties\PublishProfiles\PlayAndWinApi.pubxml" />
+    <None Include="Properties\PublishProfiles\PnW - API.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
