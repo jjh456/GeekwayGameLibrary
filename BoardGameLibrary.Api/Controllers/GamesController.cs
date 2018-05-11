@@ -1,5 +1,6 @@
 ﻿using BoardGameLibrary.Api.Models;
 using BoardGameLibrary.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,17 +20,25 @@ namespace BoardGameLibrary.Api.Controllers
         [ScopeAuthorize("read:games")]
         public GetGamesResponseModel Get()
         {
-            var gamesResponse = new GetGamesResponseModel();
-            gamesResponse.Games = db.Games
-                .Select(game => new GameResponseModel
-                {
-                    ID = game.ID,
-                    Name = game.Title,
-                    Copies = game.Copies.Select(copy => new CopyResponseModel(copy))
-                })
-                .ToList();
+            try
+            {
+                var gamesResponse = new GetGamesResponseModel();
+                gamesResponse.Games = db.Games.ToList()
+                    .Select(game => new GameResponseModel
+                    {
+                        ID = game.ID,
+                        Name = game.Title,
+                        Copies = game.Copies.Select(copy => new CopyResponseModel(copy))
+                    })
+                    .ToList();
 
-            return gamesResponse;
+                return gamesResponse;
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("api", e.Message);
+                throw;
+            }
         }
     }
 }
