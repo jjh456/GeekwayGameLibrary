@@ -22,6 +22,7 @@ namespace BoardGameLibrary.Api
 
             // Web API routes
             config.MapHttpAttributeRoutes();
+            //config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
