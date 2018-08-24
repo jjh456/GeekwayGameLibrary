@@ -49,24 +49,25 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         // GET: api/Plays/5
-        [ResponseType(typeof(IList<Play>))]
-        [ScopeAuthorize("create:checkout")]
-        [System.Web.Http.Route("api/plays/GeneratePlays")]
-        [System.Web.Http.HttpPost]
-        public IHttpActionResult GeneratePlayData([FromUri] int numberOfPlays)
-        {
-            var generator = new PlayGenerator(db);
-            try
-            {
-                var plays = generator.GeneratePlays(numberOfPlays);
+        //[ResponseType(typeof(IList<Play>))]
+        //[ScopeAuthorize("create:checkout")]
+        //[System.Web.Http.Route("api/plays/GeneratePlays")]
+        //[System.Web.Http.HttpPost]
+        //public IHttpActionResult GeneratePlayData([FromUri] int numberOfPlays)
+        //{
+        //    var generator = new PlayGenerator(db);
+        //    try
+        //    {
+        //        var plays = generator.GeneratePlays(numberOfPlays);
+        //        var numberOfPlaysGenerated = plays.Count;
 
-                return Ok(string.Format("{0} Plays generated successfully", plays.Count()));
-            }
-            catch
-            {
-                return InternalServerError();
-            }
-        }
+        //        return Ok(string.Format("{0} Plays generated successfully", numberOfPlaysGenerated));
+        //    }
+        //    catch(Exception e)
+        //    {
+        //        return InternalServerError(e);
+        //    }
+        //}
 
         // POST: api/Plays
         [ResponseType(typeof(Play))]

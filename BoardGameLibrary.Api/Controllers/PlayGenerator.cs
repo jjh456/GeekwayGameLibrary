@@ -52,10 +52,10 @@ namespace BoardGameLibrary.Api.Controllers
         {
             Attendee attendee = GetRandomAttendee();
 
-            var copyId = random.Next(1, allCopies.Count);
-            var copy = allCopies.FirstOrDefault(c => c.ID == copyId);
+            var copyIndex = random.Next(0, allCopies.Count - 1);
+            var copy = allCopies.ElementAtOrDefault(copyIndex);
 
-            var checkout = new Checkout { Attendee = attendee, Copy = copy, TimeOut = DateTime.Now };
+            var checkout = new Checkout { Attendee = attendee, Copy = copy, TimeOut = DateTime.Now, TimeIn = DateTime.Now.AddSeconds(10) };
 
             return checkout;
         }
@@ -72,8 +72,8 @@ namespace BoardGameLibrary.Api.Controllers
 
         private Attendee GetRandomAttendee()
         {
-            var attendeeId = random.Next(1, allAttendees.Count);
-            var attendee = allAttendees.FirstOrDefault(a => a.ID == attendeeId);
+            var index = random.Next(0, allAttendees.Count - 1);
+            var attendee = allAttendees.ElementAtOrDefault(index);
             return attendee;
         }
     }
