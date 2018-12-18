@@ -198,5 +198,4 @@ ModelManifest.xml
 /BoardGameLibrary.Api/Properties/PublishProfiles/Library - Prod.pubxml
 /BoardGameLibrary.Api/Web.PlayAndWin.config
 /BoardGameLibrary.Api/Web.Library.config
-/BoardGameLibrary.Api/Properties/PublishProfiles/PnW - API.pubxml
-/BoardGameLibrary.Api/Properties/PublishProfiles/Library - API.pubxml
+*.pubxml
