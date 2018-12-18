@@ -27,7 +27,11 @@ namespace BoardGameLibrary.Api.Controllers
                     CheckoutID = play.Checkout.ID,
                     GameID = play.Checkout.Copy.GameID,
                     GameName = play.Checkout.Copy.Game.Title,
-                    Players = play.Players.Select(player => new PlayerResponseModel { ID = player.Attendee.BadgeID, Name = player.Attendee.Name })
+                    Players = play.Players.Select(player => new PlayerResponseModel {
+                        ID = player.Attendee.BadgeID,
+                        Name = player.Attendee.Name,
+                        WantsToWin = player.WantsToWin
+                    })
                 })
                 .ToList();
 
@@ -88,7 +92,7 @@ namespace BoardGameLibrary.Api.Controllers
                 var attendee = db.Attendees.FirstOrDefault(a => a.ID == requestPlayer.Id);
                 var rating = new Rating { Value = requestPlayer.Rating };
                 game.Ratings.Add(rating);
-                players.Add(new Player { Attendee = attendee, Rating = rating, Play = play });
+                players.Add(new Player { Attendee = attendee, Rating = rating, Play = play, WantsToWin = requestPlayer.WantsToWin });
             }
             play.Players = players;
 
