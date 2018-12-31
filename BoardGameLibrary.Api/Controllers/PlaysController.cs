@@ -27,6 +27,7 @@ namespace BoardGameLibrary.Api.Controllers
                     CheckoutID = play.Checkout.ID,
                     GameID = play.Checkout.Copy.GameID,
                     GameName = play.Checkout.Copy.Game.Title,
+                    Checkout = new CheckoutResponseModel(play.Checkout, false),
                     Players = play.Players.Select(player => new PlayerResponseModel {
                         ID = player.Attendee.BadgeID,
                         Name = player.Attendee.Name,
