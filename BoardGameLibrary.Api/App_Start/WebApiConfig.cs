@@ -12,6 +12,7 @@ namespace BoardGameLibrary.Api
             HttpConfiguration config = new HttpConfiguration();
             config.MessageHandlers.Add(new ResponseWrappingHandler());
             config.Filters.Add(new ValidateModelStateFilter());
+            config.Filters.Add(new LogExceptionFilterAttribute());
             FluentValidationModelValidatorProvider.Configure(config);
             var jsonFormatter = config.Formatters.JsonFormatter;
             jsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
