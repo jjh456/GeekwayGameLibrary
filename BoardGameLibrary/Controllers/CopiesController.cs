@@ -63,6 +63,10 @@ namespace BoardGameLibrary.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Copy copy)
         {
+            var preExistingCopy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copy.LibraryID);
+            if (preExistingCopy != null)
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+
             var game = await _db.Games.FindAsync(copy.GameID);
             game.Copies.Add(copy);
             if (ModelState.IsValid)

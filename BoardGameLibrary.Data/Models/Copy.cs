@@ -36,8 +36,7 @@ namespace BoardGameLibrary.Data.Models
         public CopyValidator()
         {
             RuleFor(x => x.LibraryID).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("Library ID is required.")
-                .Must(BeUnique).WithMessage("A copy with that library ID exists already.");
+                .NotEmpty().WithMessage("Library ID is required.");
 
             RuleFor(x => x.GameID).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Must provide a game ID.");
