@@ -116,9 +116,8 @@ namespace BoardGameLibrary.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             Copy copy = await _db.Copies.FindAsync(id);
             if (copy == null)
                 return HttpNotFound();
@@ -269,11 +268,16 @@ namespace BoardGameLibrary.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Copy copy = await _db.Copies.FindAsync(id);
-            var cgameID = copy.GameID;
+            var checkouts = copy.CheckoutHistory;
+
+            _db.Checkouts.RemoveRange(copy.CheckoutHistory);
+            await _db.SaveChangesAsync();
+
+            var gameID = copy.GameID;
             _db.Copies.Remove(copy);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Index", new { gameID = cgameID });
+            return RedirectToAction("Index", new { gameID });
         }
 
         protected override void Dispose(bool disposing)
