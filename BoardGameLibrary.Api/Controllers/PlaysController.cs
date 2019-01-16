@@ -20,6 +20,7 @@ namespace BoardGameLibrary.Api.Controllers
         public GetPlaysResponse GetPlays()
         {
             var playsResponse = new GetPlaysResponse();
+            var checkouts = db.Plays.Select(p => p.Checkout);
             playsResponse.Plays = db.Plays
                 .Select(play => new PlayResponseModel
                 {
@@ -27,8 +28,13 @@ namespace BoardGameLibrary.Api.Controllers
                     CheckoutID = play.Checkout.ID,
                     GameID = play.Checkout.Copy.GameID,
                     GameName = play.Checkout.Copy.Game.Title,
-                    Checkout = new CheckoutResponseModel(play.Checkout, false),
-                    Players = play.Players.Select(player => new PlayerResponseModel {
+                    Checkout = new PlayResponseCheckoutModel {
+                        ID = play.Checkout.ID,
+                        TimeIn = play.Checkout.TimeIn,
+                        TimeOut = play.Checkout.TimeOut
+                    },
+                    Players = play.Players.Select(player => new PlayerResponseModel
+                    {
                         ID = player.Attendee.BadgeID,
                         Name = player.Attendee.Name,
                         WantsToWin = player.WantsToWin
