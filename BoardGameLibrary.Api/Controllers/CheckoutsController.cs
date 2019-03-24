@@ -54,8 +54,8 @@ namespace BoardGameLibrary.Api.Controllers
         {
             if (String.IsNullOrWhiteSpace(badgeId))
                 return null;
-
-            var matchingAttendees = _db.Attendees.Where(a => a.BadgeID.Contains(badgeId));
+            
+            var matchingAttendees = _db.Attendees.Where(a => a.BadgeID.Equals(badgeId));
             if (matchingAttendees.Count() > 1)
             {
                 return null;
