@@ -30,6 +30,7 @@ namespace BoardGameLibrary.Data.Models
             return new ApplicationDbContext();
         }
 
+        public virtual DbSet<GameCollection> GameCollections { get; set; }
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Copy> Copies { get; set; }
         public virtual DbSet<Attendee> Attendees { get; set; }

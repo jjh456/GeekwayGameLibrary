@@ -82,11 +82,16 @@
     <Compile Include="Migrations\201812180113321_Deux.Designer.cs">
       <DependentUpon>201812180113321_Deux.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903242139538_Trois.cs" />
+    <Compile Include="Migrations\201903242139538_Trois.Designer.cs">
+      <DependentUpon>201903242139538_Trois.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendee.cs" />
     <Compile Include="Models\Checkout.cs" />
     <Compile Include="Models\Copy.cs" />
     <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GameCollection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Play.cs" />
     <Compile Include="Models\Player.cs" />
@@ -103,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812180113321_Deux.resx">
       <DependentUpon>201812180113321_Deux.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903242139538_Trois.resx">
+      <DependentUpon>201903242139538_Trois.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
