@@ -52,6 +52,10 @@ namespace BoardGameLibrary.Api
                             modelStateErrors.Add(modelStateValues.ElementAt(i));
                         }
                     }
+                    if (error.Count > 0)
+                    {
+                        modelStateErrors.AddRange(error.Select(e => e.Value.ToString()));
+                    }
                 }
             }
 
