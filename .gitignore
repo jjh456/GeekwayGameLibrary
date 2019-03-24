@@ -199,3 +199,4 @@ ModelManifest.xml
 /BoardGameLibrary.Api/Web.PlayAndWin.config
 /BoardGameLibrary.Api/Web.Library.config
 *.pubxml
+/BoardGameLibrary.Api/nlog.txt
