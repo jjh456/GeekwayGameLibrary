@@ -12,13 +12,13 @@ namespace BoardGameLibrary.Data.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String()
+                        Name = c.String(),
                     })
                 .PrimaryKey(t => t.ID);
             
-            AddColumn("dbo.Games", "GameCollectionID", c => c.Int(nullable: true));
+            AddColumn("dbo.Games", "GameCollectionID", c => c.Int());
             CreateIndex("dbo.Games", "GameCollectionID");
-            AddForeignKey("dbo.Games", "GameCollectionID", "dbo.GameCollections", "ID", cascadeDelete: true);
+            AddForeignKey("dbo.Games", "GameCollectionID", "dbo.GameCollections", "ID");
         }
         
         public override void Down()

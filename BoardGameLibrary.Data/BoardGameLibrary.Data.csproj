@@ -7,8 +7,8 @@
     <ProjectGuid>{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BoardGameLibrary.Api.Data</RootNamespace>
-    <AssemblyName>BoardGameLibrary.Api.Data</AssemblyName>
+    <RootNamespace>BoardGameLibrary.Data</RootNamespace>
+    <AssemblyName>BoardGameLibrary.Data</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -82,9 +82,9 @@
     <Compile Include="Migrations\201812180113321_Deux.Designer.cs">
       <DependentUpon>201812180113321_Deux.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201903242139538_Trois.cs" />
-    <Compile Include="Migrations\201903242139538_Trois.Designer.cs">
-      <DependentUpon>201903242139538_Trois.cs</DependentUpon>
+    <Compile Include="Migrations\201903250143149_Trois.cs" />
+    <Compile Include="Migrations\201903250143149_Trois.Designer.cs">
+      <DependentUpon>201903250143149_Trois.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendee.cs" />
@@ -109,8 +109,8 @@
     <EmbeddedResource Include="Migrations\201812180113321_Deux.resx">
       <DependentUpon>201812180113321_Deux.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903242139538_Trois.resx">
-      <DependentUpon>201903242139538_Trois.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903250143149_Trois.resx">
+      <DependentUpon>201903250143149_Trois.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,7 +13,7 @@ namespace BoardGameLibrary.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201903242139538_Trois"; }
+            get { return "201903250143149_Trois"; }
         }
         
         string IMigrationMetadata.Source
