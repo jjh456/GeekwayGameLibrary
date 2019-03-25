@@ -282,6 +282,7 @@
     <Compile Include="Controllers\AttendeesController.cs" />
     <Compile Include="Controllers\CheckoutsController.cs" />
     <Compile Include="Controllers\CopiesController.cs" />
+    <Compile Include="Controllers\GameCollectionsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayGenerator.cs" />
