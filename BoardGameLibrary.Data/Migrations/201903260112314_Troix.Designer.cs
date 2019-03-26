@@ -7,13 +7,13 @@ namespace BoardGameLibrary.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class Trois : IMigrationMetadata
+    public sealed partial class Troix : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Trois));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Troix));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903250143149_Trois"; }
+            get { return "201903260112314_Troix"; }
         }
         
         string IMigrationMetadata.Source

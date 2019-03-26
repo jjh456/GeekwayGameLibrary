@@ -10,10 +10,7 @@ namespace BoardGameLibrary.Data.Models
     public class Game
     {
         public int ID { get; set; }
-        public int? GameCollectionID { get; set; }
         public string Title { get; set; }
-        [ForeignKey("GameCollectionID")]
-        public virtual GameCollection GameCollection { get; set; }
         public virtual IList<Copy> Copies { get; set; }
         public virtual IList<Rating> Ratings { get; set; }
 
