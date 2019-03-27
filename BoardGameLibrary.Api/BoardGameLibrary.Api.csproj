@@ -296,7 +296,9 @@
     <Compile Include="Models\AttendeeApiModel.cs" />
     <Compile Include="Models\CheckoutLengthModel.cs" />
     <Compile Include="Models\CheckoutResponseModel.cs" />
+    <Compile Include="Models\CopyCollectionResponseModel.cs" />
     <Compile Include="Models\CopyResponseModel.cs" />
+    <Compile Include="Models\CreateCopyRequestModel.cs" />
     <Compile Include="Models\GameResponseModel.cs" />
     <Compile Include="Models\GetGamesResponseModel.cs" />
     <Compile Include="Models\GetPlaysResponse.cs" />

@@ -18,38 +18,31 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         [ScopeAuthorize("read:copy-search")]
-        public async Task<IHttpActionResult> Get(string query)
+        public async Task<IHttpActionResult> Search(string query)
         {
             var copies = new List<Copy>();
             if (query != null)
             {
-                int searchedID = -1;
-                bool isNumeric = false;
-                try
-                {
-                    isNumeric = int.TryParse(query, out searchedID);
-                }
-                catch
-                {
-                    System.Console.WriteLine("Couldn't parse int");
-                }
-                var copiesMatchingTitle = await _db.Copies.Where(c => c.Game.Title.Contains(query)).ToListAsync();
-                var copiesMatchingID = new List<Copy>();
-                if (isNumeric && searchedID != -1)
-                {
-                    copiesMatchingID = await _db.Copies.Where(c => c.LibraryID == searchedID).ToListAsync();
-                    copies.AddRange(copiesMatchingID);
-                }
-
-                copies.AddRange(copiesMatchingTitle);
-                copies = copies.Distinct().ToList();
+                copies = await _db.Copies.Where(
+                    c => c.Game.Title.Contains(query) || c.LibraryID == query
+                ).ToListAsync();
             }
+
+            if (copies.Count == 0)
+            {
+                ModelState.AddModelError("query", "Couldn't find a copy that matched");
+                return NotFound();
+            }
+
             var copyResponseModels = copies.Select(c => new CopyResponseModel(c));
+            if (copyResponseModels.Count() == 1)
+                return Ok(copyResponseModels.First());
 
             return Ok(copyResponseModels);
         }
 
-        public async Task<IHttpActionResult> Get(int id)
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Get(string id)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
             if (copy == null)

@@ -1,9 +1,11 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Http.Description;
+using BoardGameLibrary.Api.Models;
 using BoardGameLibrary.Data.Models;
 
 namespace BoardGameLibrary.Api.Controllers
@@ -14,21 +16,30 @@ namespace BoardGameLibrary.Api.Controllers
 
         // GET: api/CopyCollections
         [ScopeAuthorize("read:game-collections")]
-        public IQueryable<CopyCollection> GetCopyCollections()
+        public IEnumerable<CopyCollectionResponseModel> GetCopyCollections()
         {
-            return db.CopyCollections;
+            var copies = db.Copies.ToList();
+            var collections = db.CopyCollections.ToList().Select(cc => new CopyCollectionResponseModel {
+                Copies = copies.Where(copy => copy.CopyCollectionID == cc.ID).Select(copy => new CopyResponseModel(copy)).ToList()
+            });
+
+            return collections;
         }
 
         // GET: api/CopyCollections/5
         [ScopeAuthorize("read:game-collections")]
-        [ResponseType(typeof(CopyCollection))]
+        [ResponseType(typeof(CopyCollectionResponseModel))]
         public IHttpActionResult GetCopyCollection(int id)
         {
             CopyCollection copyCollection = db.CopyCollections.Find(id);
+
             if (copyCollection == null)
                 return NotFound();
 
-            return Ok(copyCollection);
+            var copies = db.Copies.Where(c => c.CopyCollectionID == id).ToList().Select(c => new CopyResponseModel(c));
+            CopyCollectionResponseModel response = new CopyCollectionResponseModel(copyCollection, copies);
+
+            return Ok(response);
         }
 
         // PUT: api/CopyCollections/5
@@ -89,6 +100,53 @@ namespace BoardGameLibrary.Api.Controllers
             db.SaveChanges();
 
             return Ok(copyCollection);
+        }
+
+        // POST: api/CopyCollections/{collectionId}/
+        [ScopeAuthorize("create:copy")]
+        [ResponseType(typeof(CopyCollection))]
+        public IHttpActionResult PostCopy(int collectionId, CreateCopyRequestModel copyRequest)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var collection = db.CopyCollections.FirstOrDefault(cc => cc.ID == collectionId);
+            if (collection == null)
+                return NotFound();
+
+            var copyExistsAlready = db.Copies.Any(c => c.LibraryID == copyRequest.LibraryID);
+            if (copyExistsAlready)
+                return BadRequest("A copy with that ID exists already");
+
+            var game = db.Games.FirstOrDefault(g => g.Title == copyRequest.Title);
+            if (game == null)
+            {
+                game = new Game { Title = copyRequest.Title };
+                db.Games.Add(game);
+                db.SaveChanges();
+            }
+            var copy = new Copy { LibraryID = copyRequest.LibraryID, Game = game, GameID = game.ID };
+
+            collection.Copies.Add(copy);
+            db.SaveChanges();
+
+            return CreatedAtRoute($"api/{copy.CopyCollectionID}/", new { id = copy.ID }, copy);
+        }
+
+        [ScopeAuthorize("read:copies")]
+        [ScopeAuthorize("read:game-collection")]
+        [ResponseType(typeof(IList<CopyResponseModel>))]
+        [HttpGet]
+        [Route("copies")]
+        public IHttpActionResult GetCopies(int id)
+        {
+            CopyCollection copyCollection = db.CopyCollections.Find(id);
+            if (copyCollection == null)
+                return NotFound();
+
+            var copies = copyCollection.Copies.Select(c => new CopyResponseModel(c));
+
+            return Ok(copies);
         }
 
         protected override void Dispose(bool disposing)

@@ -77,7 +77,7 @@ namespace BoardGameLibrary.Api.Controllers
             if (attendee == null)
                 return BadRequest("Attendee not found");
 
-            var copyLibraryId = Convert.ToInt32(model.LibraryId.Replace("*", ""));
+            var copyLibraryId = model.LibraryId.Replace("*", "");
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
             if (copy == null)
                 return BadRequest("Copy not found");
@@ -100,7 +100,7 @@ namespace BoardGameLibrary.Api.Controllers
         [HttpPut]
         [Route("api/checkouts/checkin/{copyId}")]
         [ScopeAuthorize("update:checkout")]
-        public async Task<IHttpActionResult> CheckIn(int copyId)
+        public async Task<IHttpActionResult> CheckIn(string copyId)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyId);
             if (copy == null)

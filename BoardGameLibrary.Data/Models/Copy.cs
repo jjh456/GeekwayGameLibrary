@@ -12,11 +12,10 @@ namespace BoardGameLibrary.Data.Models
     {
         public int ID { get; set; }
         [Display(Name = "Library ID")]
-        public int LibraryID { get; set; }
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public string LibraryID { get; set; }
+        [NotMapped]
         public string Title {
             get { return Game.Title; }
-            private set { }
         }
         public int? CopyCollectionID { get; set; }
         [ForeignKey("CopyCollectionID")]
@@ -54,7 +53,7 @@ namespace BoardGameLibrary.Data.Models
                 .NotEmpty().WithMessage("Must provide the owner's name.");
         }
 
-        private bool BeUnique(int libID)
+        private bool BeUnique(string libID)
         {
             var _db = new ApplicationDbContext();
             if (_db.Copies.SingleOrDefault(c => c.LibraryID == libID) != null) 

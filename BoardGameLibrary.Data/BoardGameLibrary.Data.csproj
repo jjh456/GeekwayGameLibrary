@@ -86,6 +86,10 @@
     <Compile Include="Migrations\201903260112314_Troix.Designer.cs">
       <DependentUpon>201903260112314_Troix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903270235354_Quatre.cs" />
+    <Compile Include="Migrations\201903270235354_Quatre.Designer.cs">
+      <DependentUpon>201903270235354_Quatre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendee.cs" />
     <Compile Include="Models\Checkout.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903260112314_Troix.resx">
       <DependentUpon>201903260112314_Troix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903270235354_Quatre.resx">
+      <DependentUpon>201903270235354_Quatre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

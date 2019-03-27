@@ -5,8 +5,9 @@ namespace BoardGameLibrary.Api.Models
 {
     public class CopyResponseModel
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public bool IsCheckedOut { get; set; }
+        public string Title { get; set; }
         public CheckoutResponseModel CurrentCheckout { get; set; }
         public GameResponseModel Game { get; set; }
 
@@ -14,6 +15,7 @@ namespace BoardGameLibrary.Api.Models
         {
             ID = copy.LibraryID;
             IsCheckedOut = copy.CurrentCheckout != null;
+            Title = copy.Title;
             if (IsCheckedOut)
                 CurrentCheckout = new CheckoutResponseModel(copy.CurrentCheckout, false);
             Game = new GameResponseModel { ID = copy.Game.ID, Name = copy.Game.Title };

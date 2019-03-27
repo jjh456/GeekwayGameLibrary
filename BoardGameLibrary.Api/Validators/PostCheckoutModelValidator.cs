@@ -59,7 +59,7 @@ namespace BoardGameLibrary.Api.Validators
 
         private bool BeAnExistingGameCopy(string copyLibraryID)
         {
-            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            var copyLibraryIDInt = copyLibraryID.Replace("*", "");
             if (_db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
@@ -68,7 +68,7 @@ namespace BoardGameLibrary.Api.Validators
 
         private bool NotBeCheckedOut(string copyLibraryID)
         {
-            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            var copyLibraryIDInt = copyLibraryID.Replace("*", "");
             var copy = _db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt);
             if (copy.CurrentCheckout != null)
                 return false;
