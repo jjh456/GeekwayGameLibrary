@@ -10,6 +10,7 @@ using BoardGameLibrary.Data.Models;
 
 namespace BoardGameLibrary.Api.Controllers
 {
+    [RoutePrefix("api/CopyCollections")]
     public class CopyCollectionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -73,10 +74,14 @@ namespace BoardGameLibrary.Api.Controllers
         // POST: api/CopyCollections
         [ScopeAuthorize("create:game-collection")]
         [ResponseType(typeof(CopyCollection))]
+        [HttpPost]
         public IHttpActionResult PostCopyCollection(CopyCollection copyCollection)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (string.IsNullOrWhiteSpace(copyCollection.Name))
+                return BadRequest("The name of the copy collection is required");
 
             db.CopyCollections.Add(copyCollection);
             db.SaveChanges();
@@ -103,14 +108,16 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         // POST: api/CopyCollections/{collectionId}/
-        [ScopeAuthorize("create:copy")]
+        [ScopeAuthorize("create:game-collection")]
         [ResponseType(typeof(CopyCollection))]
-        public IHttpActionResult PostCopy(int collectionId, CreateCopyRequestModel copyRequest)
+        [HttpPost()]
+        [Route("{id}/copies")]
+        public IHttpActionResult PostCopy(int id, CreateCopyRequestModel copyRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var collection = db.CopyCollections.FirstOrDefault(cc => cc.ID == collectionId);
+            var collection = db.CopyCollections.FirstOrDefault(cc => cc.ID == id);
             if (collection == null)
                 return NotFound();
 
@@ -130,14 +137,14 @@ namespace BoardGameLibrary.Api.Controllers
             collection.Copies.Add(copy);
             db.SaveChanges();
 
-            return CreatedAtRoute($"api/{copy.CopyCollectionID}/", new { id = copy.ID }, copy);
+            return StatusCode(HttpStatusCode.Created);
         }
 
-        [ScopeAuthorize("read:copies")]
+        //[ScopeAuthorize("read:copies")]
         [ScopeAuthorize("read:game-collection")]
         [ResponseType(typeof(IList<CopyResponseModel>))]
         [HttpGet]
-        [Route("copies")]
+        [Route("{id}/copies")]
         public IHttpActionResult GetCopies(int id)
         {
             CopyCollection copyCollection = db.CopyCollections.Find(id);

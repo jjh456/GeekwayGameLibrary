@@ -18,6 +18,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         [ScopeAuthorize("read:copy-search")]
+        [HttpGet]
         public async Task<IHttpActionResult> Search(string query)
         {
             var copies = new List<Copy>();
@@ -41,7 +42,6 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(copyResponseModels);
         }
 
-        [Route("{id}")]
         public async Task<IHttpActionResult> Get(string id)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
@@ -50,6 +50,28 @@ namespace BoardGameLibrary.Api.Controllers
                 ModelState.AddModelError("id", "Couldn't find a copy with that ID");
                 return NotFound();
             }
+
+            return Ok(new CopyResponseModel(copy));
+        }
+
+        [HttpPut]
+        public async Task<IHttpActionResult> Put(string id, CreateCopyRequestModel copyRequest)
+        {
+            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
+            if (copy == null)
+            {
+                ModelState.AddModelError("id", "Couldn't find a copy with that ID");
+                return NotFound();
+            }
+
+            if (copyRequest.LibraryID.ToLower() != id.ToLower())
+                copy.LibraryID = copyRequest.LibraryID;
+
+            var game = copy.Game;
+            if (copyRequest.Title != copy.Game.Title)
+                copy.Game.Title = copyRequest.Title;
+
+            await _db.SaveChangesAsync();
 
             return Ok(new CopyResponseModel(copy));
         }
