@@ -3,6 +3,10 @@ using System.Web.Http;
 using System.Linq;
 using System.Collections.Generic;
 using BoardGameLibrary.Api.Models;
+using System.Web.Http.Description;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Net;
 
 namespace BoardGameLibrary.Api.Controllers
 {
@@ -13,6 +17,15 @@ namespace BoardGameLibrary.Api.Controllers
         public AttendeesController()
         {
             _db = new ApplicationDbContext();
+        }
+
+        [ResponseType(typeof(GetAttendeesResponseModel))]
+        public IHttpActionResult Get()
+        {
+            var dbAttendees = _db.Attendees;
+            var response = MapDbAttendeesToResponse(dbAttendees);
+
+            return Ok(response);
         }
 
         //GET api/attendees/5 || api/attendees? key = value
@@ -27,14 +40,115 @@ namespace BoardGameLibrary.Api.Controllers
             if (!string.IsNullOrWhiteSpace(search))
                 dbAttendees = dbAttendees.Where(a => a.Name.Contains(search) || a.BadgeID.Contains(search));
 
+            response = MapDbAttendeesToResponse(dbAttendees);
+
+            return response;
+        }
+
+        // GET: api/Attendees1/5
+        [ResponseType(typeof(Attendee))]
+        public IHttpActionResult GetAttendee(string id)
+        {
+            Attendee attendee = _db.Attendees.FirstOrDefault(a => a.BadgeID == id);
+            if (attendee == null)
+                return NotFound();
+            var apiModel = new AttendeeApiModel(attendee);
+
+            return Ok(apiModel);
+        }
+
+        // PUT: api/Attendees1/lib5
+        [ResponseType(typeof(void))]
+        public IHttpActionResult PutAttendee(string id, AttendeeApiModel apiModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var dbAttendee = _db.Attendees.FirstOrDefault(a => a.BadgeID == id);
+            if (dbAttendee == null)
+                return NotFound();
+
+            if (id != dbAttendee.BadgeID)
+                return BadRequest();
+            dbAttendee.BadgeID = apiModel.BadgeNumber;
+            dbAttendee.Name = apiModel.Name;
+
+            _db.Entry(dbAttendee).State = EntityState.Modified;
+
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AttendeeExists(id))
+                    return NotFound();
+                else
+                    throw;
+            }
+
+            return Ok(apiModel);
+        }
+
+        // POST: api/Attendees1
+        [ResponseType(typeof(Attendee))]
+        public IHttpActionResult PostAttendee(AttendeeApiModel apiModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var dbAttendee = new Attendee { BadgeID = apiModel.BadgeNumber, Name = apiModel.Name };
+
+            _db.Attendees.Add(dbAttendee);
+            _db.SaveChanges();
+            apiModel.ID = dbAttendee.ID;
+
+            return CreatedAtRoute("DefaultApi", new { id = apiModel.BadgeNumber }, apiModel);
+        }
+
+        // DELETE: api/Attendees1/5
+        [ResponseType(typeof(Attendee))]
+        public IHttpActionResult DeleteAttendee(string id)
+        {
+            Attendee dbAttendee = _db.Attendees.FirstOrDefault(a => a.BadgeID == id);
+            if (dbAttendee == null)
+                return NotFound();
+
+            if (dbAttendee.Checkouts.Count > 0)
+                return Conflict();
+
+            _db.Attendees.Remove(dbAttendee);
+            _db.SaveChanges();
+
+            var apiModel = new AttendeeApiModel(dbAttendee);
+
+            return Ok(apiModel);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                _db.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        private bool AttendeeExists(string id)
+        {
+            return _db.Attendees.Count(e => e.BadgeID == id) > 0;
+        }
+
+        private GetAttendeesResponseModel MapDbAttendeesToResponse(IQueryable<Attendee> dbAttendees)
+        {
+            var response = new GetAttendeesResponseModel();
             var attendees = new List<AttendeeApiModel>();
             attendees = dbAttendees
                 .Select(dbAttendee => new AttendeeApiModel
-                    {
-                        BadgeNumber = dbAttendee.BadgeID,
-                        ID = dbAttendee.ID,
-                        Name = dbAttendee.Name
-                    })
+                {
+                    BadgeNumber = dbAttendee.BadgeID,
+                    ID = dbAttendee.ID,
+                    Name = dbAttendee.Name
+                })
                 .ToList();
             response.Attendees = attendees;
 
