@@ -21,6 +21,8 @@ namespace BoardGameLibrary.Api.Controllers
         {
             var copies = db.Copies.ToList();
             var collections = db.CopyCollections.ToList().Select(cc => new CopyCollectionResponseModel {
+                ID = cc.ID,
+                Name = cc.Name,
                 Copies = copies.Where(copy => copy.CopyCollectionID == cc.ID).Select(copy => new CopyResponseModel(copy)).ToList()
             });
 
