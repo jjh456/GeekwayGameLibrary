@@ -22,7 +22,7 @@ namespace BoardGameLibrary.Api.Controllers
         [ResponseType(typeof(GetAttendeesResponseModel))]
         public IHttpActionResult Get()
         {
-            var dbAttendees = _db.Attendees;
+            var dbAttendees = _db.Attendees.OrderBy(a => a.Name);
             var response = MapDbAttendeesToResponse(dbAttendees);
 
             return Ok(response);
