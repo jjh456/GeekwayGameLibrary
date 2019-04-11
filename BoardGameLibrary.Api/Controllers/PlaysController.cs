@@ -21,11 +21,17 @@ namespace BoardGameLibrary.Api.Controllers
         {
             var playsResponse = new GetPlaysResponse();
             var checkouts = db.Plays.Select(p => p.Checkout);
+            var collections = db.CopyCollections;
             playsResponse.Plays = db.Plays
                 .Select(play => new PlayResponseModel
                 {
                     ID = play.ID,
                     CheckoutID = play.Checkout.ID,
+                    Collection = new PlayResponseCopyCollectionModel
+                    {
+                        ID = play.Checkout.Copy.CopyCollection.ID,
+                        Name = play.Checkout.Copy.CopyCollection.Name
+                    },
                     GameID = play.Checkout.Copy.GameID,
                     GameName = play.Checkout.Copy.Game.Title,
                     Checkout = new PlayResponseCheckoutModel {
