@@ -27,7 +27,7 @@ namespace BoardGameLibrary.Api.Controllers
                 {
                     ID = play.ID,
                     CheckoutID = play.Checkout.ID,
-                    Collection = new PlayResponseCopyCollectionModel
+                    Collection = new CopyCollectionShallowModel
                     {
                         ID = play.Checkout.Copy.CopyCollection.ID,
                         Name = play.Checkout.Copy.CopyCollection.Name

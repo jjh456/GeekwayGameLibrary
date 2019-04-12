@@ -1,5 +1,4 @@
 ﻿using BoardGameLibrary.Data.Models;
-using System;
 
 namespace BoardGameLibrary.Api.Models
 {
@@ -8,6 +7,7 @@ namespace BoardGameLibrary.Api.Models
         public string ID { get; set; }
         public bool IsCheckedOut { get; set; }
         public string Title { get; set; }
+        public CopyCollectionShallowModel Collection { get; set; }
         public CheckoutResponseModel CurrentCheckout { get; set; }
         public GameResponseModel Game { get; set; }
 
@@ -18,6 +18,7 @@ namespace BoardGameLibrary.Api.Models
             Title = copy.Title;
             if (IsCheckedOut)
                 CurrentCheckout = new CheckoutResponseModel(copy.CurrentCheckout, false);
+            Collection = new CopyCollectionShallowModel(copy.CopyCollection);
             Game = new GameResponseModel { ID = copy.Game.ID, Name = copy.Game.Title };
         }
     }

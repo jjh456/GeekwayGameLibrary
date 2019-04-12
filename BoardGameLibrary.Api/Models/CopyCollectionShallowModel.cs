@@ -1,16 +1,15 @@
 ﻿using BoardGameLibrary.Data.Models;
-using System.Collections.Generic;
 
 namespace BoardGameLibrary.Api.Models
 {
-    public class PlayResponseCopyCollectionModel
+    public class CopyCollectionShallowModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public PlayResponseCopyCollectionModel() {}
+        public CopyCollectionShallowModel() {}
 
-        public PlayResponseCopyCollectionModel(CopyCollection copyCollection, IEnumerable<CopyResponseModel> copies)
+        public CopyCollectionShallowModel(CopyCollection copyCollection)
         {
             ID = copyCollection.ID;
             Name = copyCollection.Name;
