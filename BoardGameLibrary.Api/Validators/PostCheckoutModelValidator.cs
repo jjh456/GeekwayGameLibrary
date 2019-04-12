@@ -23,17 +23,8 @@ namespace BoardGameLibrary.Api.Validators
 
             RuleFor(x => x.LibraryId).Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("You must provide a library ID.")
-                .Must(BeANumber).WithMessage("Library IDs must be a number")
                 .Must(BeAnExistingGameCopy).WithMessage("Copy not found.")
                 .Must(NotBeCheckedOut).WithMessage("That copy is checked out already. Check it in first.");
-        }
-
-        private bool BeANumber(string attendeeBadgeID)
-        {
-            int parsedInt = 0;
-            var parsedSuccessfully = Int32.TryParse(attendeeBadgeID, out parsedInt);
-
-            return parsedSuccessfully;
         }
 
         private bool BeAnExistingAttendee(string attendeeBadgeID)
