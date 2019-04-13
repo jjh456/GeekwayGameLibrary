@@ -67,9 +67,19 @@ namespace BoardGameLibrary.Api.Controllers
             if (copyRequest.LibraryID.ToLower() != id.ToLower())
                 copy.LibraryID = copyRequest.LibraryID;
 
-            var game = copy.Game;
+            var originalGame = copy.Game;
             if (copyRequest.Title != copy.Game.Title)
-                copy.Game.Title = copyRequest.Title;
+            {
+                var newGame = _db.Games.FirstOrDefault(g => g.Title == copyRequest.Title);
+                if (newGame == null)
+                {
+                    newGame = new Game { Title = copyRequest.Title };
+                    _db.Games.Add(newGame);
+                    _db.SaveChanges();
+                }
+                copy.Game = newGame;
+                copy.GameID = newGame.ID;
+            }
 
             await _db.SaveChangesAsync();
 
