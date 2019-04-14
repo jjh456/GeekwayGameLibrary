@@ -55,7 +55,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IHttpActionResult> Put(string id, CreateCopyRequestModel copyRequest)
+        public async Task<IHttpActionResult> Put(string id, UpsertCopyRequestModel copyRequest)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
             if (copy == null)

@@ -26,6 +26,7 @@ namespace BoardGameLibrary.Data.Models
         public virtual Checkout CurrentCheckout { get; set; }
         [Display(Name = "Checkout History")]
         public virtual IList<Checkout> CheckoutHistory { get; set; }
+        public bool Winnable { get; set; }
         public string Notes { get; set; }
         
         [ForeignKey("GameID")]
@@ -35,6 +36,7 @@ namespace BoardGameLibrary.Data.Models
 
         public Copy()
         {
+            Winnable = false;
             CheckoutHistory = new List<Checkout>();
         }
     }

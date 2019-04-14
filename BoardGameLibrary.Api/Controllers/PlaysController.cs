@@ -88,14 +88,15 @@ namespace BoardGameLibrary.Api.Controllers
 
         // POST: api/Plays
         [ResponseType(typeof(Play))]
-        public async Task<HttpStatusCodeResult> PostPlay(PostPlayModel request)
+        public async Task<IHttpActionResult> PostPlay(PostPlayModel request)
         {
             if (!ModelState.IsValid || request == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+                return BadRequest();
 
             var checkout = db.Checkouts.FirstOrDefault(c => c.ID == request.CheckoutId);
+            if (!checkout.Copy.CopyCollection.AllowWinning)
+                return BadRequest("Winning prizes is not allowed for that checkout.");
+
             var game = checkout.Copy.Game;
             var playerAttendeeIds = request.Players.Select(p => p.Id).ToList();
             var play = new Play { Checkout = checkout };
@@ -122,7 +123,7 @@ namespace BoardGameLibrary.Api.Controllers
                 throw;
             }
 
-            return new HttpStatusCodeResult(HttpStatusCode.Created);
+            return Ok(play);
         }
 
         protected override void Dispose(bool disposing)

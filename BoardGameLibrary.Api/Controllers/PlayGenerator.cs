@@ -8,7 +8,7 @@ namespace BoardGameLibrary.Api.Controllers
     public class PlayGenerator
     {
         private readonly ApplicationDbContext db;
-        private IList<Copy> allCopies;
+        private IList<Copy> allWinnableCopies;
         private IList<Attendee> allAttendees;
         private Random random;
 
@@ -16,7 +16,7 @@ namespace BoardGameLibrary.Api.Controllers
         {
             this.db = db;
             random = new Random();
-            allCopies = db.Copies.ToList();
+            allWinnableCopies = db.Copies.Where(c => c.CopyCollection.AllowWinning).ToList();
             allAttendees = db.Attendees.ToList();
         }
 
@@ -52,8 +52,8 @@ namespace BoardGameLibrary.Api.Controllers
         {
             Attendee attendee = GetRandomAttendee();
 
-            var copyIndex = random.Next(0, allCopies.Count - 1);
-            var copy = allCopies.ElementAtOrDefault(copyIndex);
+            var copyIndex = random.Next(0, allWinnableCopies.Count - 1);
+            var copy = allWinnableCopies.ElementAtOrDefault(copyIndex);
 
             var checkout = new Checkout { Attendee = attendee, Copy = copy, TimeOut = DateTime.Now, TimeIn = DateTime.Now.AddSeconds(10) };
 

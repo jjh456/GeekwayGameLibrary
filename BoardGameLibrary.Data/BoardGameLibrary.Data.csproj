@@ -99,6 +99,10 @@
     <Compile Include="Migrations\201903270235354_Quatre.Designer.cs">
       <DependentUpon>201903270235354_Quatre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904132155374_Cinq.cs" />
+    <Compile Include="Migrations\201904132155374_Cinq.Designer.cs">
+      <DependentUpon>201904132155374_Cinq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attendee.cs" />
     <Compile Include="Models\Checkout.cs" />
@@ -127,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903270235354_Quatre.resx">
       <DependentUpon>201903270235354_Quatre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904132155374_Cinq.resx">
+      <DependentUpon>201904132155374_Cinq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

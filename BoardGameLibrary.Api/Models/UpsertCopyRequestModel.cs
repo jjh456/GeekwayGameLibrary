@@ -1,8 +1,9 @@
 ﻿namespace BoardGameLibrary.Api.Models
 {
-    public class CreateCopyRequestModel
+    public class UpsertCopyRequestModel
     {
         public string Title { get; set; }
         public string LibraryID { get; set; }
+        public bool Winnable { get; set; }
     }
 }

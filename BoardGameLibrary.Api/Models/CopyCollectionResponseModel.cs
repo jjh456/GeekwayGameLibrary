@@ -8,6 +8,8 @@ namespace BoardGameLibrary.Api.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public bool AllowWinning { get; set; }
+        public string Color { get; set; }
         public IList<CopyResponseModel> Copies { get; set; }
 
         public CopyCollectionResponseModel()
@@ -19,6 +21,8 @@ namespace BoardGameLibrary.Api.Models
         {
             ID = copyCollection.ID;
             Name = copyCollection.Name;
+            AllowWinning = copyCollection.AllowWinning;
+            Color = copyCollection.Color;
             Copies = copies.ToList();
         }
     }

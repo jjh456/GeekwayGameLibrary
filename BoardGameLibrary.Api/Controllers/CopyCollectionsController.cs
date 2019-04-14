@@ -23,6 +23,8 @@ namespace BoardGameLibrary.Api.Controllers
             var collections = db.CopyCollections.ToList().Select(cc => new CopyCollectionResponseModel {
                 ID = cc.ID,
                 Name = cc.Name,
+                Color = cc.Color,
+                AllowWinning = cc.AllowWinning,
                 Copies = copies.Where(copy => copy.CopyCollectionID == cc.ID).Select(copy => new CopyResponseModel(copy)).ToList()
             });
 
@@ -48,7 +50,7 @@ namespace BoardGameLibrary.Api.Controllers
         // PUT: api/CopyCollections/5
         [ScopeAuthorize("update:game-collection")]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCopyCollection(int id, CopyCollection copyCollection)
+        public IHttpActionResult PutCopyCollection(int id, UpsertCopyCollectionModel copyCollection)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -77,18 +79,22 @@ namespace BoardGameLibrary.Api.Controllers
         [ScopeAuthorize("create:game-collection")]
         [ResponseType(typeof(CopyCollection))]
         [HttpPost]
-        public IHttpActionResult PostCopyCollection(CopyCollection copyCollection)
+        public IHttpActionResult PostCopyCollection(UpsertCopyCollectionModel upsertCollectionModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (string.IsNullOrWhiteSpace(copyCollection.Name))
+            if (string.IsNullOrWhiteSpace(upsertCollectionModel.Name))
                 return BadRequest("The name of the copy collection is required");
-
-            db.CopyCollections.Add(copyCollection);
+            var newCopyCollection = new CopyCollection {
+                AllowWinning = upsertCollectionModel.DefaultWinnable,
+                Name = upsertCollectionModel.Name,
+                Color = upsertCollectionModel.Color
+            };
+            db.CopyCollections.Add(newCopyCollection);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = copyCollection.ID }, copyCollection);
+            return CreatedAtRoute("DefaultApi", new { id = upsertCollectionModel.ID }, newCopyCollection);
         }
 
         // DELETE: api/CopyCollections/5
@@ -114,7 +120,7 @@ namespace BoardGameLibrary.Api.Controllers
         [ResponseType(typeof(CopyCollection))]
         [HttpPost()]
         [Route("{id}/copies")]
-        public IHttpActionResult PostCopy(int id, CreateCopyRequestModel copyRequest)
+        public IHttpActionResult PostCopy(int id, UpsertCopyRequestModel copyRequest)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -134,7 +140,12 @@ namespace BoardGameLibrary.Api.Controllers
                 db.Games.Add(game);
                 db.SaveChanges();
             }
-            var copy = new Copy { LibraryID = copyRequest.LibraryID, Game = game, GameID = game.ID };
+            var copy = new Copy {
+                LibraryID = copyRequest.LibraryID,
+                Game = game,
+                GameID = game.ID,
+                Winnable = collection.AllowWinning
+            };
 
             collection.Copies.Add(copy);
             db.SaveChanges();

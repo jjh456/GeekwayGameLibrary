@@ -26,7 +26,6 @@ namespace BoardGameLibrary.Api.Controllers
         [ScopeAuthorize("read:longest-checkouts")]
         public async Task<IHttpActionResult> CheckedOutLongest()
         {
-            //var cop = _db.Copies.async
             var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
                                              .OrderByDescending(c => c.CurrentCheckout.Length)
