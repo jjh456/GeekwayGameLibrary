@@ -9,17 +9,17 @@ using System.Web;
 
 namespace BoardGameLibrary.Api.Services
 {
-    public interface IFileUploadService
+    public interface ICopiesFileUploadService
     {
         FileUploadResponse UploadCopiesFile(int collectionId, HttpPostedFile file);
     }
 
-    public class FileUploadService : IFileUploadService
+    public class CopiesFileUploadService : ICopiesFileUploadService
     {
         private readonly ApplicationDbContext _db;
         private readonly ICopiesRepository copiesRepository;
 
-        public FileUploadService(ApplicationDbContext db, ICopiesRepository copiesRepository)
+        public CopiesFileUploadService(ApplicationDbContext db, ICopiesRepository copiesRepository)
         {
             _db = db;
             this.copiesRepository = copiesRepository;

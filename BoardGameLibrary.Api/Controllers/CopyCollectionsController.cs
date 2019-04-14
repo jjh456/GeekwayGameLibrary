@@ -16,13 +16,13 @@ namespace BoardGameLibrary.Api.Controllers
     public class CopyCollectionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        private readonly IFileUploadService uploadService;
+        private readonly ICopiesFileUploadService uploadService;
         private readonly ICopiesRepository copiesRepository;
 
         public CopyCollectionsController()
         {
             copiesRepository = new CopiesRepository(db);
-            uploadService = new FileUploadService(db, copiesRepository);
+            uploadService = new CopiesFileUploadService(db, copiesRepository);
         }
 
         // GET: api/CopyCollections

@@ -313,7 +313,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseWrappingHandler.cs" />
     <Compile Include="Services\CopiesRepository.cs" />
-    <Compile Include="Services\FileUploadService.cs" />
+    <Compile Include="Services\CopiesFileUploadService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ValidateModelStateFilter.cs" />
     <Compile Include="Validators\PostCheckoutModelValidator.cs" />
