@@ -293,6 +293,7 @@
     <Compile Include="Models\CheckoutResponseModel.cs" />
     <Compile Include="Models\CopyCollectionResponseModel.cs" />
     <Compile Include="Models\CopyResponseModel.cs" />
+    <Compile Include="Models\AttendeeUploadRow.cs" />
     <Compile Include="Models\CopyUploadRow.cs" />
     <Compile Include="Models\FileUploadRequestModel.cs" />
     <Compile Include="Models\FileUploadResponse.cs" />
@@ -312,6 +313,7 @@
     <Compile Include="Models\ValidatedResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseWrappingHandler.cs" />
+    <Compile Include="Services\AttendeesFileUploadService.cs" />
     <Compile Include="Services\CopiesRepository.cs" />
     <Compile Include="Services\CopiesFileUploadService.cs" />
     <Compile Include="Startup.cs" />

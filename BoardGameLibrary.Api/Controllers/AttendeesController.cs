@@ -6,17 +6,21 @@ using BoardGameLibrary.Api.Models;
 using System.Web.Http.Description;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Net;
+using BoardGameLibrary.Api.Services;
+using System.Web;
 
 namespace BoardGameLibrary.Api.Controllers
 {
+    [RoutePrefix("api/Attendees")]
     public class AttendeesController : ApiController
     {
         private ApplicationDbContext _db;
+        private IAttendeesFileUploadService uploadService;
 
         public AttendeesController()
         {
             _db = new ApplicationDbContext();
+            uploadService = new AttendeesFileUploadService(_db);
         }
 
         [ResponseType(typeof(GetAttendeesResponseModel))]
@@ -104,6 +108,19 @@ namespace BoardGameLibrary.Api.Controllers
             apiModel.ID = dbAttendee.ID;
 
             return CreatedAtRoute("DefaultApi", new { id = apiModel.BadgeNumber }, apiModel);
+        }
+
+        [HttpPost]
+        [Route("upload")]
+        public IHttpActionResult UploadCopies(int id)
+        {
+            var files = HttpContext.Current.Request.Files;
+            if (files == null || files.Count == 0)
+                return BadRequest("You must provide a file");
+
+            FileUploadResponse uploadResponse = uploadService.UploadAttendeesFile(id, files[0]);
+
+            return Ok(uploadResponse);
         }
 
         // DELETE: api/Attendees1/5
