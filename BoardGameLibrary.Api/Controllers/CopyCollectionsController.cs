@@ -3,9 +3,11 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BoardGameLibrary.Api.Models;
+using BoardGameLibrary.Api.Services;
 using BoardGameLibrary.Data.Models;
 
 namespace BoardGameLibrary.Api.Controllers
@@ -14,6 +16,14 @@ namespace BoardGameLibrary.Api.Controllers
     public class CopyCollectionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly IFileUploadService uploadService;
+        private readonly ICopiesRepository copiesRepository;
+
+        public CopyCollectionsController()
+        {
+            copiesRepository = new CopiesRepository(db);
+            uploadService = new FileUploadService(db, copiesRepository);
+        }
 
         // GET: api/CopyCollections
         [ScopeAuthorize("read:game-collections")]
@@ -133,24 +143,22 @@ namespace BoardGameLibrary.Api.Controllers
             if (copyExistsAlready)
                 return BadRequest("A copy with that ID exists already");
 
-            var game = db.Games.FirstOrDefault(g => g.Title == copyRequest.Title);
-            if (game == null)
-            {
-                game = new Game { Title = copyRequest.Title };
-                db.Games.Add(game);
-                db.SaveChanges();
-            }
-            var copy = new Copy {
-                LibraryID = copyRequest.LibraryID,
-                Game = game,
-                GameID = game.ID,
-                Winnable = collection.AllowWinning
-            };
-
-            collection.Copies.Add(copy);
-            db.SaveChanges();
+            copiesRepository.AddCopy(copyRequest.LibraryID, collection.ID, copyRequest.Title);
 
             return StatusCode(HttpStatusCode.Created);
+        }
+
+        [HttpPost]
+        [Route("{id}/copies/upload")]
+        public IHttpActionResult UploadCopies(int id)
+        {
+            var files = HttpContext.Current.Request.Files;
+            if (files == null || files.Count == 0)
+                return BadRequest("You must provide a file");
+
+            FileUploadResponse uploadResponse = uploadService.UploadCopiesFile(id, files[0]);
+
+            return Ok(uploadResponse);
         }
 
         //[ScopeAuthorize("read:copies")]

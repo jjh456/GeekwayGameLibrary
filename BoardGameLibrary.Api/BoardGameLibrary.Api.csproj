@@ -65,6 +65,9 @@
     <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
       <HintPath>..\packages\AWSSDK.Core.3.3.17\lib\net45\AWSSDK.Core.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=12.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.12.1.2\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -171,6 +174,9 @@
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -287,6 +293,9 @@
     <Compile Include="Models\CheckoutResponseModel.cs" />
     <Compile Include="Models\CopyCollectionResponseModel.cs" />
     <Compile Include="Models\CopyResponseModel.cs" />
+    <Compile Include="Models\CopyUploadRow.cs" />
+    <Compile Include="Models\FileUploadRequestModel.cs" />
+    <Compile Include="Models\FileUploadResponse.cs" />
     <Compile Include="Models\UpsertCopyCollectionModel.cs" />
     <Compile Include="Models\UpsertCopyRequestModel.cs" />
     <Compile Include="Models\GameResponseModel.cs" />
@@ -303,6 +312,8 @@
     <Compile Include="Models\ValidatedResponseModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseWrappingHandler.cs" />
+    <Compile Include="Services\CopiesRepository.cs" />
+    <Compile Include="Services\FileUploadService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ValidateModelStateFilter.cs" />
     <Compile Include="Validators\PostCheckoutModelValidator.cs" />
