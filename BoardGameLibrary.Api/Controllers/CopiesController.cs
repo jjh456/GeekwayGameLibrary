@@ -36,8 +36,6 @@ namespace BoardGameLibrary.Api.Controllers
             }
 
             var copyResponseModels = copies.Select(c => new CopyResponseModel(c));
-            if (copyResponseModels.Count() == 1)
-                return Ok(copyResponseModels.First());
 
             return Ok(copyResponseModels);
         }
