@@ -63,6 +63,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         // PUT: api/Attendees1/lib5
         [ResponseType(typeof(void))]
+        [ScopeAuthorize("update:attendee")]
         public IHttpActionResult PutAttendee(string id, AttendeeApiModel apiModel)
         {
             if (!ModelState.IsValid)
@@ -96,6 +97,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         // POST: api/Attendees1
         [ResponseType(typeof(Attendee))]
+        [ScopeAuthorize("create:attendee")]
         public IHttpActionResult PostAttendee(AttendeeApiModel apiModel)
         {
             if (!ModelState.IsValid)
@@ -112,6 +114,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         [HttpPost]
         [Route("upload")]
+        [ScopeAuthorize("create:attendee")]
         public IHttpActionResult UploadAttendees()
         {
             var files = HttpContext.Current.Request.Files;
@@ -125,6 +128,7 @@ namespace BoardGameLibrary.Api.Controllers
 
         // DELETE: api/Attendees1/5
         [ResponseType(typeof(Attendee))]
+        [ScopeAuthorize("delete:attendee")]
         public IHttpActionResult DeleteAttendee(string id)
         {
             Attendee dbAttendee = _db.Attendees.FirstOrDefault(a => a.BadgeID == id);
