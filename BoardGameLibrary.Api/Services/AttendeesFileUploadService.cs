@@ -11,7 +11,7 @@ namespace BoardGameLibrary.Api.Services
 {
     public interface IAttendeesFileUploadService
     {
-        FileUploadResponse UploadAttendeesFile(int collectionId, HttpPostedFile file);
+        FileUploadResponse UploadAttendeesFile(HttpPostedFile file);
     }
 
     public class AttendeesFileUploadService : IAttendeesFileUploadService
@@ -45,7 +45,7 @@ namespace BoardGameLibrary.Api.Services
             return valid;
         }
 
-        public void ProcessAttendeeRow(AttendeeUploadRow row, int rowNumber, FileUploadResponse response, int collectionId)
+        public void ProcessAttendeeRow(AttendeeUploadRow row, int rowNumber, FileUploadResponse response)
         {
             if (!ValidateAttendeeRow(row, rowNumber, response))
                 return;
@@ -62,7 +62,7 @@ namespace BoardGameLibrary.Api.Services
             }
         }
 
-        public FileUploadResponse UploadAttendeesFile(int collectionId, HttpPostedFile file)
+        public FileUploadResponse UploadAttendeesFile(HttpPostedFile file)
         {
             var response = new FileUploadResponse();
             using (var reader = new StreamReader(file.InputStream))
@@ -72,7 +72,7 @@ namespace BoardGameLibrary.Api.Services
                 var rowIdx = 0;
                 foreach(var row in rows)
                 {
-                    ProcessAttendeeRow(row, rowIdx+1, response, collectionId);
+                    ProcessAttendeeRow(row, rowIdx+1, response);
                     rowIdx++;
                 }
 

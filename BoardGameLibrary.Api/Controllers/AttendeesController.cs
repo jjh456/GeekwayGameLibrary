@@ -112,13 +112,13 @@ namespace BoardGameLibrary.Api.Controllers
 
         [HttpPost]
         [Route("upload")]
-        public IHttpActionResult UploadCopies(int id)
+        public IHttpActionResult UploadAttendees()
         {
             var files = HttpContext.Current.Request.Files;
             if (files == null || files.Count == 0)
                 return BadRequest("You must provide a file");
 
-            FileUploadResponse uploadResponse = uploadService.UploadAttendeesFile(id, files[0]);
+            FileUploadResponse uploadResponse = uploadService.UploadAttendeesFile(files[0]);
 
             return Ok(uploadResponse);
         }
