@@ -12,7 +12,7 @@ using BoardGameLibrary.Data.Models;
 
 namespace BoardGameLibrary.Api.Controllers
 {
-    [RoutePrefix("api/CopyCollections")]
+    [RoutePrefix("CopyCollections")]
     public class CopyCollectionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -25,7 +25,7 @@ namespace BoardGameLibrary.Api.Controllers
             uploadService = new CopiesFileUploadService(db, copiesRepository);
         }
 
-        // GET: api/CopyCollections
+        // GET: CopyCollections
         [ScopeAuthorize("read:game-collections")]
         public IEnumerable<CopyCollectionResponseModel> GetCopyCollections()
         {
@@ -41,7 +41,7 @@ namespace BoardGameLibrary.Api.Controllers
             return collections;
         }
 
-        // GET: api/CopyCollections/5
+        // GET: CopyCollections/5
         [ScopeAuthorize("read:game-collections")]
         [ResponseType(typeof(CopyCollectionResponseModel))]
         public IHttpActionResult GetCopyCollection(int id)
@@ -57,7 +57,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(response);
         }
 
-        // PUT: api/CopyCollections/5
+        // PUT: CopyCollections/5
         [ScopeAuthorize("update:game-collection")]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutCopyCollection(int id, UpsertCopyCollectionModel copyCollection)
@@ -85,7 +85,7 @@ namespace BoardGameLibrary.Api.Controllers
             return StatusCode(HttpStatusCode.OK);
         }
 
-        // POST: api/CopyCollections
+        // POST: CopyCollections
         [ScopeAuthorize("create:game-collection")]
         [ResponseType(typeof(CopyCollection))]
         [HttpPost]
@@ -107,7 +107,7 @@ namespace BoardGameLibrary.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = upsertCollectionModel.ID }, newCopyCollection);
         }
 
-        // DELETE: api/CopyCollections/5
+        // DELETE: CopyCollections/5
         [ScopeAuthorize("delete:game-collection")]
         [ResponseType(typeof(CopyCollection))]
         public IHttpActionResult DeleteCopyCollection(int id)
@@ -125,7 +125,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(copyCollection);
         }
 
-        // POST: api/CopyCollections/{collectionId}/
+        // POST: CopyCollections/{collectionId}/
         [ScopeAuthorize("create:game-collection")]
         [ResponseType(typeof(CopyCollection))]
         [HttpPost()]

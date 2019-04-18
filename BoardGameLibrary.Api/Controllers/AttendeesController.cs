@@ -11,7 +11,7 @@ using System.Web;
 
 namespace BoardGameLibrary.Api.Controllers
 {
-    [RoutePrefix("api/Attendees")]
+    [RoutePrefix("Attendees")]
     public class AttendeesController : ApiController
     {
         private ApplicationDbContext _db;
@@ -32,7 +32,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(response);
         }
 
-        //GET api/attendees/5 || api/attendees? key = value
+        //GET attendees/5 || attendees? key = value
         public GetAttendeesResponseModel Get(string search)
         {
             var response = new GetAttendeesResponseModel();
@@ -49,7 +49,7 @@ namespace BoardGameLibrary.Api.Controllers
             return response;
         }
 
-        // GET: api/Attendees1/5
+        // GET: Attendees/5
         [ResponseType(typeof(Attendee))]
         public IHttpActionResult GetAttendee(string id)
         {
@@ -61,7 +61,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(apiModel);
         }
 
-        // PUT: api/Attendees1/lib5
+        // PUT: Attendees/lib5
         [ResponseType(typeof(void))]
         [ScopeAuthorize("update:attendee")]
         public IHttpActionResult PutAttendee(string id, AttendeeApiModel apiModel)
@@ -95,7 +95,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(apiModel);
         }
 
-        // POST: api/Attendees1
+        // POST: Attendees
         [ResponseType(typeof(Attendee))]
         [ScopeAuthorize("create:attendee")]
         public IHttpActionResult PostAttendee(AttendeeApiModel apiModel)
@@ -126,7 +126,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(uploadResponse);
         }
 
-        // DELETE: api/Attendees1/5
+        // DELETE: Attendees/5
         [ResponseType(typeof(Attendee))]
         [ScopeAuthorize("delete:attendee")]
         public IHttpActionResult DeleteAttendee(string id)

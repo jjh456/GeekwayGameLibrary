@@ -15,7 +15,7 @@ namespace BoardGameLibrary.Api.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Plays
+        // GET: Plays
         [ScopeAuthorize("read:plays")]
         public GetPlaysResponse GetPlays()
         {
@@ -51,7 +51,7 @@ namespace BoardGameLibrary.Api.Controllers
             return playsResponse;
         }
 
-        // GET: api/Plays/5
+        // GET: Plays/5
         [ResponseType(typeof(Play))]
         [ScopeAuthorize("read:plays")]
         public async Task<IHttpActionResult> GetPlay(int id)
@@ -65,10 +65,10 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(play);
         }
 
-        // GET: api/Plays/5
+        // GET: Plays/5
         //[ResponseType(typeof(IList<Play>))]
         //[ScopeAuthorize("create:checkout")]
-        //[System.Web.Http.Route("api/plays/GeneratePlays")]
+        //[System.Web.Http.Route("plays/GeneratePlays")]
         //[System.Web.Http.HttpPost]
         //public IHttpActionResult GeneratePlayData([FromUri] int numberOfPlays)
         //{
@@ -86,7 +86,7 @@ namespace BoardGameLibrary.Api.Controllers
         //    }
         //}
 
-        // POST: api/Plays
+        // POST: Plays
         [ResponseType(typeof(Play))]
         public async Task<IHttpActionResult> PostPlay(PostPlayModel request)
         {
