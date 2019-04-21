@@ -41,6 +41,7 @@ namespace BoardGameLibrary.Api.Services
                 LibraryID = copyLibraryId,
                 Game = game,
                 GameID = game.ID,
+                OwnerName = ownerName,
                 Winnable = collection.AllowWinning
             };
 
