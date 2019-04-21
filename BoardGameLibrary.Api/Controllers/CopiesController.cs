@@ -90,6 +90,8 @@ namespace BoardGameLibrary.Api.Controllers
                     copy.CopyCollectionID = newCollection.ID;
                 }
             }
+            if (copyRequest.Winnable.HasValue)
+                copy.Winnable = copyRequest.Winnable.Value;
 
             await _db.SaveChangesAsync();
 
