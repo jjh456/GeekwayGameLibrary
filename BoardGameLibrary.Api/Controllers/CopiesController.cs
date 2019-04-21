@@ -78,6 +78,18 @@ namespace BoardGameLibrary.Api.Controllers
                 copy.Game = newGame;
                 copy.GameID = newGame.ID;
             }
+            if (copyRequest.CollectionID.HasValue)
+            {
+                var newCollection = _db.CopyCollections.FirstOrDefault(cc => cc.ID == copyRequest.CollectionID.Value);
+                if (newCollection == null)
+                    return BadRequest("The chosen collection does not seem to exist.");
+
+                if (newCollection.ID != copy.CopyCollectionID)
+                {
+                    copy.CopyCollection = newCollection;
+                    copy.CopyCollectionID = newCollection.ID;
+                }
+            }
 
             await _db.SaveChangesAsync();
 
