@@ -8,6 +8,7 @@ using BoardGameLibrary.Data.Models;
 using BoardGameLibrary.Api.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System;
 
 namespace BoardGameLibrary.Api.Controllers
 {
@@ -65,22 +66,24 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(play);
         }
 
-        // GET: Plays/5
+        //POST: Plays/5
         //[ResponseType(typeof(IList<Play>))]
         //[ScopeAuthorize("create:checkout")]
         //[System.Web.Http.Route("plays/GeneratePlays")]
         //[System.Web.Http.HttpPost]
         //public IHttpActionResult GeneratePlayData([FromUri] int numberOfPlays)
         //{
+        //    var numberOfPlaysBefore = db.Plays.Count();
         //    var generator = new PlayGenerator(db);
         //    try
         //    {
         //        var plays = generator.GeneratePlays(numberOfPlays);
-        //        var numberOfPlaysGenerated = plays.Count;
+        //        var numberOfPlaysAfter = db.Plays.Count();
+        //        var numberOfPlaysGenerated = numberOfPlaysAfter - numberOfPlaysBefore;
 
-        //        return Ok(string.Format("{0} Plays generated successfully", numberOfPlaysGenerated));
+        //        return Ok(string.Format($"{numberOfPlaysGenerated} Plays have been generated"));
         //    }
-        //    catch(Exception e)
+        //    catch (Exception e)
         //    {
         //        return InternalServerError(e);
         //    }
