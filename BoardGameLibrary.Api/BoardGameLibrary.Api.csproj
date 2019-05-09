@@ -280,7 +280,7 @@
     <Compile Include="Controllers\CopyCollectionsController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PlayGenerator.cs" />
+    <Compile Include="Services\PlayGenerator.cs" />
     <Compile Include="Controllers\PlaysController.cs" />
     <Compile Include="Controllers\ScopeAuthorizeAttribute.cs" />
     <Compile Include="LogExceptionFilterAttribute.cs" />
