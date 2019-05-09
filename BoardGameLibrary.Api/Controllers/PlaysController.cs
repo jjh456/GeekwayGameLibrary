@@ -97,6 +97,9 @@ namespace BoardGameLibrary.Api.Controllers
                 return BadRequest();
 
             var checkout = db.Checkouts.FirstOrDefault(c => c.ID == request.CheckoutId);
+            if (checkout.Play != null)
+                return BadRequest("A play has already been entered for that checkout!");
+
             if (!checkout.Copy.CopyCollection.AllowWinning)
                 return BadRequest("Winning prizes is not allowed for that checkout.");
 
