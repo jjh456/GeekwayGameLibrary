@@ -8,6 +8,7 @@ using BoardGameLibrary.Api.Models;
 using System.Collections.Generic;
 using NLog;
 using Newtonsoft.Json;
+using System;
 
 namespace BoardGameLibrary.Api.Controllers
 {
@@ -20,36 +21,45 @@ namespace BoardGameLibrary.Api.Controllers
         [ScopeAuthorize("read:plays")]
         public GetPlaysResponse GetPlays()
         {
+            logger.Debug("Getting all plays");
+            db.Database.CommandTimeout = 120;
             var playsResponse = new GetPlaysResponse();
             var checkouts = db.Plays.Select(p => p.Checkout);
-            var collections = db.CopyCollections;
-            playsResponse.Plays = db.Plays
-                .Select(play => new PlayResponseModel
-                {
-                    ID = play.ID,
-                    CheckoutID = play.Checkout.ID,
-                    Collection = new CopyCollectionShallowModel
+            try
+            {
+                playsResponse.Plays = db.Plays
+                    .Select(play => new PlayResponseModel
                     {
-                        ID = play.Checkout.Copy.CopyCollection.ID,
-                        Name = play.Checkout.Copy.CopyCollection.Name
-                    },
-                    GameID = play.Checkout.Copy.GameID,
-                    GameName = play.Checkout.Copy.Game.Title,
-                    Checkout = new PlayResponseCheckoutModel {
-                        ID = play.Checkout.ID,
-                        TimeIn = play.Checkout.TimeIn,
-                        TimeOut = play.Checkout.TimeOut
-                    },
-                    Players = play.Players.Select(player => new PlayerResponseModel
-                    {
-                        ID = player.Attendee.BadgeID,
-                        Name = player.Attendee.Name,
-                        WantsToWin = player.WantsToWin
+                        ID = play.ID,
+                        CheckoutID = play.Checkout.ID,
+                        Collection = new CopyCollectionShallowModel
+                        {
+                            ID = play.Checkout.Copy.CopyCollection.ID,
+                            Name = play.Checkout.Copy.CopyCollection.Name
+                        },
+                        GameID = play.Checkout.Copy.GameID,
+                        GameName = play.Checkout.Copy.Game.Title,
+                        Checkout = new PlayResponseCheckoutModel {
+                            ID = play.Checkout.ID,
+                            TimeIn = play.Checkout.TimeIn,
+                            TimeOut = play.Checkout.TimeOut
+                        },
+                        Players = play.Players.Select(player => new PlayerResponseModel
+                        {
+                            ID = player.Attendee.BadgeID,
+                            Name = player.Attendee.Name,
+                            WantsToWin = player.WantsToWin
+                        })
                     })
-                })
-                .ToList();
+                    .ToList();
 
-            return playsResponse;
+                return playsResponse;
+            }
+            catch(Exception e)
+            {
+                logger.Error(e, "An error occurred while retrieving plays");
+                throw;
+            }
         }
 
         // GET: Plays/5
@@ -131,7 +141,7 @@ namespace BoardGameLibrary.Api.Controllers
             }
             catch (DbUpdateException e)
             {
-                logger.Error("An error occurred while saving a play.", e);
+                logger.Error(e, "An error occurred while saving a play.");
                 throw;
             }
 
