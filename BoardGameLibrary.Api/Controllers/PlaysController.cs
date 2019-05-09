@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using NLog;
 using Newtonsoft.Json;
 using System;
+using System.Data.Entity;
 
 namespace BoardGameLibrary.Api.Controllers
 {
@@ -21,37 +22,74 @@ namespace BoardGameLibrary.Api.Controllers
         [ScopeAuthorize("read:plays")]
         public GetPlaysResponse GetPlays()
         {
-            logger.Debug("Getting all plays");
+            logger.Debug("Get plays called.");
             db.Database.CommandTimeout = 120;
             var playsResponse = new GetPlaysResponse();
-            var checkouts = db.Plays.Select(p => p.Checkout);
             try
             {
-                playsResponse.Plays = db.Plays
+
+                //playsResponse.Plays = db.Plays
+                //    .Select(play => new PlayResponseModel
+                //    {
+                //        ID = play.ID,
+                //        CheckoutID = play.Checkout.ID,
+                //        GameID = play.Checkout.Copy.GameID,
+                //        GameName = play.Checkout.Copy.Game.Title,
+                //        Players = play.Players.Select(player => new PlayerResponseModel
+                //        {
+                //            ID = player.Attendee.BadgeID,
+                //            Name = player.Attendee.Name,
+                //            WantsToWin = player.WantsToWin
+                //        }),
+                //        //Collection = new CopyCollectionShallowModel
+                //        //{
+                //        //    ID = play.Checkout.Copy.CopyCollection.ID,
+                //        //    Name = play.Checkout.Copy.CopyCollection.Name
+                //        //},
+                //        //Checkout = new PlayResponseCheckoutModel {
+                //        //    ID = play.Checkout.ID,
+                //        //    TimeIn = play.Checkout.TimeIn,
+                //        //    TimeOut = play.Checkout.TimeOut
+                //        //}
+                //    })
+                //    .ToList();
+
+                db.Database.Log = logger.Debug;
+
+                logger.Debug("Retrieving all of the players.");
+                var allPlayers = db.Players.Include(p => p.Play).Select(player => new PlayerResponseModel
+                {
+                    ID = player.Attendee.BadgeID,
+                    Name = player.Attendee.Name,
+                    WantsToWin = player.WantsToWin,
+                    PlayID = player.Play.ID
+                });
+                logger.Debug("Retrieved all of the players. Next we query plays.");
+                var playsQuery = db.Plays
+                    .Include(play => play.Checkout)
                     .Select(play => new PlayResponseModel
                     {
                         ID = play.ID,
                         CheckoutID = play.Checkout.ID,
+                        GameID = play.Checkout.Copy.GameID,
+                        GameName = play.Checkout.Copy.Game.Title,
+                        Players = allPlayers.Where(p => p.PlayID == play.ID).ToList(),
                         Collection = new CopyCollectionShallowModel
                         {
                             ID = play.Checkout.Copy.CopyCollection.ID,
                             Name = play.Checkout.Copy.CopyCollection.Name
                         },
-                        GameID = play.Checkout.Copy.GameID,
-                        GameName = play.Checkout.Copy.Game.Title,
-                        Checkout = new PlayResponseCheckoutModel {
+                        Checkout = new PlayResponseCheckoutModel
+                        {
                             ID = play.Checkout.ID,
                             TimeIn = play.Checkout.TimeIn,
                             TimeOut = play.Checkout.TimeOut
-                        },
-                        Players = play.Players.Select(player => new PlayerResponseModel
-                        {
-                            ID = player.Attendee.BadgeID,
-                            Name = player.Attendee.Name,
-                            WantsToWin = player.WantsToWin
-                        })
-                    })
-                    .ToList();
+                        }
+                    });
+
+                playsResponse.Plays = playsQuery.ToList();
+
+                logger.Debug($"Retrieved {playsResponse.Plays.Count} plays.");
 
                 return playsResponse;
             }
