@@ -1,20 +1,20 @@
 ﻿using System.Data.Entity.Infrastructure;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BoardGameLibrary.Data.Models;
 using BoardGameLibrary.Api.Models;
 using System.Collections.Generic;
-using System.Web.Mvc;
-using System;
+using NLog;
+using Newtonsoft.Json;
 
 namespace BoardGameLibrary.Api.Controllers
 {
     public class PlaysController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         // GET: Plays
         [ScopeAuthorize("read:plays")]
@@ -90,13 +90,16 @@ namespace BoardGameLibrary.Api.Controllers
         //}
 
         // POST: Plays
-        [ResponseType(typeof(Play))]
+        [ResponseType(typeof(int))]
         public async Task<IHttpActionResult> PostPlay(PostPlayModel request)
         {
+            logger.Debug($"Posting a play. It has the following shape: {JsonConvert.SerializeObject(request)}");
             if (!ModelState.IsValid || request == null)
                 return BadRequest();
 
             var checkout = db.Checkouts.FirstOrDefault(c => c.ID == request.CheckoutId);
+            logger.Debug("Retrieved play's checkout.");
+
             if (checkout.Play != null)
                 return BadRequest("A play has already been entered for that checkout!");
 
@@ -110,6 +113,8 @@ namespace BoardGameLibrary.Api.Controllers
             foreach (var requestPlayer in request.Players)
             {
                 var attendee = db.Attendees.FirstOrDefault(a => a.ID == requestPlayer.Id);
+                logger.Debug($"Looked up attendee with badge ID {attendee.BadgeID} and name {attendee.Name}");
+
                 var rating = new Rating { Value = requestPlayer.Rating };
                 game.Ratings.Add(rating);
                 players.Add(new Player { Attendee = attendee, Rating = rating, Play = play, WantsToWin = requestPlayer.WantsToWin });
@@ -124,12 +129,13 @@ namespace BoardGameLibrary.Api.Controllers
             {
                 await db.SaveChangesAsync();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException e)
             {
+                logger.Error("An error occurred while saving a play.", e);
                 throw;
             }
 
-            return Ok(play);
+            return Ok(play.ID);
         }
 
         protected override void Dispose(bool disposing)
