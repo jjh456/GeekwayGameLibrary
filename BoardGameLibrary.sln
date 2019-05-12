@@ -13,6 +13,7 @@ Global
 		Library|Any CPU = Library|Any CPU
 		Local|Any CPU = Local|Any CPU
 		PlayAndWin|Any CPU = PlayAndWin|Any CPU
+		Prod|Any CPU = Prod|Any CPU
 		Test|Any CPU = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -24,6 +25,8 @@ Global
 		{54360322-D608-45AE-86D1-201CB0BFEF96}.Local|Any CPU.Build.0 = Local|Any CPU
 		{54360322-D608-45AE-86D1-201CB0BFEF96}.PlayAndWin|Any CPU.ActiveCfg = PlayAndWin|Any CPU
 		{54360322-D608-45AE-86D1-201CB0BFEF96}.PlayAndWin|Any CPU.Build.0 = PlayAndWin|Any CPU
+		{54360322-D608-45AE-86D1-201CB0BFEF96}.Prod|Any CPU.ActiveCfg = Prod|Any CPU
+		{54360322-D608-45AE-86D1-201CB0BFEF96}.Prod|Any CPU.Build.0 = Prod|Any CPU
 		{54360322-D608-45AE-86D1-201CB0BFEF96}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{54360322-D608-45AE-86D1-201CB0BFEF96}.Test|Any CPU.Build.0 = Test|Any CPU
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -34,6 +37,8 @@ Global
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Local|Any CPU.Build.0 = Local|Any CPU
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.PlayAndWin|Any CPU.ActiveCfg = PlayAndWin|Any CPU
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.PlayAndWin|Any CPU.Build.0 = PlayAndWin|Any CPU
+		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Prod|Any CPU.ActiveCfg = Prod|Any CPU
+		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Prod|Any CPU.Build.0 = Prod|Any CPU
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{498AAE6F-1C7B-497E-ACAE-C7F013ECDF64}.Test|Any CPU.Build.0 = Test|Any CPU
 	EndGlobalSection
