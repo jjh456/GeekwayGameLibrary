@@ -40,6 +40,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(copyResponseModels);
         }
 
+        [ScopeAuthorize("read:copy")]
         public async Task<IHttpActionResult> Get(string id)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
@@ -53,6 +54,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         [HttpPut]
+        [ScopeAuthorize("update:copy")]
         public async Task<IHttpActionResult> Put(string id, UpsertCopyRequestModel copyRequest)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
