@@ -76,8 +76,11 @@ namespace BoardGameLibrary.Api.Controllers
             if (attendee == null)
                 return BadRequest("Attendee not found");
 
-            var copyLibraryId = model.LibraryId.Replace("*", "");
-            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == model.LibraryId);
+            var trimmedId = model.LibraryId.TrimStart('0');
+            if (copy == null)
+                copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == trimmedId);
+
             if (copy == null)
                 return BadRequest("Copy not found");
 
@@ -102,6 +105,11 @@ namespace BoardGameLibrary.Api.Controllers
         public async Task<IHttpActionResult> CheckIn(string copyId)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyId);
+
+            var trimmedId = copyId.TrimStart('0');
+            if (copy == null)
+                copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == trimmedId);
+
             if (copy == null)
             {
                 ModelState.AddModelError("id", "Failed to look up the copy");

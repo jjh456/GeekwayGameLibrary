@@ -44,6 +44,10 @@ namespace BoardGameLibrary.Api.Controllers
         public async Task<IHttpActionResult> Get(string id)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == id);
+            var trimmedId = id.TrimStart('0');
+            if (copy == null)
+                copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == trimmedId);
+
             if (copy == null)
             {
                 ModelState.AddModelError("id", "Couldn't find a copy with that ID");

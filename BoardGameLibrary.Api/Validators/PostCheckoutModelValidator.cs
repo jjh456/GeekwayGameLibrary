@@ -20,11 +20,6 @@ namespace BoardGameLibrary.Api.Validators
                 .WithMessage(x => 
                     string.Format("Attendee has {0} checked out already. Check the override option if it's an expansion.", gameAlreadyCheckedOut)
                 );
-
-            RuleFor(x => x.LibraryId).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("You must provide a library ID.")
-                .Must(BeAnExistingGameCopy).WithMessage("Copy not found.")
-                .Must(NotBeCheckedOut).WithMessage("That copy is checked out already. Check it in first.");
         }
 
         private bool BeAnExistingAttendee(string attendeeBadgeID)
