@@ -103,6 +103,10 @@ namespace BoardGameLibrary.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            var existingAttendee = _db.Attendees.FirstOrDefault(a => a.BadgeID == apiModel.BadgeNumber);
+            if (existingAttendee != null)
+                return BadRequest("There is already an attendee with that badge number.");
+
             var dbAttendee = new Attendee { BadgeID = apiModel.BadgeNumber, Name = apiModel.Name };
 
             _db.Attendees.Add(dbAttendee);
