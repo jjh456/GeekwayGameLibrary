@@ -27,41 +27,18 @@ namespace BoardGameLibrary.Api.Controllers
             var playsResponse = new GetPlaysResponse();
             try
             {
-
-                //playsResponse.Plays = db.Plays
-                //    .Select(play => new PlayResponseModel
-                //    {
-                //        ID = play.ID,
-                //        CheckoutID = play.Checkout.ID,
-                //        GameID = play.Checkout.Copy.GameID,
-                //        GameName = play.Checkout.Copy.Game.Title,
-                //        Players = play.Players.Select(player => new PlayerResponseModel
-                //        {
-                //            ID = player.Attendee.BadgeID,
-                //            Name = player.Attendee.Name,
-                //            WantsToWin = player.WantsToWin
-                //        }),
-                //        //Collection = new CopyCollectionShallowModel
-                //        //{
-                //        //    ID = play.Checkout.Copy.CopyCollection.ID,
-                //        //    Name = play.Checkout.Copy.CopyCollection.Name
-                //        //},
-                //        //Checkout = new PlayResponseCheckoutModel {
-                //        //    ID = play.Checkout.ID,
-                //        //    TimeIn = play.Checkout.TimeIn,
-                //        //    TimeOut = play.Checkout.TimeOut
-                //        //}
-                //    })
-                //    .ToList();
-
                 db.Database.Log = logger.Debug;
 
                 logger.Debug("Retrieving all of the players.");
-                var allPlayers = db.Players.Include(p => p.Play).Select(player => new PlayerResponseModel
+                var allPlayers = db.Players
+                    .Include(p => p.Play)
+                    .Include(p => p.Rating)
+                    .Select(player => new PlayerResponseModel
                 {
                     ID = player.Attendee.BadgeID,
                     Name = player.Attendee.Name,
                     WantsToWin = player.WantsToWin,
+                    Rating = player.Rating.Value,
                     PlayID = player.Play.ID
                 });
                 logger.Debug("Retrieved all of the players. Next we query plays.");
