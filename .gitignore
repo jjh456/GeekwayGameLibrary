@@ -200,3 +200,6 @@ ModelManifest.xml
 /BoardGameLibrary.Api/Web.Library.config
 *.pubxml
 /BoardGameLibrary.Api/nlog.txt
+/BoardGameLibrary.Api/Web.Local.config
+/BoardGameLibrary.Api/Web.Test.config
+/BoardGameLibrary.Api/Web.Prod.config

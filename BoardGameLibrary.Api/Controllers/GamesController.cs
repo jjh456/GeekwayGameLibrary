@@ -15,7 +15,7 @@ namespace BoardGameLibrary.Api.Controllers
             db = new ApplicationDbContext();
         }
 
-        // GET: api/Games
+        // GET: Games
         [ScopeAuthorize("read:games")]
         public GetGamesResponseModel Get()
         {

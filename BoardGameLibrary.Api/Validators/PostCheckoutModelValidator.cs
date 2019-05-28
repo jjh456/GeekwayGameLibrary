@@ -20,20 +20,6 @@ namespace BoardGameLibrary.Api.Validators
                 .WithMessage(x => 
                     string.Format("Attendee has {0} checked out already. Check the override option if it's an expansion.", gameAlreadyCheckedOut)
                 );
-
-            RuleFor(x => x.LibraryId).Cascade(CascadeMode.StopOnFirstFailure)
-                .NotEmpty().WithMessage("You must provide a library ID.")
-                .Must(BeANumber).WithMessage("Library IDs must be a number")
-                .Must(BeAnExistingGameCopy).WithMessage("Copy not found.")
-                .Must(NotBeCheckedOut).WithMessage("That copy is checked out already. Check it in first.");
-        }
-
-        private bool BeANumber(string attendeeBadgeID)
-        {
-            int parsedInt = 0;
-            var parsedSuccessfully = Int32.TryParse(attendeeBadgeID, out parsedInt);
-
-            return parsedSuccessfully;
         }
 
         private bool BeAnExistingAttendee(string attendeeBadgeID)
@@ -59,7 +45,7 @@ namespace BoardGameLibrary.Api.Validators
 
         private bool BeAnExistingGameCopy(string copyLibraryID)
         {
-            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            var copyLibraryIDInt = copyLibraryID.Replace("*", "");
             if (_db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt) == null)
                 return false;
 
@@ -68,7 +54,7 @@ namespace BoardGameLibrary.Api.Validators
 
         private bool NotBeCheckedOut(string copyLibraryID)
         {
-            var copyLibraryIDInt = Convert.ToInt32(copyLibraryID.Replace("*", ""));
+            var copyLibraryIDInt = copyLibraryID.Replace("*", "");
             var copy = _db.Copies.AsNoTracking().FirstOrDefault(c => c.LibraryID == copyLibraryIDInt);
             if (copy.CurrentCheckout != null)
                 return false;

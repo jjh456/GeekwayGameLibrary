@@ -18,15 +18,14 @@ namespace BoardGameLibrary.Api.Controllers
             _db = new ApplicationDbContext();
         }
 
-        //GET api/checkouts
+        //GET checkouts
         public IEnumerable<Checkout> Get() => _db.Checkouts.ToList();
 
         [HttpGet]
-        [Route("api/checkouts/checkedOutLongest")]
+        [Route("checkouts/checkedOutLongest")]
         [ScopeAuthorize("read:longest-checkouts")]
         public async Task<IHttpActionResult> CheckedOutLongest()
         {
-            //var cop = _db.Copies.async
             var checkedOutCopies = _db.Copies.Where(c => c.CurrentCheckout != null)
                                              .AsEnumerable()
                                              .OrderByDescending(c => c.CurrentCheckout.Length)
@@ -36,7 +35,7 @@ namespace BoardGameLibrary.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/checkouts/recentCheckouts")]
+        [Route("checkouts/recentCheckouts")]
         [ScopeAuthorize("read:recent-checkouts")]
         public async Task<IHttpActionResult> RecentCheckouts(int numberOfResults = 5)
         {
@@ -49,7 +48,7 @@ namespace BoardGameLibrary.Api.Controllers
             return Ok(checkedOutCopies);
         }
 
-        //GET api/checkouts/5 || api/checkouts? key = value
+        //GET checkouts/5 || checkouts? key = value
         public IEnumerable<CheckoutResponseModel> Get(string badgeId)
         {
             if (String.IsNullOrWhiteSpace(badgeId))
@@ -69,7 +68,7 @@ namespace BoardGameLibrary.Api.Controllers
                 .Select(co => new CheckoutResponseModel(co, true));
         }
 
-        //POST api/checkouts/
+        //POST checkouts/
         [ScopeAuthorize("create:checkout")]
         public async Task<IHttpActionResult> Post(PostCheckoutModel model)
         {
@@ -77,8 +76,11 @@ namespace BoardGameLibrary.Api.Controllers
             if (attendee == null)
                 return BadRequest("Attendee not found");
 
-            var copyLibraryId = Convert.ToInt32(model.LibraryId.Replace("*", ""));
-            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyLibraryId);
+            var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == model.LibraryId);
+            var trimmedId = model.LibraryId.TrimStart('0');
+            if (copy == null)
+                copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == trimmedId);
+
             if (copy == null)
                 return BadRequest("Copy not found");
 
@@ -96,13 +98,18 @@ namespace BoardGameLibrary.Api.Controllers
             }
         }
 
-        //PUT api/checkouts/checkin
+        //PUT checkouts/checkin
         [HttpPut]
-        [Route("api/checkouts/checkin/{copyId}")]
+        [Route("checkouts/checkin/{copyId}")]
         [ScopeAuthorize("update:checkout")]
-        public async Task<IHttpActionResult> CheckIn(int copyId)
+        public async Task<IHttpActionResult> CheckIn(string copyId)
         {
             var copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == copyId);
+
+            var trimmedId = copyId.TrimStart('0');
+            if (copy == null)
+                copy = await _db.Copies.FirstOrDefaultAsync(c => c.LibraryID == trimmedId);
+
             if (copy == null)
             {
                 ModelState.AddModelError("id", "Failed to look up the copy");

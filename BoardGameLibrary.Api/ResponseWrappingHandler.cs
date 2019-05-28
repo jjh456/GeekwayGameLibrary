@@ -48,14 +48,10 @@ namespace BoardGameLibrary.Api
                         var modelStateValues = deserializedErrorObject.ModelState.Select(kvp => string.Join(". ", kvp.Value));
 
                         for (int i = 0; i < modelStateValues.Count(); i++)
-                        {
                             modelStateErrors.Add(modelStateValues.ElementAt(i));
-                        }
                     }
-                    if (error.Count > 0)
-                    {
+                    if (error.Count > 0 && modelStateErrors.Count <= 0)
                         modelStateErrors.AddRange(error.Select(e => e.Value.ToString()));
-                    }
                 }
             }
 
@@ -64,9 +60,7 @@ namespace BoardGameLibrary.Api
 
             //Step 6: Add Back the Response Headers
             foreach (var header in response.Headers) //Add back the response headers
-            {
                 newResponse.Headers.Add(header.Key, header.Value);
-            }
 
             return newResponse;
         }
